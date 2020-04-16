@@ -28,8 +28,21 @@ a {
 body{
 
 background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7EJVYpfaWmsL3tYPzKrDF-z5sLZeR8FJzXVWyQH1KRnIB9krK&usqp=CAU);
+color: blanchedalmond;
 
+}
 
+.card-body{
+
+color: white;
+}
+
+#card-body-1 {
+    width: 68%;
+    margin: 0px 97px;
+    background-color: whitesmoke;
+    color: black;
+    padding: 5px 5px 0px;
 }
 
 
@@ -39,12 +52,36 @@ background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7
     }
   }
 
+  @media screen and (min-width: 768px){
+  .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
+    width: 30px;
+    height: 30px;
+    margin-top: -64px;
+    font-size: 60px;
+} }
+
+@media screen and (min-width: 768px){
+  .carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
+    margin-left: -38px;
+}
+}
+@media screen and (min-width: 768px){
+.carousel-indicators {
+    bottom: -22px;
+}}
+
+
 .carousel-inner img {
       width: 100%; /* Set width to 100% */
       margin: auto;
       min-height:200px;
   }
 
+#col-carou{
+
+text-align: center;
+
+}
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -78,7 +115,7 @@ border-left: 2px solid black;
 #img_carou{
 
 width: auto;
-height: 300px;
+height: 230px;
 
 }
 
@@ -147,7 +184,7 @@ height: 300px;
       <ul class="nav navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Catégories <span class="caret"></span></button>
+            Catégories <span class="caret"></span>
           </a>
           
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -158,7 +195,7 @@ height: 300px;
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Achats <span class="caret"></span></button>
+            Achats <span class="caret"></span>
           </a>
           
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -188,42 +225,181 @@ height: 300px;
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
+
     <div class="item active">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU" id="img_carou" class="img-responsive" alt="Image">
-      <div class="carousel-caption">
-        <h3>Sell $</h3>
-        <p>Money Money.</p>
-      </div>      
-    </div>
+      <div class="col-lg-4" >
+        <div class="card mb-2" id="col-carou">
+          <img class="card-img-top"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+            id="img_carou"
+            alt="Card image cap">
+        </div>
+        <div class="card-body" id="card-body-1"> 
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+        </div> 
+      </div>
 
-    <div class="item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU" id="img_carou" class="img-responsive" alt="Image">
-      <div class="carousel-caption">
-        <h3>Sell $</h3>
-        <p>Money Money.</p>
-      </div>      
-    </div>
+        <div class="col-lg-4" >
+          <div class="card mb-2" id="col-carou">
+            <img class="card-img-top"
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+              id="img_carou"
+              alt="Card image cap">
+          </div>
+          <div class="card-body" id="card-body-1"> 
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+          </div> 
+        </div>
 
-    <div class="item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU" id="img_carou" class="img-responsive" alt="Image">
-      <div class="carousel-caption">
-        <h3>Sell $</h3>
-        <p>Money Money.</p>
-      </div>      
-    </div>
+      <div class="col-lg-4">
+        <div class="card mb-2" id="col-carou">
+          <img class="card-img-top"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+            id="img_carou"
+            alt="Card image cap">
+        </div>
+        <div class="card-body" id="card-body-1"> 
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div> 
+      </div>
 
-    <div class="item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQMz0_J6bjbVrF8KugLCRwtC7aOy1cIGbFLd_Zn82vWRTuB_JbI&usqp=CAU" id="img_carou" class="img-responsive" alt="Image">
-      <div class="carousel-caption">
-        <h3>More Sell $</h3>
-        <p>Lorem ipsum...</p>
-      </div>      
-    </div>
   </div>
+
+  <div class="item">
+    <div class="col-lg-4" >
+      <div class="card mb-2" id="col-carou">
+        <img class="card-img-top"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+          id="img_carou"
+          alt="Card image cap">
+      </div>
+      <div class="card-body" id="card-body-1"> 
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+      </div> 
+    </div>
+
+      <div class="col-lg-4" >
+        <div class="card mb-2" id="col-carou">
+          <img class="card-img-top"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+            id="img_carou"
+            alt="Card image cap">
+        </div>
+        <div class="card-body" id="card-body-1"> 
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+        </div> 
+      </div>
+
+    <div class="col-lg-4">
+      <div class="card mb-2" id="col-carou">
+        <img class="card-img-top"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+          id="img_carou"
+          alt="Card image cap">
+      </div>
+      <div class="card-body" id="card-body-1"> 
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div> 
+    </div>
+
+</div>
+
+<div class="item">
+  <div class="col-lg-4" >
+    <div class="card mb-2" id="col-carou">
+      <img class="card-img-top"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+        id="img_carou"
+        alt="Card image cap">
+    </div>
+    <div class="card-body" id="card-body-1"> 
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+    </div> 
+  </div>
+
+    <div class="col-lg-4" >
+      <div class="card mb-2" id="col-carou">
+        <img class="card-img-top"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+          id="img_carou"
+          alt="Card image cap">
+      </div>
+      <div class="card-body" id="card-body-1"> 
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+      </div> 
+    </div>
+
+  <div class="col-lg-4">
+    <div class="card mb-2" id="col-carou">
+      <img class="card-img-top"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+        id="img_carou"
+        alt="Card image cap">
+    </div>
+    <div class="card-body" id="card-body-1"> 
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div> 
+  </div>
+
+</div>
+
+<div class="item">
+  <div class="col-lg-4" >
+    <div class="card mb-2" id="col-carou">
+      <img class="card-img-top"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+        id="img_carou"
+        alt="Card image cap">
+    </div>
+    <div class="card-body" id="card-body-1"> 
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+    </div> 
+  </div>
+
+    <div class="col-lg-4" >
+      <div class="card mb-2" id="col-carou">
+        <img class="card-img-top"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+          id="img_carou"
+          alt="Card image cap">
+      </div>
+      <div class="card-body" id="card-body-1"> 
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+      </div> 
+    </div>
+
+  <div class="col-lg-4">
+    <div class="card mb-2" id="col-carou">
+      <img class="card-img-top"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+        id="img_carou"
+        alt="Card image cap">
+    </div>
+    <div class="card-body" id="card-body-1"> 
+      <h5 class="card-title">Card title</h5>
+      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div> 
+  </div>
+
+</div>
+</div>
 
   <!-- Left and right controls -->
   <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
