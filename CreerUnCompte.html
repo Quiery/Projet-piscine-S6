@@ -90,6 +90,11 @@ text-align: center;
     margin-bottom: 20px;
 }
 
+#creer_compte_perso {
+    border-radius: 21px;
+    padding-left: 10px;
+}
+
 .dropdown, .dropup {
     position: relative;
     float: left;
@@ -102,7 +107,8 @@ text-align: center;
     margin-bottom: 50px;
     color: black;
     background-color: blanchedalmond;
-    padding-left: 5px;
+    padding-left: 20px;
+    padding-top: 5px;
 
 
 }
@@ -179,6 +185,10 @@ height: 230px;
     padding: 40px 0;
 }
 
+td, th {
+    padding: 3px;
+}
+
 
 </style>
 
@@ -228,15 +238,15 @@ height: 230px;
 
     <h3>Vos données bancaires</h3>
 
-    <table>
+    <table>  
         <tr>
-            <td>Type de carte de paiment: </td>
-            <td><input id="creer_compte_perso" type="radio" name="card"></td>
-            <td><input id="creer_compte_perso" type="radio" name="card"></td>
-            <td><input id="creer_compte_perso" type="radio" name="card"></td>
-            <td><input id="creer_compte_perso" type="radio" name="card"></td>
+            <td>Type de carte de paiment:</td>
+            <td><input id="creer_compte_perso" type="radio" name="card" Value="Visa"> Visa<br>
+            <input id="creer_compte_perso" type="radio" name="card" Value="MasterCard"> MasterCard<br>
+            <input id="creer_compte_perso" type="radio" name="card" Value="AmericanExpress"> AmericanExpress<br>
             
         </tr>
+      
         <tr>
             <td>Numero de la carte: </td>
             <td><input id="creer_compte_perso" type="text"></td>
@@ -256,8 +266,8 @@ height: 230px;
 
 
     </table>
-    <input id="creer_compte_perso" type="checkbox">J'ai lu et j'accepte les conditions générales de ventes: </input><br>
-    <input type="submit" name="Valider"></submit><br><br><br>
+    <br><input id="creer_compte_perso" type="checkbox"> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br>
+    <a href="#"><input type="submit" name="Valider" style="color: black;" value="Valider"></submit></a><br><br><br>
 </form>
 
 
