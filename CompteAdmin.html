@@ -12,7 +12,8 @@
 
   <style type="text/css">
 
- 
+
+  
  .btn-default {
     width: 150px;
     float: left;
@@ -23,6 +24,10 @@ body{
 
 background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7EJVYpfaWmsL3tYPzKrDF-z5sLZeR8FJzXVWyQH1KRnIB9krK&usqp=CAU);
 
+}
+
+#button_admin {
+    margin-bottom: 2%;
 }
 
 .card-body{
@@ -75,6 +80,25 @@ color: white;
 text-align: center;
 
 }
+
+#CompteAdmin {
+    background-color: blanchedalmond;
+    text-align: center;
+    width: 25%;
+    padding-block-end: 1%;
+}
+
+#connexion{
+
+width: 300px;
+height: auto;
+padding: 5px 5px;
+border-radius: 6px;
+margin-bottom: 15px;
+
+}
+
+
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -83,27 +107,9 @@ text-align: center;
     margin-bottom: 20px;
 }
 
-#creer_compte_perso {
-    border-radius: 21px;
-    padding-left: 10px;
-}
-
 .dropdown, .dropup {
     position: relative;
     float: left;
-}
-
-#form_compte{
-    width: 500px;
-    height: auto;
-    border-radius: 6px;
-    margin-bottom: 50px;
-    color: black;
-    background-color: blanchedalmond;
-    padding-left: 20px;
-    padding-top: 5px;
-
-
 }
 
 .form-control{
@@ -111,6 +117,16 @@ text-align: center;
 }
 .form-inline .has-feedback .form-control-feedback {
     top: 8px;
+}
+
+#form_connect {
+    text-align: center;
+    color: black;
+    background-color: blanchedalmond;
+    margin-block-end: 20px;
+    margin-inline-start: 35%;
+    margin-inline-end: 35%;
+    padding-block-end: 21px;
 }
 
 #form_rechercher{
@@ -178,29 +194,6 @@ height: 230px;
     padding: 40px 0;
 }
 
-td, th {
-    padding: 3px;
-}
-
-/* Sidebar/left column */
-.side {
-  flex: 50%;
-  padding: 20px;
-}
-
-/* Main column */
-.main {
-  flex: 50%;
-  padding: 20px;
-}
-
-#flex {
-    display: flex;
-    margin: 0% 25%;
-    background-color: blanchedalmond;
-}
-
-
 
 </style>
 
@@ -249,107 +242,13 @@ td, th {
         </ul>
     </div>
 </nav>
-
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-?>
-
-<div class="row" id="flex">
-    <div class="main">
-        <form id="form_compte">
-            <h1>Votre Compte</h1><br>
-            <h3>Vos données personnelles</h3>
-            <table>
-                <tr>
-                    <td>Nom: </td>
-                    <td><?php Compte('Nom'); ?></td>
-                </tr>
-                <tr>
-                    <td>Prenom: </td>
-                    <td><?php Compte('Prenom'); ?></td>
-                </tr>
-                <tr>
-                    <td>Adresse: </td>
-                    <td><?php Compte('Adresse'); ?></td>
-                </tr>
-                <tr>
-                    <td>Ville: </td>
-                    <td><?php Compte('Ville'); ?></td>
-                </tr>
-                <tr>
-                    <td>Code Postal: </td>
-                    <td><?php Compte('Code Postal'); ?></td>
-                </tr>
-                <tr>
-                    <td>Pays: </td>
-                    <td><?php Compte('Pays'); ?></td>
-                </tr>
-                <tr>
-                    <td>Numéro de Téléphone: </td>
-                    <td><?php Compte('Numéro de Téléphone'); ?></td>
-                </tr>
-                <tr>
-                    <td>Email: </td>
-                    <td><?php Compte('Email'); ?></td>
-                </tr>
-            </table>
-            <h3>Vos données bancaires</h3>
-            <table>
-                <tr>
-                    <td>Type de carte de paiment: </td>
-                    <td><?php Carte('Type_carte'); ?></td>
-                </tr>
-                <tr>
-                    <td>Numero de la carte: </td>
-                    <td><?php Carte('Numero de carte'); ?></td>
-                </tr>
-                <tr>
-                    <td>Nom affiché sur la carte: </td>
-                    <td><?php Carte('Nom de la carte'); ?></td>
-                </tr>
-                <tr>
-                    <td>Date d'expiration de la carte: </td>
-                    <td><?php Carte('Date d\'expiration'); ?></td>
-                </tr>
-                <tr>
-                    <td>Cryptogramme: </td>
-                    <td><?php Carte('Code de Securite'); ?></td>
-                </tr>       
-                    
-            </table>
-            
-
-            <br><input id="creer_compte_perso" type="checkbox"> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br>
-            <a href="#"><input type="submit" name="Valider" style="color: black;" value="Valider"></submit></a><br><br><br>
-        </form>
-    </div>
-    <div class="side">
-        <h1>Montant Total : 
-            <?php
-                 if (empty($_GET["prix"])) {
-                    $nameErr = "Name is required";
-                  } else {
-                    $prix = ($_GET["prix"]);
-                    echo $prix;
-                  }
-            ?>
-        </h1>
-        <button type="button" href="#" value="Valider">Valider</button>
-    </div>
-
+ 
+<div class="container" style="text-align: center;" id="CompteAdmin">
+    <h1>Compte Administrateur</h1><br>
+    <button type="button" id="button_admin" href="#">Mes articles en ventes</button><br>
+    <button type="button" id="button_admin" href="#">Ajouter un vendeur</button><br>
+    <button type="button" id="button_admin" href="#">Supprimer un vendeur</button>
 </div>
-
-
 
 
 
@@ -381,19 +280,6 @@ if ($conn->connect_error) {
     </div>
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique.ece.fr</div>
 </footer>
-
-<?php function Compte($recherche)
-    {
-        $reponse = $bdd->query('SELECT $recherche FROM ACHETEUR WHERE ConnectionID==AcheteurID');
-        echo $reponse;
-    }
-?>
-<?php function Carte($recherche)
-    {
-        $reponse = $bdd->query('SELECT $recherche FROM carte_bancaire WHERE ConnectionID==AcheteurID');
-        echo $reponse;
-    }
-?>
 
 
 </body>
