@@ -185,16 +185,20 @@ td, th {
 
 /* Sidebar/left column */
 .side {
-  flex: 30%;
-  background-color: #f1f1f1;
+  flex: 50%;
   padding: 20px;
 }
 
 /* Main column */
 .main {
-  flex: 70%;
-  background-color: white;
+  flex: 50%;
   padding: 20px;
+}
+
+#flex {
+    display: flex;
+    margin: 0% 25%;
+    background-color: blanchedalmond;
 }
 
 
@@ -204,19 +208,6 @@ td, th {
 
 </head>
 <body>
-
-<?php function Compte($recherche)
-    {
-        $reponse = $bdd->query('SELECT $recherche FROM ACHETEUR WHERE ConnectionID==AcheteurID');
-        echo $reponse;
-    }
-?>
-<?php function Carte($recherche)
-    {
-        $reponse = $bdd->query('SELECT $recherche FROM carte_bancaire WHERE ConnectionID==AcheteurID');
-        echo $reponse;
-    }
-?>
 
 <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="#"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
@@ -260,7 +251,21 @@ td, th {
     </div>
 </nav>
 
-<div class="row">
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
+
+<div class="row" id="flex">
     <div class="main">
         <form id="form_compte">
             <h1>Votre Compte</h1><br>
@@ -330,7 +335,19 @@ td, th {
         </form>
     </div>
     <div class="side">
+        <h1>Montant Total : 
+            <?php
+                 if (empty($_GET["prix"])) {
+                    $nameErr = "Name is required";
+                  } else {
+                    $prix = ($_GET["prix"]);
+                    echo $prix;
+                  }
+            ?>
+        </h1>
+        <button type="button" href="#" value="Valider">Valider</button>
     </div>
+
 </div>
 
 
@@ -365,6 +382,19 @@ td, th {
     </div>
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique.ece.fr</div>
 </footer>
+
+<?php function Compte($recherche)
+    {
+        $reponse = $bdd->query('SELECT $recherche FROM ACHETEUR WHERE ConnectionID==AcheteurID');
+        echo $reponse;
+    }
+?>
+<?php function Carte($recherche)
+    {
+        $reponse = $bdd->query('SELECT $recherche FROM carte_bancaire WHERE ConnectionID==AcheteurID');
+        echo $reponse;
+    }
+?>
 
 
 </body>
