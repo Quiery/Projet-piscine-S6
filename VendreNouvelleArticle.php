@@ -269,7 +269,9 @@ td, th {
     </div>
 </nav>
 
-
+<! -- Pour le form il faut le lier a une page + mettre une protection 
+sur le checkbox pour que enchere et meilleur offre ne soient pas cochés en meme temps
++ possiblement faire en sorte de cacher le mauvais pris en fonction de la checkbox mode d'achats-->
 <div class="container" style="background-color: blanchedalmond; padding-block-end: 1%;">
     <h1 style="text-align:center;">Ajouter un nouvelle article</h1>
     <form method="POST" style="border: 2px solid black">
