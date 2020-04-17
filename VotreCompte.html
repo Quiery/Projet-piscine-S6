@@ -12,13 +12,7 @@
 
   <style type="text/css">
 
-a {
-    color: #ffe841;
-    text-decoration: none;
-}
-
-
-  
+ 
  .btn-default {
     width: 150px;
     float: left;
@@ -82,18 +76,6 @@ color: white;
 text-align: center;
 
 }
-
-#connexion{
-
-width: 300px;
-height: auto;
-padding: 5px 5px;
-border-radius: 6px;
-margin-bottom: 15px;
-
-}
-
-
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -102,9 +84,27 @@ margin-bottom: 15px;
     margin-bottom: 20px;
 }
 
+#creer_compte_perso {
+    border-radius: 21px;
+    padding-left: 10px;
+}
+
 .dropdown, .dropup {
     position: relative;
     float: left;
+}
+
+#form_compte{
+    width: 500px;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 50px;
+    color: black;
+    background-color: blanchedalmond;
+    padding-left: 20px;
+    padding-top: 5px;
+
+
 }
 
 .form-control{
@@ -112,16 +112,6 @@ margin-bottom: 15px;
 }
 .form-inline .has-feedback .form-control-feedback {
     top: 8px;
-}
-
-#form_connect{
-    text-align: center;
-    color: black;
-    background-color: blanchedalmond;
-    margin-block-end: 20px;
-    margin-inline-start: 700px;
-    margin-inline-end: 700px;
-    padding-block-end: 21px;
 }
 
 #form_rechercher{
@@ -189,6 +179,10 @@ height: 230px;
     padding: 40px 0;
 }
 
+td, th {
+    padding: 3px;
+}
+
 
 </style>
 
@@ -196,56 +190,85 @@ height: 230px;
 </head>
 <body>
 
-<nav class="navbar navbar-expand-md">
-    <a class="navbar-brand" href="#"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
-    <div class="collapse navbar-collapse" id="main-navigation">
-      <ul class="nav navbar-nav">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Catégories <span class="caret"></span>
-          </a>
-          
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Ferraille ou Trésor</a><br>
-            <a class="dropdown-item" href="#">Bon pour le Musée</a><br>
-            <a class="dropdown-item" href="#">Accessoire VIP</a>
-          </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Achats <span class="caret"></span>
-          </a>
-          
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Enchères</a><br>
-            <a class="dropdown-item" href="#">Achats Immédiats</a><br>
-            <a class="dropdown-item" href="#">Meilleur Offre</a>
-          </div>
-        </li>
-    </ul>
-        <form id="form_rechercher" class="form-inline nav navbar-nav" role="form">
-            <div class="form-group has-success has-feedback">
-              <label class="control-label" for="rechercher"></label>
-              <span class="glyphicon glyphicon-search form-control-feedback"></span>
-              <input class="nav navbar-nav form-control" type="text" class="" id="rechercher"  placeholder="Recherche">            
-            </div>
-          </form>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a class="nav-link" href="#"><span class="glyphicon glyphicon-usd"></span> Vendre</a></li>
-            <li><a class="nav-link" href="#"><span class="glyphicon glyphicon-user"></span> Mon Compte</a></li>
-            <li><a class="nav-link" href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Panier</a></li>
-        </ul>
-    </div>
-</nav>
 
-<form id="form_connect">
-    <h1>Connectez-vous pour acheter</h1><br>
-    <input id="connexion" type="text" placeholder="Login ou Email"><br>
-    <input id="connexion" type="password" placeholder="Mot de Passe"><br>
-    <input type="submit" name="Valider" value="Valider"></input><br><br><br>
-    <button>Creer un compte</button>
+<div><a href="#"><img src="NGA.png"></a></div>
+
+<form id="form_compte">
+    <h1>Créer un compte acheteur</h1><br>
+    <h3>Vos données personnelles</h3>
+    <table>
+        <tr>
+            <td>Nom: </td>
+            <td><input id="creer_compte_perso" type="text"></td>
+        </tr>
+        <tr>
+            <td>Prenom: </td>
+            <td><input id="creer_compte_perso" type="text"></td>
+        </tr>
+        <tr>
+            <td>Adresse: </td>
+            <td><input id="creer_compte_perso" type="text"></td>
+        </tr>
+        <tr>
+            <td>Ville: </td>
+            <td><input id="creer_compte_perso" type="text"></td>
+        </tr>
+        <tr>
+            <td>Code Postal: </td>
+            <td><input id="creer_compte_perso" type="text"></td>
+        </tr>
+        <tr>
+            <td>Pays: </td>
+            <td><input id="creer_compte_perso" type="text"></td>
+        </tr>
+        <tr>
+            <td>Numéro de Téléphone: </td>
+            <td><input id="creer_compte_perso" type="tel"></td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td><input id="creer_compte_perso" type="email"></td>
+        </tr>
+    </table>
+
+
+    <div class="container">  
+        <a href="#demo" data-toggle="collapse"><h3>Vos données bancaires</h3></a>
+        <div id="demo" class="collapse">
+            <table>  
+                <tr>
+                    <td>Type de carte de paiment:</td>
+                    <td><input id="creer_compte_perso" type="radio" name="card" Value="Visa"> Visa<br>
+                    <input id="creer_compte_perso" type="radio" name="card" Value="MasterCard"> MasterCard<br>
+                    <input id="creer_compte_perso" type="radio" name="card" Value="AmericanExpress"> AmericanExpress<br></td>
+                    
+                </tr>
+              
+                <tr>
+                    <td>Numero de la carte: </td>
+                    <td><input id="creer_compte_perso" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Nom affiché sur la carte: </td>
+                    <td><input id="creer_compte_perso" type="text"></td>
+                </tr>
+                <tr>
+                    <td>Date d'expiration de la carte: </td>
+                    <td><input id="creer_compte_perso" type="date"></td>
+                </tr>
+                <tr>
+                    <td>Cryptogramme: </td>
+                    <td><input id="creer_compte_perso" type="text"></td>
+                </tr>
+        
+        
+            </table>
+        </div>
+      </div>
+
+    <br><input id="creer_compte_perso" type="checkbox"> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br>
+    <a href="#"><input type="submit" name="Valider" style="color: black;" value="Valider"></submit></a><br><br><br>
 </form>
-
 
 
 
