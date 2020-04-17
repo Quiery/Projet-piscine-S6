@@ -183,6 +183,21 @@ td, th {
     padding: 3px;
 }
 
+/* Sidebar/left column */
+.side {
+  flex: 30%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+/* Main column */
+.main {
+  flex: 70%;
+  background-color: white;
+  padding: 20px;
+}
+
+
 
 </style>
 
@@ -193,13 +208,13 @@ td, th {
 <?php function Compte($recherche)
     {
         $reponse = $bdd->query('SELECT $recherche FROM ACHETEUR WHERE ConnectionID==AcheteurID');
-        echo $reponse
+        echo $reponse;
     }
 ?>
 <?php function Carte($recherche)
     {
         $reponse = $bdd->query('SELECT $recherche FROM carte_bancaire WHERE ConnectionID==AcheteurID');
-        echo $reponse
+        echo $reponse;
     }
 ?>
 
@@ -245,77 +260,80 @@ td, th {
     </div>
 </nav>
 
-<form id="form_compte">
-    <h1>Votre Compte</h1><br>
-    <h3>Vos données personnelles</h3>
-    <table>
-        <tr>
-            <td>Nom: </td>
-            <td><?php Compte('Nom'); ?></td>
-        </tr>
-        <tr>
-            <td>Prenom: </td>
-            <td><?php Compte('Prenom'); ?></td>
-        </tr>
-        <tr>
-            <td>Adresse: </td>
-            <td><?php Compte('Adresse'); ?></td>
-        </tr>
-        <tr>
-            <td>Ville: </td>
-            <td><?php Compte('Ville'); ?></td>
-        </tr>
-        <tr>
-            <td>Code Postal: </td>
-            <td><?php Compte('Code Postal'); ?></td>
-        </tr>
-        <tr>
-            <td>Pays: </td>
-            <td><?php Compte('Pays'); ?></td>
-        </tr>
-        <tr>
-            <td>Numéro de Téléphone: </td>
-            <td><?php Compte('Numéro de Téléphone'); ?></td>
-        </tr>
-        <tr>
-            <td>Email: </td>
-            <td><?php Compte('Email'); ?></td>
-        </tr>
-    </table>
-
-
-    <div class="container">  
-        <a href="#demo" data-toggle="collapse"><h3>Vos données bancaires</h3></a>
-        <div id="demo" class="collapse">
+<div class="row">
+    <div class="main">
+        <form id="form_compte">
+            <h1>Votre Compte</h1><br>
+            <h3>Vos données personnelles</h3>
             <table>
-            <tr>
-                <td>Type de carte de paiment: </td>
-                <td><?php Carte('Type_carte'); ?></td>
-            </tr>
-            <tr>
-                <td>Numero de la carte: </td>
-                <td><?php Carte('Numero de carte'); ?></td>
-            </tr>
-            <tr>
-                <td>Nom affiché sur la carte: </td>
-                <td><?php Carte('Nom de la carte'); ?></td>
-            </tr>
-            <tr>
-                <td>Date d'expiration de la carte: </td>
-                <td><?php Carte('Date d\'expiration'); ?></td>
-            </tr>
-            <tr>
-                <td>Cryptogramme: </td>
-                <td><?php Carte('Code de Securite'); ?></td>
-            </tr>       
-        
+                <tr>
+                    <td>Nom: </td>
+                    <td><?php Compte('Nom'); ?></td>
+                </tr>
+                <tr>
+                    <td>Prenom: </td>
+                    <td><?php Compte('Prenom'); ?></td>
+                </tr>
+                <tr>
+                    <td>Adresse: </td>
+                    <td><?php Compte('Adresse'); ?></td>
+                </tr>
+                <tr>
+                    <td>Ville: </td>
+                    <td><?php Compte('Ville'); ?></td>
+                </tr>
+                <tr>
+                    <td>Code Postal: </td>
+                    <td><?php Compte('Code Postal'); ?></td>
+                </tr>
+                <tr>
+                    <td>Pays: </td>
+                    <td><?php Compte('Pays'); ?></td>
+                </tr>
+                <tr>
+                    <td>Numéro de Téléphone: </td>
+                    <td><?php Compte('Numéro de Téléphone'); ?></td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><?php Compte('Email'); ?></td>
+                </tr>
             </table>
-        </div>
-      </div>
+            <h3>Vos données bancaires</h3>
+            <table>
+                <tr>
+                    <td>Type de carte de paiment: </td>
+                    <td><?php Carte('Type_carte'); ?></td>
+                </tr>
+                <tr>
+                    <td>Numero de la carte: </td>
+                    <td><?php Carte('Numero de carte'); ?></td>
+                </tr>
+                <tr>
+                    <td>Nom affiché sur la carte: </td>
+                    <td><?php Carte('Nom de la carte'); ?></td>
+                </tr>
+                <tr>
+                    <td>Date d'expiration de la carte: </td>
+                    <td><?php Carte('Date d\'expiration'); ?></td>
+                </tr>
+                <tr>
+                    <td>Cryptogramme: </td>
+                    <td><?php Carte('Code de Securite'); ?></td>
+                </tr>       
+                    
+            </table>
+            
 
-    <br><input id="creer_compte_perso" type="checkbox"> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br>
-    <a href="#"><input type="submit" name="Valider" style="color: black;" value="Valider"></submit></a><br><br><br>
-</form>
+            <br><input id="creer_compte_perso" type="checkbox"> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br>
+            <a href="#"><input type="submit" name="Valider" style="color: black;" value="Valider"></submit></a><br><br><br>
+        </form>
+    </div>
+    <div class="side">
+    </div>
+</div>
+
+
 
 
 
