@@ -137,7 +137,7 @@ border-left: 2px solid black;
       img.big{
           height: 300px;
           width: auto;
-          max-width: 500px;
+          max-width: 450px;
       }
       
       .container-button{
@@ -254,12 +254,26 @@ $(document).ready(function(){
             while($data2 = mysqli_fetch_assoc($result2)){
                 $image=$data2['pp'];
                 echo "<img src='$image' class='profil' align='right'>";
-                echo '<h6>de '.$data2['pseudo'].'</h6><br></div></div>';
+                echo '<h6>de '.$data2['pseudo'].'</h6><br>';
+                echo '<hr>';
             }
             if($data['achat_immediat_id']!=NULL)
             {
               $id=$data['achat_immediat_id'];
               $sql3="SELECT prix from achat_immediat Where achat_immediat_id=$id";
+              $result3 = mysqli_query($db_handle, $sql3);
+              while($data3 = mysqli_fetch_assoc($result3)){
+                echo '<h4> Prix en achat immediat : '.$data3['prix'].' €<h4><br></div></div>';
+              }
+            }
+            if($data['encheres_id']!=NULL)
+            {
+              $id=$data['encheres_id'];
+              $sql3="SELECT prix, from encheres Where encheres_id=$id";
+              $result3 = mysqli_query($db_handle, $sql3);
+              while($data3 = mysqli_fetch_assoc($result3)){
+                echo 'Prix en achat immediat : '.$data3['prix'].'euros'.'<br>'.'</div>'.'</div>';
+              }
             }
           }
         }

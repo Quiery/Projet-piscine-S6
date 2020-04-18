@@ -197,7 +197,7 @@ border-left: 2px solid black;
               $db_found = mysqli_select_db($db_handle, $database);
               if ($db_found) 
               {
-                $sql = "SELECT produit_id, nom  FROM produit WHERE categorie LIKE '$categorie'";
+                $sql = "SELECT produit_id, nom FROM produit WHERE categorie LIKE '$categorie'";
                 $result = mysqli_query($db_handle, $sql);
                 while($data = mysqli_fetch_assoc($result))
                 {
@@ -210,19 +210,13 @@ border-left: 2px solid black;
                     $image=$data2['reference'];
                     echo "<a href='#'><img src='$image' style='height: 200px; width: auto; max-width: 400px;'></a>";
                   }
-                  echo "<br>".$data['nom']."<br>"."</li>";
-                  
+
+                  echo "<br>".$data['nom']."<br>";
+
                 } 
               }
               mysqli_close($db_handle);
             ?>
-            <SCRIPT LANGUAGE="JavaScript">
-                    for (var num=1; num<=15; num++) {
-                     document.writeln("<li><a href='#'><img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 200px; width: auto; max-width: 400px;'><p>Description</p></a></li> ");
-                    }
-            </SCRIPT>
-            
-
         </ul>
 </div><br>
 
