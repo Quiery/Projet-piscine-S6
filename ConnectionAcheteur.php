@@ -276,6 +276,7 @@ height: 230px;
 </footer>
 
 <?php
+ini_set('display_errors', 'off');
     $login=isset($_POST["log"])? $_POST["log"] : "";
     $pass=isset($_POST["passw"])? $_POST["passw"] : "";
 
@@ -301,12 +302,20 @@ height: 230px;
         if ($connexion) 
         { 
           echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/HomePage.html'); </script>"; 
+          $sql="SELECT acheteur_id FROM acheteur Where mail like '$login' AND password like '$pass'";
+          $result = mysqli_query($db_handle, $sql);
+          while($data = mysqli_fetch_assoc($result))
+          {
+            $sql ="INSERT INTO connexion_courante (acheteur_id) Values ($data[acheteur_id])";
+            $result = mysqli_query($db_handle, $sql);
+          }
         } 
         else 
         { 
           echo "<script>alert('Connexion refusée');</script>"; 
         } 
       }
+      mysqli_close($db_handle);
     }
 ?>
 
