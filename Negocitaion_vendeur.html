@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Encherir</title>
+  <title>Negociation vendeur</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -200,27 +200,24 @@ border-left: 2px solid black;
 
 <div class="container">    
     <div class="row">
-      <div class="col-sm-5" >
-        <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 300px; width: auto; max-width: 500px; text-align: center;'><br><br><br>
-          <div class="little-images">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-             </div>
-        </div>
         <div class="col-sm-6">
             <h2>Article_name</h2>
-            <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little" align="right">
-            <h6>de Pseudo_vendeur</h6><br>
-            <h4>Temps restant :</h4>
-            <h4>Prix minimum :</h4>
-            <br><br>
+            <br><br><br>
             <form>
-            <h4>Prix maximum que je suis prêt à payer :<input type="text" name="prop">€</h4>
+            <h4>Dernière proposition de Nom_client :</h4>
             <br>
-            <input type="submit" name="prop" value="Valider" >
+            <input type='submit' name='valider' value='Valider sa proposition'>
+            <br><br>
+            <h4>Votre nouvelle proposition :<input type='text' name='prop'>€</h4>
+            <br>
+            <input type='submit' name='new' value='Soumettre ma proposition' margin-left='20%'>
+                <br><br><hr><br><br>
+                
+            <SCRIPT LANGUAGE="JavaScript">
+                    for (var num=1; num<=15; num++) {
+                     document.writeln("<h4>Dernière proposition de Nom_client :</h4><br><input type='submit' name='prop' value='Valider sa proposition'><br><br><h4>Votre nouvelle proposition :<input type='text' name='prop'>€</h4><br><input type='submit' name='prop' value='Soumettre ma proposition'><br><br><hr><br><br>");
+                    }
+            </SCRIPT>
             </form>
 
         </div>
@@ -280,3 +277,5 @@ border-left: 2px solid black;
 </footer>
 </body>
 </html>
+
+
