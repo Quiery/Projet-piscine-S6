@@ -130,16 +130,7 @@ border-left: 2px solid black;
       }
       
 
-      
-      button.button1{
-          display: flex;
-          justify-content: flex-end;
-          font:Bold 18px Arial;
-          padding:10px 10px 10px 10px;
-          border:1px solid #ccc;
-	       box-shadow:1px 1px 3px #999;
-      }
-      
+
 </style>
 
 

@@ -131,7 +131,7 @@ border-left: 2px solid black;
       
 
       
-      button.button1{
+      button.button2{
           display: flex;
           justify-content: flex-end;
           font:Bold 18px Arial;
