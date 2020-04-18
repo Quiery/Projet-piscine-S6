@@ -119,14 +119,25 @@ border-left: 2px solid black;
 
       .little-images{
           display: flex; 
-          justify-content: center;
-          justify-content: space-between;
+          justify-content: space-around;
       }
       
       img.little{
           height: 50px;
           width: auto;
           max-width: 100px;
+      }
+
+      img.profil{
+          height: 50px;
+          width: auto;
+          max-width: 100px;
+      }
+
+      img.big{
+          height: 300px;
+          width: auto;
+          max-width: 500px;
       }
       
       .container-button{
@@ -144,7 +155,13 @@ border-left: 2px solid black;
       
 </style>
 
-
+<script>
+$(document).ready(function(){
+  $("img.little").click(function(){
+    $("img.big").attr('src',this.src);
+    }); 
+  });
+</script>
             
 
 </head>
@@ -200,22 +217,53 @@ border-left: 2px solid black;
     
     
 
-<div class="container">    
-    <div class="row">
-      <div class="col-sm-5" >
-        <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 300px; width: auto; max-width: 500px; text-align: center;'><br><br><br>
-          <div class="little-images">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-             </div>
-        </div>
-        <div class="col-sm-6">
-            <h2>Article_name</h2>
-            <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little" align="right">
-            <h6>de Pseudo_vendeur</h6><br>
+<?php
+  $prod_id=$_GET['id'];
+  $database = "ebayece";
+
+  $db_handle = mysqli_connect('localhost','root','');
+  $db_found = mysqli_select_db($db_handle, $database);
+  if ($db_found) 
+  {
+    echo '<div class="container">' ;   
+      echo '<div class="row">';
+        echo '<div class="col-sm-5">';
+            $sql="SELECT reference,nom FROM photo Where nom like 'Photo1' AND produit_id=$prod_id ";
+            $result = mysqli_query($db_handle, $sql);
+            while($data = mysqli_fetch_assoc($result)){
+                $image=$data['reference'];
+                echo "<img src='$image' class='big'>"."<br>"."<br>"."<br>";
+              }
+            echo '<div class="little-images">';
+            $sql="SELECT reference,nom FROM photo Where produit_id=$prod_id ";
+            $result = mysqli_query($db_handle, $sql);
+            while($data = mysqli_fetch_assoc($result)){
+                $image=$data['reference'];
+                echo "<img src='$image' class='little'>";
+              }
+            echo '</div>';
+        echo'</div>';
+        echo '<div class="col-sm-6">';
+          $sql="SELECT nom,achat_immediat_id,encheres_id,negociation_id FROM produit Where produit_id=$prod_id";
+          $result = mysqli_query($db_handle, $sql);
+          while($data = mysqli_fetch_assoc($result)){
+            echo '<h2>'.$data['nom'].'</h2>';
+            
+            $sql2="SELECT pp,pseudo FROM vendeur INNER JOIN produit ON vendeur.vendeur_id=produit.vendeur_id Where produit.produit_id=$prod_id";
+            $result2 = mysqli_query($db_handle, $sql2);
+            while($data2 = mysqli_fetch_assoc($result2)){
+                $image=$data2['pp'];
+                echo "<img src='$image' class='profil' align='right'>";
+                echo '<h6>de '.$data2['pseudo'].'</h6><br></div></div>';
+            }
+            if($data['achat_immediat_id']!=NULL)
+            {
+              $id=$data['achat_immediat_id'];
+              $sql3="SELECT prix from achat_immediat Where achat_immediat_id=$id";
+            }
+          }
+        }
+          mysqli_close($db_handle);/*
             <h4>Prix</h4>
             <br><br><br><br>
             <div class="container-button">
@@ -223,7 +271,7 @@ border-left: 2px solid black;
                 <button class="button1">Négocier</button>
                 <button class="button1">Enchérir</button>
             </div>
-            
+            }
 
         </div>
     </div>
@@ -233,9 +281,9 @@ border-left: 2px solid black;
     
     
     </div>
-</div><br>
+</div><br>*/
+?>
 
-    
     
     
     

@@ -301,7 +301,7 @@ ini_set('display_errors', 'off');
         }
         if ($connexion) 
         { 
-          echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/HomePage.html'); </script>"; 
+          echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/ConnectionAcheteur.html'); </script>"; 
           $sql="SELECT acheteur_id FROM acheteur Where mail like '$login' AND password like '$pass'";
           $result = mysqli_query($db_handle, $sql);
           while($data = mysqli_fetch_assoc($result))
