@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 18, 2020 at 05:00 PM
+-- Generation Time: Apr 18, 2020 at 08:22 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -19,6 +19,21 @@ SET time_zone = "+00:00";
 --
 -- Database: `ebayece`
 --
+CREATE DATABASE IF NOT EXISTS `ebayece` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+USE `ebayece`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `achat_immediat`
+--
+
+DROP TABLE IF EXISTS `achat_immediat`;
+CREATE TABLE `achat_immediat` (
+  `achat_immediat_id` int(11) NOT NULL,
+  `prix` decimal(10,0) NOT NULL,
+  `produit_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `achat_immediat`
@@ -37,6 +52,27 @@ INSERT INTO `achat_immediat` (`achat_immediat_id`, `prix`, `produit_id`) VALUES
 (10, '13800', 10),
 (11, '120', 13);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `acheteur`
+--
+
+DROP TABLE IF EXISTS `acheteur`;
+CREATE TABLE `acheteur` (
+  `acheteur_id` int(11) NOT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `prenom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `telephone` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `adresse` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ville` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `code_postal` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `pays` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `carte_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 --
 -- Dumping data for table `acheteur`
 --
@@ -44,6 +80,82 @@ INSERT INTO `achat_immediat` (`achat_immediat_id`, `prix`, `produit_id`) VALUES
 INSERT INTO `acheteur` (`acheteur_id`, `nom`, `prenom`, `mail`, `telephone`, `adresse`, `ville`, `code_postal`, `pays`, `password`, `carte_id`) VALUES
 (1, 'Lepetit', 'Michel', 'michel.lepetit@gmail.com', '01 56 78 41 56', '45 rue de la Savoie', 'Paris', '75009', 'France', 'mlp75', NULL),
 (3, 'Cambier', 'Matheo', 'matheo.cambier@edu.ece.fr', '0909090909', '5 Allée des Bourdons', 'Montesson', '78360', 'France', '1234', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adresse_livraison`
+--
+
+DROP TABLE IF EXISTS `adresse_livraison`;
+CREATE TABLE `adresse_livraison` (
+  `adresse_id` int(11) NOT NULL,
+  `adresse` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ville` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `code_postal` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `pays` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carte_bancaire`
+--
+
+DROP TABLE IF EXISTS `carte_bancaire`;
+CREATE TABLE `carte_bancaire` (
+  `numero` int(11) NOT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `type` enum('Visa','MasterCard','American Express') COLLATE utf8_unicode_ci NOT NULL,
+  `date_expiration` int(11) NOT NULL,
+  `code` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `compte_bancaire`
+--
+
+DROP TABLE IF EXISTS `compte_bancaire`;
+CREATE TABLE `compte_bancaire` (
+  `numero_carte` int(11) NOT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `type` enum('Visa','MasterCard','American Express') COLLATE utf8_unicode_ci NOT NULL,
+  `date_expiration` date NOT NULL,
+  `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `plafond` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `connexion_courante`
+--
+
+DROP TABLE IF EXISTS `connexion_courante`;
+CREATE TABLE `connexion_courante` (
+  `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `acheteur_id` int(11) DEFAULT NULL,
+  `vendeur_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `encheres`
+--
+
+DROP TABLE IF EXISTS `encheres`;
+CREATE TABLE `encheres` (
+  `encheres_id` int(11) NOT NULL,
+  `prix_init` decimal(10,0) NOT NULL,
+  `prix_max` decimal(10,0) NOT NULL DEFAULT '0',
+  `prix_min` decimal(10,0) NOT NULL DEFAULT '0',
+  `date_fin` datetime NOT NULL,
+  `nombre_encheres` int(11) NOT NULL DEFAULT '0',
+  `acheteur_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `encheres`
@@ -59,6 +171,17 @@ INSERT INTO `encheres` (`encheres_id`, `prix_init`, `prix_max`, `prix_min`, `dat
 (7, '80', '0', '0', '2020-04-28 00:00:00', 0, NULL),
 (8, '20', '0', '0', '2020-05-27 00:00:00', 0, NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `negociation`
+--
+
+DROP TABLE IF EXISTS `negociation`;
+CREATE TABLE `negociation` (
+  `negociation_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 --
 -- Dumping data for table `negociation`
 --
@@ -72,6 +195,48 @@ INSERT INTO `negociation` (`negociation_id`) VALUES
 (6),
 (7),
 (8);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `offre`
+--
+
+DROP TABLE IF EXISTS `offre`;
+CREATE TABLE `offre` (
+  `offre_id` int(11) NOT NULL,
+  `prix_negocie` decimal(10,0) NOT NULL,
+  `compteur` int(11) NOT NULL,
+  `tour` tinyint(1) NOT NULL,
+  `acheteur_id` int(11) NOT NULL,
+  `negociation_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `panier`
+--
+
+DROP TABLE IF EXISTS `panier`;
+CREATE TABLE `panier` (
+  `acheteur_id` int(11) NOT NULL,
+  `produit_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `photo`
+--
+
+DROP TABLE IF EXISTS `photo`;
+CREATE TABLE `photo` (
+  `photo_id` int(11) NOT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `reference` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `produit_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `photo`
@@ -106,6 +271,26 @@ INSERT INTO `photo` (`photo_id`, `nom`, `reference`, `produit_id`) VALUES
 (26, 'Photo2', 'photo/bague2.jpg', 20),
 (27, 'Photo1', 'photo/parure.jpg', 21);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `produit`
+--
+
+DROP TABLE IF EXISTS `produit`;
+CREATE TABLE `produit` (
+  `produit_id` int(11) NOT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `categorie` enum('Ferraille ou Tresor','Bon pour le musee','Accessoire VIP') COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `video` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL DEFAULT '0',
+  `achat_immediat_id` int(11) DEFAULT NULL,
+  `encheres_id` int(11) DEFAULT NULL,
+  `negociation_id` int(11) DEFAULT NULL,
+  `vendeur_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 --
 -- Dumping data for table `produit`
 --
@@ -132,6 +317,39 @@ INSERT INTO `produit` (`produit_id`, `nom`, `categorie`, `description`, `video`,
 (20, 'Bague en argent et verte', 'Accessoire VIP', 'Bague neuve en argent incrusté d\'une pierre verte.', NULL, 0, NULL, NULL, 7, 3),
 (21, 'Parure', 'Accessoire VIP', 'Parure pour femme très peu portée, bon état.', NULL, 0, 8, NULL, 8, 2);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transaction`
+--
+
+DROP TABLE IF EXISTS `transaction`;
+CREATE TABLE `transaction` (
+  `transaction_id` int(11) NOT NULL,
+  `prix` decimal(10,0) NOT NULL,
+  `adresse_id` int(11) NOT NULL,
+  `acheteur_id` int(11) NOT NULL,
+  `produit_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vendeur`
+--
+
+DROP TABLE IF EXISTS `vendeur`;
+CREATE TABLE `vendeur` (
+  `vendeur_id` int(11) NOT NULL,
+  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `prenom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `pseudo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `pp` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mur` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `admin` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 --
 -- Dumping data for table `vendeur`
 --
@@ -143,6 +361,158 @@ INSERT INTO `vendeur` (`vendeur_id`, `nom`, `prenom`, `pseudo`, `mail`, `pp`, `m
 (5, 'Padding', 'Zahia', 'Zaza', 'zahia.padding@edu.ece.fr', 'pp/randome.jpg', 'background/bleuetoile.jpg', 0),
 (6, 'Stars', 'Caroline', 'Etoilies', 'caroline.stars@edu.ece.fr', 'pp/randome2.jpg', 'background/espace.jpg', 0),
 (7, 'Lacase', 'Alexandre', 'zet-zet', 'alexandre.lacazette@edu.ece.fr', 'pp/Unknown.png', 'background/texture-2012078_960_720.jpg', 0);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `achat_immediat`
+--
+ALTER TABLE `achat_immediat`
+  ADD PRIMARY KEY (`achat_immediat_id`);
+
+--
+-- Indexes for table `acheteur`
+--
+ALTER TABLE `acheteur`
+  ADD PRIMARY KEY (`acheteur_id`);
+
+--
+-- Indexes for table `adresse_livraison`
+--
+ALTER TABLE `adresse_livraison`
+  ADD PRIMARY KEY (`adresse_id`);
+
+--
+-- Indexes for table `carte_bancaire`
+--
+ALTER TABLE `carte_bancaire`
+  ADD PRIMARY KEY (`numero`,`nom`);
+
+--
+-- Indexes for table `compte_bancaire`
+--
+ALTER TABLE `compte_bancaire`
+  ADD PRIMARY KEY (`numero_carte`,`nom`);
+
+--
+-- Indexes for table `connexion_courante`
+--
+ALTER TABLE `connexion_courante`
+  ADD PRIMARY KEY (`ip`);
+
+--
+-- Indexes for table `encheres`
+--
+ALTER TABLE `encheres`
+  ADD PRIMARY KEY (`encheres_id`);
+
+--
+-- Indexes for table `negociation`
+--
+ALTER TABLE `negociation`
+  ADD PRIMARY KEY (`negociation_id`);
+
+--
+-- Indexes for table `offre`
+--
+ALTER TABLE `offre`
+  ADD PRIMARY KEY (`offre_id`);
+
+--
+-- Indexes for table `panier`
+--
+ALTER TABLE `panier`
+  ADD PRIMARY KEY (`acheteur_id`,`produit_id`);
+
+--
+-- Indexes for table `photo`
+--
+ALTER TABLE `photo`
+  ADD PRIMARY KEY (`photo_id`);
+
+--
+-- Indexes for table `produit`
+--
+ALTER TABLE `produit`
+  ADD PRIMARY KEY (`produit_id`);
+
+--
+-- Indexes for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD PRIMARY KEY (`transaction_id`);
+
+--
+-- Indexes for table `vendeur`
+--
+ALTER TABLE `vendeur`
+  ADD PRIMARY KEY (`vendeur_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `achat_immediat`
+--
+ALTER TABLE `achat_immediat`
+  MODIFY `achat_immediat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `acheteur`
+--
+ALTER TABLE `acheteur`
+  MODIFY `acheteur_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `adresse_livraison`
+--
+ALTER TABLE `adresse_livraison`
+  MODIFY `adresse_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `encheres`
+--
+ALTER TABLE `encheres`
+  MODIFY `encheres_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `negociation`
+--
+ALTER TABLE `negociation`
+  MODIFY `negociation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `offre`
+--
+ALTER TABLE `offre`
+  MODIFY `offre_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `photo`
+--
+ALTER TABLE `photo`
+  MODIFY `photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `produit`
+--
+ALTER TABLE `produit`
+  MODIFY `produit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+
+--
+-- AUTO_INCREMENT for table `transaction`
+--
+ALTER TABLE `transaction`
+  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `vendeur`
+--
+ALTER TABLE `vendeur`
+  MODIFY `vendeur_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
