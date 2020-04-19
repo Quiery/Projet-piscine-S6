@@ -82,18 +82,6 @@ color: white;
 text-align: center;
 
 }
-
-#connexion{
-
-width: 300px;
-height: auto;
-padding: 5px 5px;
-border-radius: 6px;
-margin-bottom: 15px;
-
-}
-
-
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -102,9 +90,27 @@ margin-bottom: 15px;
     margin-bottom: 20px;
 }
 
+#creer_compte_perso {
+    border-radius: 21px;
+    padding-left: 10px;
+}
+
 .dropdown, .dropup {
     position: relative;
     float: left;
+}
+
+#form_compte{
+    width: 500px;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 50px;
+    color: black;
+    background-color: blanchedalmond;
+    padding-left: 20px;
+    padding-top: 5px;
+
+
 }
 
 .form-control{
@@ -112,16 +118,6 @@ margin-bottom: 15px;
 }
 .form-inline .has-feedback .form-control-feedback {
     top: 8px;
-}
-
-#form_connect{
-    text-align: center;
-    color: black;
-    background-color: blanchedalmond;
-    margin-block-end: 20px;
-    margin-inline-start: 700px;
-    margin-inline-end: 700px;
-    padding-block-end: 21px;
 }
 
 #form_rechercher{
@@ -189,6 +185,10 @@ height: 230px;
     padding: 40px 0;
 }
 
+td, th {
+    padding: 3px;
+}
+
 
 </style>
 
@@ -197,7 +197,7 @@ height: 230px;
 <body>
 
 <nav class="navbar navbar-expand-md">
-    <a class="navbar-brand" href="#"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
+    <a class="navbar-brand" href="HomePage.html"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
     <div class="collapse navbar-collapse" id="main-navigation">
       <ul class="nav navbar-nav">
         <li class="nav-item dropdown">
@@ -227,7 +227,7 @@ height: 230px;
             <div class="form-group has-success has-feedback">
               <label class="control-label" for="rechercher"></label>
               <span class="glyphicon glyphicon-search form-control-feedback"></span>
-              <input class="nav navbar-nav form-control" type="text" class="" id="rechercher"  placeholder="Recherche">            
+              <input class="nav navbar-nav form-control" type="text" id="rechercher"  placeholder="Recherche">            
             </div>
           </form>
         <ul class="nav navbar-nav navbar-right">
@@ -237,18 +237,6 @@ height: 230px;
         </ul>
     </div>
 </nav>
-
-<form id="form_connect">
-    <h1>Connectez-vous pour acheter</h1><br>
-    <input id="connexion" type="text" placeholder="Login ou Email" name="log"><br>
-    <input id="connexion" type="password" placeholder="Mot de Passe" name="password"><br>
-    <input type="submit" name="button" value="Valider"></submit><br><br><br>
-    <button>Creer un compte</button>
-</form>
-
-
-
-
 
 <footer class="page-footer">
     <div class="container">

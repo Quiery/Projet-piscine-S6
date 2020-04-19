@@ -12,13 +12,7 @@
 
   <style type="text/css">
 
-a {
-    color: #ffe841;
-    text-decoration: none;
-}
-
-
-  
+ 
  .btn-default {
     width: 150px;
     float: left;
@@ -82,18 +76,6 @@ color: white;
 text-align: center;
 
 }
-
-#connexion{
-
-width: 300px;
-height: auto;
-padding: 5px 5px;
-border-radius: 6px;
-margin-bottom: 15px;
-
-}
-
-
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -102,9 +84,27 @@ margin-bottom: 15px;
     margin-bottom: 20px;
 }
 
+#creer_compte_perso {
+    border-radius: 21px;
+    padding-left: 10px;
+}
+
 .dropdown, .dropup {
     position: relative;
     float: left;
+}
+
+#form_compte{
+    width: 500px;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 50px;
+    color: black;
+    background-color: blanchedalmond;
+    padding-left: 20px;
+    padding-top: 5px;
+
+
 }
 
 .form-control{
@@ -112,16 +112,6 @@ margin-bottom: 15px;
 }
 .form-inline .has-feedback .form-control-feedback {
     top: 8px;
-}
-
-#form_connect{
-    text-align: center;
-    color: black;
-    background-color: blanchedalmond;
-    margin-block-end: 20px;
-    margin-inline-start: 700px;
-    margin-inline-end: 700px;
-    padding-block-end: 21px;
 }
 
 #form_rechercher{
@@ -189,12 +179,29 @@ height: 230px;
     padding: 40px 0;
 }
 
+td, th {
+    padding: 3px;
+}
+
 
 </style>
 
 
 </head>
 <body>
+
+<?php function Compte($recherche)
+    {
+        $reponse = $bdd->query('SELECT $recherche FROM ACHETEUR WHERE ConnectionID==AcheteurID');
+        echo $reponse
+    }
+?>
+<?php function Carte($recherche)
+    {
+        $reponse = $bdd->query('SELECT $recherche FROM carte_bancaire WHERE ConnectionID==AcheteurID');
+        echo $reponse
+    }
+?>
 
 <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="#"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
@@ -238,14 +245,87 @@ height: 230px;
     </div>
 </nav>
 
+<<<<<<< HEAD:ConnectionAcheteur.html
 <form id="form_connect">
-    <h1>Connectez-vous pour vendre</h1><br>
-    <input id="connexion" type="text" placeholder="Login ou Email"><br>
-    <input id="connexion" type="password" placeholder="Mot de Passe"><br>
-    <input type="submit" name="Valider"></submit><br><br><br>
+    <h1>Connectez-vous pour acheter</h1><br>
+    <input id="connexion" type="text" placeholder="Login ou Email" name="log"><br>
+    <input id="connexion" type="password" placeholder="Mot de Passe" name="password"><br>
+    <input type="submit" name="button" value="Valider"></submit><br><br><br>
     <button>Creer un compte</button>
 </form>
+=======
+<form id="form_compte">
+    <h1>Votre Compte</h1><br>
+    <h3>Vos données personnelles</h3>
+    <table>
+        <tr>
+            <td>Nom: </td>
+            <td><?php Compte('Nom'); ?></td>
+        </tr>
+        <tr>
+            <td>Prenom: </td>
+            <td><?php Compte('Prenom'); ?></td>
+        </tr>
+        <tr>
+            <td>Adresse: </td>
+            <td><?php Compte('Adresse'); ?></td>
+        </tr>
+        <tr>
+            <td>Ville: </td>
+            <td><?php Compte('Ville'); ?></td>
+        </tr>
+        <tr>
+            <td>Code Postal: </td>
+            <td><?php Compte('Code Postal'); ?></td>
+        </tr>
+        <tr>
+            <td>Pays: </td>
+            <td><?php Compte('Pays'); ?></td>
+        </tr>
+        <tr>
+            <td>Numéro de Téléphone: </td>
+            <td><?php Compte('Numéro de Téléphone'); ?></td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td><?php Compte('Email'); ?></td>
+        </tr>
+    </table>
 
+
+    <div class="container">  
+        <a href="#demo" data-toggle="collapse"><h3>Vos données bancaires</h3></a>
+        <div id="demo" class="collapse">
+            <table>
+            <tr>
+                <td>Type de carte de paiment: </td>
+                <td><?php Carte('Type_carte'); ?></td>
+            </tr>
+            <tr>
+                <td>Numero de la carte: </td>
+                <td><?php Carte('Numero de carte'); ?></td>
+            </tr>
+            <tr>
+                <td>Nom affiché sur la carte: </td>
+                <td><?php Carte('Nom de la carte'); ?></td>
+            </tr>
+            <tr>
+                <td>Date d'expiration de la carte: </td>
+                <td><?php Carte('Date d\'expiration'); ?></td>
+            </tr>
+            <tr>
+                <td>Cryptogramme: </td>
+                <td><?php Carte('Code de Securite'); ?></td>
+            </tr>       
+        
+            </table>
+        </div>
+      </div>
+>>>>>>> clement:VotreCompte.php
+
+    <br><input id="creer_compte_perso" type="checkbox"> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br>
+    <a href="#"><input type="submit" name="Valider" style="color: black;" value="Valider"></submit></a><br><br><br>
+</form>
 
 
 

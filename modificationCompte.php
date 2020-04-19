@@ -7,7 +7,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="Piscine.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>  
+
 
 </head>
 <body>
@@ -54,16 +55,105 @@
     </div>
 </nav>
 
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
 
-<form id="form_connect">
-    <h1>Connectez-vous pour acheter</h1><br>
-    <input id="connexion" type="text" placeholder="Login ou Email"><br>
-    <input id="connexion" type="password" placeholder="Mot de Passe"><br>
-    <input type="submit" name="Valider" value="Valider"></input><br><br><br>
-    <button>Creer un compte</button>
-</form>
+// Create connection
+$bdd = new mysqli($servername, $username, $password);
 
+// Check connection
+if ($bdd->connect_error) {
+    die("Connection failed: " . $bdd->connect_error);
+}
+?>
 
+<div class="row" id="flex">
+    <div class="main">
+        <form id="form_compte">
+            <h1>Votre Compte</h1><br>
+            <h3>Vos données personnelles</h3>
+            <table>
+                <tr>
+                    <td>Nom: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Nom'); ?>"></td>
+                </tr>
+                <tr>
+                    <td>Prenom: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Prenom'); ?>"></td>
+                </tr>
+                <tr>
+                    <td>Adresse: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Adresse'); ?>"></td>
+                </tr>
+                <tr>
+                    <td>Ville: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Ville'); ?>"></td>
+                </tr>
+                <tr>
+                    <td>Code Postal: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Code Postal'); ?>"></td>
+                </tr>
+                <tr>
+                    <td>Pays: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Pays'); ?>"></td>
+                </tr>
+                <tr>
+                    <td>Numéro de Téléphone: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Numéro de Téléphone'); ?>"></td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Email'); ?>"></td>
+                </tr>
+            </table>
+            <h3>Vos données bancaires</h3>
+            <table>
+                <tr>
+                    <td>Type de carte de paiment: </td>
+                    <td><?php Carte('Type_carte'); ?></td>
+                </tr>
+                <tr>
+                    <td>Numero de la carte: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Numero de carte'); ?>"></td>
+                </tr>
+                <tr>
+                    <td>Nom affiché sur la carte: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Nom affiché sur la carte'); ?>"></td>
+                </tr>
+                <tr>
+                    <td>Date d'expiration de la carte: </td>
+                    <td><input type="text" name="nom" value="
+                    <?php Compte('Date d\'expiration'); ?>"></td>
+                </tr>
+                <tr>
+                    <td>Cryptogramme: </td>
+                    <td><input type="text" name="nom" value="<?php Compte('Numero de securite'); ?>"></td>
+                </tr>       
+                    
+            </table>
+            
+
+            <br><input id="creer_compte_perso" type="checkbox"> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br>
+            <a href="#"><input type="submit" name="Valider" style="color: black;" value="Valider"></submit></a><br><br><br>
+        </form>
+    </div>
+    <div class="side">
+        <h1>Montant Total : 
+            <?php
+                 if (empty($_GET["prix"])) {
+                    $nameErr = "Name is required";
+                  } else {
+                    $prix = ($_GET["prix"]);
+                    echo $prix;
+                  }
+            ?>
+        </h1>
+        <button type="button" href="#" value="Valider">Valider</button>
+    </div>
+
+</div>
 
 <footer class="page-footer">
     <div class="container">
@@ -93,50 +183,19 @@
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique.ece.fr</div>
 </footer>
 
-
-<?php
-    $login=isset($_POST["log"])? $_POST["log"] : "";
-    $pass=isset($_POST["passw"])? $_POST["passw"] : "";
-
-    $database = "ebayece";
-
-    $db_handle = mysqli_connect('localhost','root','');
-    $db_found = mysqli_select_db($db_handle, $database);
-    if ($_POST["button"])
+<?php function Compte($recherche)
     {
-      if ($db_found) 
-      {
-        $connexion = false;
-        $sql = "SELECT mail,password FROM acheteur";
-        $result = mysqli_query($db_handle, $sql);
-        while($data = mysqli_fetch_assoc($result))
-        {
-          if(($data['mail']==$login)&&($data['password']==$pass))
-          {
-            $connexion = true;
-            break;
-          }
-        }
-        if ($connexion) 
-        { 
-          echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/ConnectionAcheteur.html'); </script>"; 
-          $sql="SELECT acheteur_id FROM acheteur Where mail like '$login' AND password like '$pass'";
-          $result = mysqli_query($db_handle, $sql);
-          while($data = mysqli_fetch_assoc($result))
-          {
-            $sql ="INSERT INTO connexion_courante (acheteur_id) Values ($data[acheteur_id])";
-            $result = mysqli_query($db_handle, $sql);
-          }
-        } 
-        else 
-        { 
-          echo "<script>alert('Connexion refusée');</script>"; 
-        } 
-      }
-      mysqli_close($db_handle);
+        $sql = "SELECT $recherche FROM ACHETEUR WHERE ConnectionID==AcheteurID";
+        $reponse=mysqli_query($db_handle, $sql);
+        echo $reponse;
     }
 ?>
-
+<?php function Carte($recherche)
+    {
+        $reponse = $bdd->query('SELECT $recherche FROM carte_bancaire WHERE ConnectionID==AcheteurID');
+        echo $reponse;
+    }
+?>
 
 
 </body>
