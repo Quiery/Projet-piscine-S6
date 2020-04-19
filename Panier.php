@@ -261,7 +261,6 @@ $pro_id=isset($_GET['produit_id'])?$_GET['produit_id'] : "";
 $metho=isset($_GET['methode'])?$_GET['methode'] : "";
 if(($pro_id != "")&&($metho != ""))
   {
-    echo $metho;
     $sql = "DELETE FROM panier WHERE produit_id = $pro_id AND acheteur_id=$acheteur_id AND methode=$metho";
     mysqli_query($db_handle, $sql);
     }

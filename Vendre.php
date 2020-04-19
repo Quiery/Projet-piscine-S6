@@ -141,6 +141,17 @@ border-left: 2px solid black;
           border:1px solid #ccc;
 	       box-shadow:1px 1px 3px #999;
       }
+
+      button.buttonred{
+          float: right;
+          font:Bold 18px Arial;
+          color: white;
+          background-color: red;
+          width: 250px;
+          padding:10px 10px 10px 10px;
+          border:1px solid #ccc;
+	       box-shadow:1px 1px 3px #999;
+      }
       
       
 </style>
@@ -150,6 +161,41 @@ border-left: 2px solid black;
 
 </head>
 <body>
+<?php
+      function getIp(){
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+          $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }else{
+          $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+      }
+      $database = "ebayece";
+
+      $db_handle = mysqli_connect('localhost','root','');
+      $db_found = mysqli_select_db($db_handle, $database);
+      if ($db_found) 
+      {
+      $ip=getIp();
+      $sql="SELECT ip,vendeur_id from connexion_courante WHERE ip LIKE'$ip' AND vendeur_id IS NOT NULL";
+      $result = mysqli_query($db_handle, $sql);
+      $nbr=mysqli_num_rows($result);
+      if($nbr==0)
+      {
+        echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/ConnectionVendeur.html?site=Vendre.php'); </script>"; 
+      }
+      else
+      {
+        while($data = mysqli_fetch_assoc($result))
+        {
+          $vendeur_id=$data['vendeur_id'];
+        }
+      }
+      
+    }
+?>
 
 <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="#"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
@@ -200,36 +246,42 @@ border-left: 2px solid black;
 
     
     
+<?php
+$pro_id=isset($_GET['produit_id'])?$_GET['produit_id'] : "";
+if($pro_id != "")
+  {
+    $sql = "UPDATE produit SET statut=1 WHERE produit_id=$pro_id";
+    mysqli_query($db_handle, $sql);
+    }
+echo'<div class="container">';    
+    echo'<h2>Mes articles mis en vente</h2>';
 
-<div class="container">    
-    <h2>Mes articles mis en vente</h2>
-
-        <button class="button1">Vendre un nouvel article</button>
+        echo'<button class="button1" name="ajout">Vendre un nouvel article</button>';
     
-    <br><br><br><br><br><br>
+    echo'<br><br><br><br><br><br>';
     
-     <div class="row" style="display: flex; align-items: center;" >
-        <div class="col-sm-3"><img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 200px;width: auto; max-width: 400px;'></div>
-        <div class="col-sm-7"><h6>Description djsbqbsc hjezbdjhbqs hbfhqsbh hbefqusbidushfis eubds ejbe ejbfs e dez frief fr rdg egeg regerg ege</h6></div>
-         <div class="col-sm-2"><a href=#><img src="https://cdn.pixabay.com/photo/2013/07/12/14/33/delete-148476_960_720.png" width="60" height="60" ></a></div>
-    </div>
-         <br>
-         
-        <SCRIPT LANGUAGE="JavaScript">
-                    for (var num=1; num<=15; num++) {
-                     document.writeln("<div class='row' style='display: flex; align-items: center;' ><div class='col-sm-3'><img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 200px;width: auto; max-width: 400px;'></div><div class='col-sm-7'><h6>Description djsbqbsc hjezbdjhbqs hbfhqsbh hbefqusbidushfis eubds ejbe ejbfs e dez frief fr rdg egeg regerg ege</h6></div><div class='col-sm-2'><a href=#><img src='https://cdn.pixabay.com/photo/2013/07/12/14/33/delete-148476_960_720.png' width='60' height='60' ></a></div></div><br> ");
-                    }
-            </SCRIPT>
-
-    
-    
-    
-    
-
-</div><br>
+    $sql="SELECT produit_id,nom,description from produit where vendeur_id=$vendeur_id and statut=0";
+    $result = mysqli_query($db_handle, $sql);
+    while($data = mysqli_fetch_assoc($result))
+    {
+      echo'<div class="row" style="display: flex; align-items: center;" >';
+      echo'<div class="col-sm-3">';
+      $prod_id=$data['produit_id'];
+      $sql2="SELECT reference FROM photo Where nom like 'Photo1' AND produit_id=$prod_id";
+      $result2 = mysqli_query($db_handle, $sql2);
+      while($data2 = mysqli_fetch_assoc($result2))
+      {
+        $image=$data2['reference'];
+        echo "<a href='article.php?id=$data[produit_id]'><img  src='$image' style='height: 150px;width: auto; max-width: 300px;'></a></div>";     
+      }
+      echo'<div class="col-sm-5"><h5>'.$data['nom'].'<br></h5>';
+      echo'<h6>'.$data['description'].'</h6></div>';
+      echo " <div class='col-sm-3'><a href=Vendre.php?produit_id=$data[produit_id]><button class='buttonred' >Supprimer</button></a></div></div><hr>";
+    }
+echo'</div><br>';
 
     
-    
+?>
     
     
     
@@ -271,6 +323,9 @@ border-left: 2px solid black;
     </div>
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique.ece.fr</div>
 </footer>
+<?php
+mysqli_close($db_handle);
+?>
 </body>
 </html>
 
