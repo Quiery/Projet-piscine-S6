@@ -148,6 +148,18 @@ border-left: 2px solid black;
           border:1px solid #ccc;
 	       box-shadow:1px 1px 3px #999;
       }
+
+
+      button.buttonred{
+          float: right;
+          font:Bold 18px Arial;
+          color: white;
+          background-color: red;
+          width: 250px;
+          padding:10px 10px 10px 10px;
+          border:1px solid #ccc;
+	       box-shadow:1px 1px 3px #999;
+      }
       
       
 </style>
@@ -245,6 +257,14 @@ border-left: 2px solid black;
     
     
 <?php
+$pro_id=isset($_GET['produit_id'])?$_GET['produit_id'] : "";
+$metho=isset($_GET['methode'])?$_GET['methode'] : "";
+if(($pro_id != "")&&($metho != ""))
+  {
+    echo $metho;
+    $sql = "DELETE FROM panier WHERE produit_id = $pro_id AND acheteur_id=$acheteur_id AND methode=$metho";
+    mysqli_query($db_handle, $sql);
+    }
 echo'<div class="container">';    
     echo'<U><center><h1>Votre panier</h1></center></U>';
     
@@ -277,7 +297,7 @@ echo'<div class="container">';
       while($data2 = mysqli_fetch_assoc($result2))
       {
         $image=$data2['reference'];
-        echo "<img  src='$image' style='height: 150px;width: auto; max-width: 300px;'></div>";     
+        echo "<a href='http://localhost/Projet-piscine-S6/article.php?id=$data[produit_id]'><img  src='$image' style='height: 150px;width: auto; max-width: 300px;'></a></div>";     
       }
       echo'<div class="col-sm-5"><h5>'.$data['nom'].'<br></h5>';
       echo'<h6>'.$data['description'].'</h6></div>';
@@ -286,19 +306,58 @@ echo'<div class="container">';
       $result3=mysqli_query($db_handle, $sql3);
       while($data3 = mysqli_fetch_assoc($result3))
       {
-        echo'<div class="col-sm-2"><h4>'.$data3['prix'].' €</h4><br>';
+        echo'<div class="col-sm-2"><h4>'.$data3['prix'].' €</h4><br></div>';
       }
-      echo'<div class="col-sm-2"><h4>'.$data3['prix'].' €</h4><br>';
-    }/*
-     <div class="row" style="display: flex; align-items: center;" >
-        
-        <div class="col-sm-7"><h6>Description djsbqbsc hjezbdjhbqs hbfhqsbh hbefqusbidushfis eubds ejbe ejbfs e dez frief fr rdg egeg regerg ege</h6></div>
-        <div class="col-sm-2"><img src="https://cdn.pixabay.com/photo/2013/07/12/14/33/delete-148476_960_720.png" width="60" height="60" ></div>   
-    </div><br>
-    
-    
-
-echo'</div><br>'*/
+      echo " <div class='col-sm-3'><a href='Panier.php?produit_id=$data[produit_id]&methode=1'><button class='buttonred' >Supprimer</button></a></div></div><hr>";
+    }
+    echo'<br><h2><U> Mes echères</U></h2><br>';
+    $sql="SELECT a.produit_id,a.encheres_id,a.nom,a.description,b.methode from produit as a INNER JOIN panier as b ON a.produit_id=b.produit_id Where b.acheteur_id=$acheteur_id and methode=2";
+    $result = mysqli_query($db_handle, $sql);
+    while($data = mysqli_fetch_assoc($result))
+    {
+      echo'<div class="row" style="display: flex; align-items: center;" >';
+      echo'<div class="col-sm-3">';
+      $prod_id=$data['produit_id'];
+      $sql2="SELECT reference FROM photo Where nom like 'Photo1' AND produit_id=$prod_id";
+      $result2 = mysqli_query($db_handle, $sql2);
+      while($data2 = mysqli_fetch_assoc($result2))
+      {
+        $image=$data2['reference'];
+        echo "<a href='http://localhost/Projet-piscine-S6/article.php?id=$data[produit_id]'><img  src='$image' style='height: 150px;width: auto; max-width: 300px;'></a></div>";     
+      }
+      echo'<div class="col-sm-5"><h5>'.$data['nom'].'<br></h5>';
+      echo'<h6>'.$data['description'].'</h6></div>';
+      $achat_id=$data['encheres_id'];
+      $sql3="SELECT prix_init FROM encheres Where encheres_id=$achat_id";
+      $result3=mysqli_query($db_handle, $sql3);
+      while($data3 = mysqli_fetch_assoc($result3))
+      {
+        echo'<div class="col-sm-2"><h4>Prix initial:'.$data3['prix_init'].' €</h4><br></div>';
+      }
+      echo " <div class='col-sm-3'><a href='Panier.php?produit_id=$data[produit_id]&methode=2'><button class='buttonred' >Supprimer</button></a></div></div><hr>";
+    }
+    echo'<br><h2><U> Mes negociations</U></h2><br>';
+    $sql="SELECT a.produit_id,a.nom,a.description,b.methode from produit as a INNER JOIN panier as b ON a.produit_id=b.produit_id Where b.acheteur_id=$acheteur_id and methode=3";
+    $result = mysqli_query($db_handle, $sql);
+    while($data = mysqli_fetch_assoc($result))
+    {
+      echo'<div class="row" style="display: flex; align-items: center;" >';
+      echo'<div class="col-sm-3">';
+      $prod_id=$data['produit_id'];
+      $sql2="SELECT reference FROM photo Where nom like 'Photo1' AND produit_id=$prod_id";
+      $result2 = mysqli_query($db_handle, $sql2);
+      while($data2 = mysqli_fetch_assoc($result2))
+      {
+        $image=$data2['reference'];
+        echo "<a href='http://localhost/Projet-piscine-S6/article.php?id=$data[produit_id]'><img  src='$image' style='height: 150px;width: auto; max-width: 300px;'></a></div>";     
+      }
+      echo'<div class="col-sm-5"><h5>'.$data['nom'].'<br></h5>';
+      echo'<h6>'.$data['description'].'</h6></div>';
+      echo'<div class="col-sm-2"></div>';
+      echo " <div class='col-sm-3'><a href='Panier.php?produit_id=$data[produit_id]&methode=3'><button class='buttonred' >Supprimer</button></a></div></div><hr>";
+    }
+    echo'<br>';
+    echo'</div>';
 ?>
     
     
