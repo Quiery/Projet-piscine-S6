@@ -126,6 +126,8 @@ border-left: 2px solid black;
           height: 50px;
           width: auto;
           max-width: 100px;
+          cursor:pointer;
+          border: 2px solid grey;
       }
 
       img.profil{
@@ -138,6 +140,7 @@ border-left: 2px solid black;
           height: 300px;
           width: auto;
           max-width: 450px;
+          border: 4px solid black;
       }
       
       .container-button{
@@ -232,7 +235,7 @@ $(document).ready(function(){
             $result = mysqli_query($db_handle, $sql);
             while($data = mysqli_fetch_assoc($result)){
                 $image=$data['reference'];
-                echo "<img src='$image' class='big'>"."<br>"."<br>"."<br>";
+                echo "<br><center><img src='$image' class='big'></center>"."<br>"."<br>"."<br>";
               }
             echo '<div class="little-images">';
             $sql="SELECT reference,nom FROM photo Where produit_id=$prod_id ";
@@ -244,7 +247,7 @@ $(document).ready(function(){
             echo '</div>';
         echo'</div>';
         echo '<div class="col-sm-6">';
-          $sql="SELECT nom,achat_immediat_id,encheres_id,negociation_id FROM produit Where produit_id=$prod_id";
+          $sql="SELECT nom,achat_immediat_id,encheres_id,negociation_id,description,video FROM produit Where produit_id=$prod_id";
           $result = mysqli_query($db_handle, $sql);
           while($data = mysqli_fetch_assoc($result)){
             echo '<h2>'.$data['nom'].'</h2>';
@@ -259,43 +262,61 @@ $(document).ready(function(){
             }
             if($data['achat_immediat_id']!=NULL)
             {
+              echo '<center><U><h3> Achat immédiat</h3></U></center><br>';
               $id=$data['achat_immediat_id'];
               $sql3="SELECT prix from achat_immediat Where achat_immediat_id=$id";
               $result3 = mysqli_query($db_handle, $sql3);
               while($data3 = mysqli_fetch_assoc($result3)){
-                echo '<h4> Prix en achat immediat : '.$data3['prix'].' €<h4><br></div></div>';
+                echo '<h4> Prix en achat immédiat : '.$data3['prix'].' €</h4><br>';
               }
+              echo'<center><button class="button1">Mettre au panier</button></center><hr>';
             }
             if($data['encheres_id']!=NULL)
             {
+              echo '<center><U><h3> Vente aux enchères</h3></U></center><br>';
               $id=$data['encheres_id'];
-              $sql3="SELECT prix, from encheres Where encheres_id=$id";
+              $sql3="SELECT prix_init, prix_min, nombre_encheres,date_fin from encheres Where encheres_id=$id";
               $result3 = mysqli_query($db_handle, $sql3);
               while($data3 = mysqli_fetch_assoc($result3)){
-                echo 'Prix en achat immediat : '.$data3['prix'].'euros'.'<br>'.'</div>'.'</div>';
+                $nbr=$data3['nombre_encheres'];
+                if($nbr<2)
+                {
+                  echo '<h4> Prix de l\'enchère la plus élevée : '.$data3['prix_init'].' €</h4>';
+                }
+                else
+                {
+                  $prix=$data3['prix_min']+1;
+                  echo '<h4> Prix de l\'enchère la plus élevée : '.$prix.' €</h4>';
+                }
+                echo 'Prix de la mise en vente : '.$data3['prix_init'].' €<br>';
+                echo 'L\'enchère se terminera le : '.$data3['date_fin'].'<br><br>';
+                echo '<center><button class="button1">Enchérir</button></center><hr>';
               }
             }
-          }
-        }
-          mysqli_close($db_handle);/*
-            <h4>Prix</h4>
-            <br><br><br><br>
-            <div class="container-button">
-                <button class="button1">Achat Immédiat</button>
-                <button class="button1">Négocier</button>
-                <button class="button1">Enchérir</button>
-            </div>
+            if($data['negociation_id']!=NULL)
+            {
+              echo '<center><U><h3>Négocier avec le vendeur</h3></U></center><br>';
+              echo '<center><button class="button1">Négocier</button></center><hr>';
             }
-
-        </div>
-    </div>
-    <br><br>
-    <div class="row">
-        <h7>cqysjdvjdqbcdsbcsc andjaqnscqs edcdiuhc qbdcdsjnjc cisdbbcj  c dsbjcbj dcbsbcjbd vfv </h7>
-    
-    
-    </div>
-</div><br>*/
+      echo'</div></div>';
+      echo'<br><br>';
+      echo'<div class="row">';
+        echo '<div class="col-sm-5">';
+        if($data['video']!=NULL){
+        $video=$data['video'];
+         echo"<center><video controls height=230px;> 
+         <source src='$video' type='video/mp4'> </video></center>";
+        }
+        echo '</div>';
+          echo '<div class="col-sm-6">';
+          echo'<h4> Description : </h4>';
+          echo '<h7>'.$data['description'].'</h7>';
+          echo '</div>';
+          }
+        echo '</div>';
+    echo '</div><br>';
+  }
+  mysqli_close($db_handle);
 ?>
 
     

@@ -276,7 +276,6 @@ height: 230px;
 </footer>
 
 <?php
-ini_set('display_errors', 'off');
     $login=isset($_POST["log"])? $_POST["log"] : "";
     $pass=isset($_POST["passw"])? $_POST["passw"] : "";
 

@@ -157,6 +157,43 @@ border-left: 2px solid black;
 
 </head>
 <body>
+<?php
+      function getIp(){
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+          $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }else{
+          $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+      }
+      $database = "ebayece";
+
+      $db_handle = mysqli_connect('localhost','root','');
+      $db_found = mysqli_select_db($db_handle, $database);
+      if ($db_found) 
+      {
+      $ip=getIp();
+      $sql="SELECT ip,acheteur_id from connexion_courante WHERE ip LIKE'$ip' AND acheteur_id IS NOT NULL";
+      $result = mysqli_query($db_handle, $sql);
+      $nbr=mysqli_num_rows($result);
+      if($nbr==0)
+      {
+        echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/ConnectionAcheteur.html?site=Panier.html'); </script>"; 
+      }
+      else
+      {
+        while($data = mysqli_fetch_assoc($result))
+        {
+          $acheteur_id=$data['acheteur_id'];
+        }
+      }
+      
+    }
+
+
+?>
 
 <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="#"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
@@ -207,35 +244,62 @@ border-left: 2px solid black;
 
     
     
-
-<div class="container">    
-    <h2>Votre panier</h2>
+<?php
+echo'<div class="container">';    
+    echo'<U><center><h1>Votre panier</h1></center></U>';
     
-    <div class="total_box">
-        Sous-total : 
-        <br>
-        Total Achat Immédiat :
-        <br>
-        <button class="button1">Passer la commande</button>
+    echo'<div class="total_box">';
+    $sql="SELECT SUM(a.prix) from achat_immediat as a INNER JOIN 
+    (SELECT b.produit_id, b.achat_immediat_id from produit as b INNER JOIN 
+    (SELECT produit_id from panier where methode=1 AND acheteur_id=$acheteur_id) as c
+     ON b.produit_id=c.produit_id)as d 
+     ON a.achat_immediat_id=d.achat_immediat_id";
+     $result = mysqli_query($db_handle, $sql);
+     while($data = mysqli_fetch_assoc($result))
+        {
+          echo'<h4>Total Achat Immédiat : ';
+          echo $data['SUM(a.prix)'].' €</h4>';
+        }
+        echo'<button class="button1">Passer la commande</button>';
     
-    </div>
-    <br><br><br><br><br><br>
-    
+    echo'</div>';
+    echo'<br><br><br><br>';
+    echo'<h2><U> Mes achats immédiats</U></h2><br>';
+    $sql="SELECT a.produit_id,a.achat_immediat_id,a.nom,a.description from produit as a INNER JOIN panier as b ON a.produit_id=b.produit_id Where b.acheteur_id=$acheteur_id and methode=1";
+    $result = mysqli_query($db_handle, $sql);
+    while($data = mysqli_fetch_assoc($result))
+    {
+      echo'<div class="row" style="display: flex; align-items: center;" >';
+      echo'<div class="col-sm-3">';
+      $prod_id=$data['produit_id'];
+      $sql2="SELECT reference FROM photo Where nom like 'Photo1' AND produit_id=$prod_id";
+      $result2 = mysqli_query($db_handle, $sql2);
+      while($data2 = mysqli_fetch_assoc($result2))
+      {
+        $image=$data2['reference'];
+        echo "<img  src='$image' style='height: 150px;width: auto; max-width: 300px;'></div>";     
+      }
+      echo'<div class="col-sm-5"><h5>'.$data['nom'].'<br></h5>';
+      echo'<h6>'.$data['description'].'</h6></div>';
+      $achat_id=$data['achat_immediat_id'];
+      $sql3="SELECT prix FROM achat_immediat Where achat_immediat_id=$achat_id";
+      $result3=mysqli_query($db_handle, $sql3);
+      while($data3 = mysqli_fetch_assoc($result3))
+      {
+        echo'<div class="col-sm-2"><h4>'.$data3['prix'].' €</h4><br>';
+      }
+      echo'<div class="col-sm-2"><h4>'.$data3['prix'].' €</h4><br>';
+    }/*
      <div class="row" style="display: flex; align-items: center;" >
-        <div class="col-sm-3"><img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 200px;width: auto; max-width: 400px;'></div>
+        
         <div class="col-sm-7"><h6>Description djsbqbsc hjezbdjhbqs hbfhqsbh hbefqusbidushfis eubds ejbe ejbfs e dez frief fr rdg egeg regerg ege</h6></div>
         <div class="col-sm-2"><img src="https://cdn.pixabay.com/photo/2013/07/12/14/33/delete-148476_960_720.png" width="60" height="60" ></div>   
     </div><br>
     
-    <SCRIPT LANGUAGE="JavaScript">
-                    for (var num=1; num<=15; num++) {
-                     document.writeln("<div class='row' style='display: flex; align-items: center;' ><div class='col-sm-3'><img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 200px;width: auto; max-width: 400px;'></div><div class='col-sm-7'><h6>Description djsbqbsc hjezbdjhbqs hbfhqsbh hbefqusbidushfis eubds ejbe ejbfs e dez frief fr rdg egeg regerg ege</h6></div><div class='col-sm-2'><a href=#><img src='https://cdn.pixabay.com/photo/2013/07/12/14/33/delete-148476_960_720.png' width='60' height='60' ></a></div></div><br> ");
-                    }
-            </SCRIPT>
     
 
-</div><br>
-
+echo'</div><br>'*/
+?>
     
     
     
@@ -279,6 +343,10 @@ border-left: 2px solid black;
     </div>
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique.ece.fr</div>
 </footer>
+
+<?php
+mysqli_close($db_handle);
+?>
 </body>
 </html>
 
