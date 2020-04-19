@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Achats</title>
+  <title>Negociation vendeur</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -17,7 +17,7 @@ a {
     text-decoration: none;
 }
 
--
+
   
  .btn-default {
     width: 150px;
@@ -117,16 +117,27 @@ border-left: 2px solid black;
     padding: 40px 0;
 }
 
+      .little-images{
+          display: flex; 
+          justify-content: center;
+          justify-content: space-between;
+      }
+      
+      img.little{
+          height: 50px;
+          width: auto;
+          max-width: 100px;
+      }
       
 
-      .wrapper {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-column-gap: 10px;
-            grid-row-gap: 100px;
-          text-align: center;
-          list-style-type: none;
-}
+      
+      button.button1{
+          font:Bold 18px Arial;
+          color: black;
+          padding:10px 10px 10px 10px;
+          border:1px solid #ccc;
+	       box-shadow:1px 1px 3px #999;
+      }
       
 </style>
 
@@ -186,48 +197,58 @@ border-left: 2px solid black;
     
     
 
-<div class="container text-center">    
-  <h3>Achats</h3><br>
-        <ul class="wrapper">
-            <?php
-              $recherche=$_GET['recherche'];
+<div class="container">   
+    
+    <?php   
+                $negociation_id=isset($_GET['negociation_id'])?$_GET['negociation_id'] : "";
+                $prix_negocie=isset($_GET['prix_negocie'])?$_GET['prix_negocie'] : "";
+                $offre_id=isset($_GET['offre_id'])?$_GET['offre_id'] : "";
               $database = "ebayece";
+    
 
-              $db_handle = mysqli_connect('localhost','root','');
+              $db_handle = mysqli_connect('localhost','root','root');
               $db_found = mysqli_select_db($db_handle, $database);
-            
-            
               if ($db_found) 
               {
-                $sql = "SELECT produit_id, nom FROM produit WHERE nom LIKE '%$recherche%'";
-                $result = mysqli_query($db_handle, $sql);
+                  
+                  $sql = "SELECT nom FROM produit WHERE negociation_id='$negociation_id'";
+                  $result2=mysqli_query($db_handle, $sql);
+                  while($data2 = mysqli_fetch_assoc($result2))
+                {
+                  echo "<h3> $data2[nom] </h3><br>";
+                  }
+                  if($prix_negocie != "")
+                        {
+                            echo "lalalla";
+                            $sql = "UPDATE offre SET tour=0, prix_negocie=$prix_negocie WHERE offre_id = $offre_id";
+                            mysqli_query($db_handle, $sql);
+                        }
+
+                  $sql = "SELECT * FROM offre WHERE tour=1 AND negociation_ID LIKE '$negociation_id'";
+                  $result = mysqli_query($db_handle, $sql);
                 while($data = mysqli_fetch_assoc($result))
                 {
-                  echo "<li>";
-                  $produit=$data['produit_id'];
-                  $sql="SELECT reference FROM photo Where nom like 'Photo1' AND produit_id=$produit";
-                  $result2 = mysqli_query($db_handle, $sql);
-                  while($data2 = mysqli_fetch_assoc($result2))
-                  {
-                    $image=$data2['reference'];
-                    echo "<a href='#'><img src='$image' style='height: 200px; width: auto; max-width: 400px;'></a>";
+                    $acheteur_id=$data[acheteur_id];
+                    $sql = "SELECT nom FROM acheteur WHERE acheteur_id='$acheteur_id'";
+                  $result3=mysqli_query($db_handle, $sql);
+                  while($data3 = mysqli_fetch_assoc($result3))
+                {
+                  echo "<h4>Dernière proposition de $data3[nom] :";
                   }
-                  echo "<br>".$data['nom']."</li>";
-
+                    
+                  echo " $data[prix_negocie] €</h4><br><a href='Vendre.php?negociation_id=$negociation_id&statut=1'><button class=button1>Valider sa proposition</button></a><br><br>";
+                  echo "<form method='POST'><h4>Votre nouvelle proposition :<input type='text' name='prix_negocie'/>€</h4><br>";
+                    echo "<input type='submit' value='Enregistrer ma proposition'></form><br>";
+                    $prix_negocie=$_POST['prix_negocie'];
+                    echo "<a href='Negociation_vendeur.php?negociation_id=$negociation_id&prix_negocie=$prix_negocie&offre_id=$data[offre_id]'><button class=button1>Envoyer</button></a><br><br><hr><br><br>";
                 } 
+
               }
               mysqli_close($db_handle);
-
-
-            /*<SCRIPT LANGUAGE="JavaScript">
-                    for (var num=1; num<=15; num++) {
-                     document.writeln("<li><a href='#'><img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 200px; width: auto; max-width: 400px;'><p>Description</p></a></li> ");
-                    }
-            </SCRIPT>*/
             ?>
-            
-
-        </ul>
+    
+    
+ 
 </div><br>
 
     

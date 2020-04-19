@@ -1,24 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Negociation vendeur</title>
+  <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="styles.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
+  
 
   <style type="text/css">
 
-a {
-    color: #ffe841;
-    text-decoration: none;
-}
-
-
-  
+ 
  .btn-default {
     width: 150px;
     float: left;
@@ -27,9 +21,60 @@ a {
 
 body{
 
+background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7EJVYpfaWmsL3tYPzKrDF-z5sLZeR8FJzXVWyQH1KRnIB9krK&usqp=CAU);
 
 }
 
+.card-body{
+
+color: white;
+}
+
+#card-body-1 {
+    width: 68%;
+    margin: 0px 97px;
+    background-color: whitesmoke;
+    color: black;
+    padding: 5px 5px 0px;
+}
+
+
+@media (max-width: 600px) {
+    .carousel-caption {
+      display: none; 
+    }
+  }
+
+  @media screen and (min-width: 768px){
+  .carousel-control .glyphicon-chevron-left, .carousel-control .glyphicon-chevron-right, .carousel-control .icon-next, .carousel-control .icon-prev {
+    width: 30px;
+    height: 30px;
+    margin-top: -64px;
+    font-size: 60px;
+} }
+
+@media screen and (min-width: 768px){
+  .carousel-control .glyphicon-chevron-left, .carousel-control .icon-prev {
+    margin-left: -38px;
+}
+}
+@media screen and (min-width: 768px){
+.carousel-indicators {
+    bottom: -22px;
+}}
+
+
+.carousel-inner img {
+      width: 100%; /* Set width to 100% */
+      margin: auto;
+      min-height:200px;
+  }
+
+#col-carou{
+
+text-align: center;
+
+}
 .container {
     padding-right: 15px;
     padding-left: 15px;
@@ -37,16 +82,26 @@ body{
     margin-left: auto;
     margin-bottom: 20px;
 }
-      
-      #Resultat {
-          
-      }
+
+#creer_compte_perso {
+    border-radius: 21px;
+    padding-left: 10px;
+}
 
 .dropdown, .dropup {
     position: relative;
     float: left;
 }
-.dropdown-menu {
+
+#form_compte{
+    width: 500px;
+    height: auto;
+    border-radius: 6px;
+    margin-bottom: 50px;
+    color: black;
+    background-color: blanchedalmond;
+    padding-left: 20px;
+    padding-top: 5px;
 
 
 }
@@ -64,6 +119,12 @@ border-left: 2px solid black;
 
 }
 
+#img_carou{
+
+width: auto;
+height: 230px;
+
+}
 
 .has-success .form-control-feedback {
     color: #337ab7;
@@ -117,33 +178,32 @@ border-left: 2px solid black;
     padding: 40px 0;
 }
 
-      .little-images{
-          display: flex; 
-          justify-content: center;
-          justify-content: space-between;
-      }
-      
-      img.little{
-          height: 50px;
-          width: auto;
-          max-width: 100px;
-      }
-      
+td, th {
+    padding: 3px;
+}
 
-      
-      button.button1{
-          display: flex;
-          justify-content: flex-end;
-          font:Bold 18px Arial;
-          padding:10px 10px 10px 10px;
-          border:1px solid #ccc;
-	       box-shadow:1px 1px 3px #999;
-      }
-      
+/* Sidebar/left column */
+.side {
+  flex: 50%;
+  padding: 20px;
+}
+
+/* Main column */
+.main {
+  flex: 50%;
+  padding: 20px;
+}
+
+#flex {
+    display: flex;
+    margin: 0% 25%;
+    background-color: blanchedalmond;
+}
+
+
+
 </style>
 
-
-            
 
 </head>
 <body>
@@ -190,64 +250,110 @@ border-left: 2px solid black;
     </div>
 </nav>
 
-    
-    
-    
-    
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "root";
 
-    
-    
+// Create connection
+$conn = new mysqli($servername, $username, $password);
 
-<div class="container">    
-    <div class="row">
-        <div class="col-sm-6">
-            <h2>Article_name</h2>
-            <br><br><br>
-            <form>
-            <h4>Dernière proposition de Nom_client :</h4>
-            <br>
-            <input type='submit' name='valider' value='Valider sa proposition'>
-            <br><br>
-            <h4>Votre nouvelle proposition :<input type='text' name='prop'>€</h4>
-            <br>
-            <input type='submit' name='new' value='Soumettre ma proposition' margin-left='20%'>
-                <br><br><hr><br><br>
-                
-            <SCRIPT LANGUAGE="JavaScript">
-                    for (var num=1; num<=15; num++) {
-                     document.writeln("<h4>Dernière proposition de Nom_client :</h4><br><input type='submit' name='prop' value='Valider sa proposition'><br><br><h4>Votre nouvelle proposition :<input type='text' name='prop'>€</h4><br><input type='submit' name='prop' value='Soumettre ma proposition'><br><br><hr><br><br>");
-                    }
-            </SCRIPT>
-            </form>
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+?>
 
-        </div>
+<div class="row" id="flex">
+    <div class="main">
+        <form id="form_compte">
+            <h1>Votre Compte</h1><br>
+            <h3>Vos données personnelles</h3>
+            <table>
+                <tr>
+                    <td>Nom: </td>
+                    <td><?php Compte('Nom'); ?></td>
+                </tr>
+                <tr>
+                    <td>Prenom: </td>
+                    <td><?php Compte('Prenom'); ?></td>
+                </tr>
+                <tr>
+                    <td>Adresse: </td>
+                    <td><?php Compte('Adresse'); ?></td>
+                </tr>
+                <tr>
+                    <td>Ville: </td>
+                    <td><?php Compte('Ville'); ?></td>
+                </tr>
+                <tr>
+                    <td>Code Postal: </td>
+                    <td><?php Compte('Code Postal'); ?></td>
+                </tr>
+                <tr>
+                    <td>Pays: </td>
+                    <td><?php Compte('Pays'); ?></td>
+                </tr>
+                <tr>
+                    <td>Numéro de Téléphone: </td>
+                    <td><?php Compte('Numéro de Téléphone'); ?></td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><?php Compte('Email'); ?></td>
+                </tr>
+            </table>
+            <h3>Vos données bancaires</h3>
+            <table>
+                <tr>
+                    <td>Type de carte de paiment: </td>
+                    <td><?php Carte('Type_carte'); ?></td>
+                </tr>
+                <tr>
+                    <td>Numero de la carte: </td>
+                    <td><?php Carte('Numero de carte'); ?></td>
+                </tr>
+                <tr>
+                    <td>Nom affiché sur la carte: </td>
+                    <td><?php Carte('Nom de la carte'); ?></td>
+                </tr>
+                <tr>
+                    <td>Date d'expiration de la carte: </td>
+                    <td><?php Carte('Date d\'expiration'); ?></td>
+                </tr>
+                <tr>
+                    <td>Cryptogramme: </td>
+                    <td><?php Carte('Code de Securite'); ?></td>
+                </tr>       
+                    
+            </table>
+            
+
+            <br><input id="creer_compte_perso" type="checkbox"> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br>
+            <a href="#"><input type="submit" name="Valider" style="color: black;" value="Valider"></submit></a><br><br><br>
+        </form>
     </div>
-    <br><br>
-    <div class="row"  style="display: flex; justify-content: center;">
-        <div class="col-sm-8">
-            <h5>Description bjhsdvdubdsjk dshvcsbwc dcsbcus nqdbhddsfhd bufbsdjhbc hbfdbsbc bdubdjvh dhqsbduhbqhubsdc hqbsduhsbuh c nchjdvcueq  fcjhebfisbc jsebfb czej cuy ahzjcvyscvdsb cjscvdvx</h5>
-        </div>
-    
-    
+    <div class="side">
+        <h1>Montant Total : 
+            <?php
+                 if (empty($_GET["prix"])) {
+                    $nameErr = "Name is required";
+                  } else {
+                    $prix = ($_GET["prix"]);
+                    echo $prix;
+                  }
+            ?>
+        </h1>
+        <button type="button" href="#" value="Valider">Valider</button>
     </div>
-</div><br>
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+</div>
+
+
+
+
+
+
 <footer class="page-footer">
     <div class="container">
         <div class="row">
@@ -275,7 +381,9 @@ border-left: 2px solid black;
     </div>
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique.ece.fr</div>
 </footer>
+
+
+
+
 </body>
 </html>
-
-
