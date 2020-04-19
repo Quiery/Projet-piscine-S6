@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Vendre</title>
+  <title>Supprimer vendeur</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -12,10 +12,6 @@
 
   <style type="text/css">
 
-a {
-    color: #ffe841;
-    text-decoration: none;
-}
 
 
   
@@ -146,9 +142,8 @@ border-left: 2px solid black;
       
       
 </style>
+    
 
-
-            
 
 </head>
 <body>
@@ -206,31 +201,44 @@ border-left: 2px solid black;
 <div class="container">    
     <h1>Compte Administrateur</h1>
     <br><br>
-    
-     <div class="row" style="display: flex; align-items: center;" >
-        <div class="col-sm-3"><img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 200px;width: auto; max-width: 400px;'></div>
-        <div class="col-sm-7">
-            <h4>Email ECE :</h4>
-            <h4>Pseudo :</h4>
-            <h4>Nom :</h4>
-         </div>
-         <button class="buttonred">Supprimer</button>
-    </div>
-         <br>
-    
-          <SCRIPT LANGUAGE="JavaScript">
-                    for (var num=1; num<=15; num++) {
-                     document.writeln("<div class='row' style='display: flex; align-items: center;' ><div class='col-sm-3'><img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 200px;width: auto; max-width: 400px;'></div> <div class='col-sm-7'><h4>Email ECE :</h4><h4>Pseudo :</h4><h4>Nom :</h4> </div><button class='buttonred'>Supprimer</button> </div> <br>");
-                    }
-            </SCRIPT>
-    
-     
+    <div class="container text-center">    
+            <?php
+            $vendeur_id=$_GET['vendeur_id'];
+            
+              $database = "ebayece";
 
-    
-    
-    
-    
+              $db_handle = mysqli_connect('localhost','root','');
+              $db_found = mysqli_select_db($db_handle, $database);
+              if ($db_found) 
+              {
+                  if($vendeur_id != NULL)
+                        {
+                            $sql = "UPDATE produit SET statut=1 WHERE vendeur_id = $vendeur_id";
+                            mysqli_query($db_handle, $sql);
+                            $sql = "DELETE FROM vendeur WHERE vendeur_id = $vendeur_id";
+                            mysqli_query($db_handle, $sql);
+                        }
+                  
+                  $sql = "SELECT vendeur_id, nom, mail, pp, pseudo FROM vendeur WHERE admin LIKE 0";
+                  $result = mysqli_query($db_handle, $sql);
+                while($data = mysqli_fetch_assoc($result))
+                {
+                  echo "<div class='row' style='display: flex; align-items: center;' >";
+                  echo "<div class='col-sm-3'><img  src='$data[pp]' style='height: 200px;width: auto; max-width: 400px;'></div>";
+                    echo "<div class='col-sm-7'>
+                        <h4>Email ECE : $data[mail]</h4>
+                        <h4>Pseudo : $data[pseudo]</h4>
+                        <h4>Nom : $data[nom]</h4>
+                    </div>";
+                    echo " <div class='col-sm-2'><a href='Supprimer_vendeur.php?vendeur_id=$data[vendeur_id]'><button class='buttonred' >Supprimer</button></a></div>";
+                   
+                  echo "</div><br><br><br>";
+                } 
 
+              }
+              mysqli_close($db_handle);
+            ?>
+            
 </div><br>
 
     

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -265,5 +266,3 @@ border-left: 2px solid black;
 </footer>
 </body>
 </html>
-
-

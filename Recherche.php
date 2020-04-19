@@ -17,7 +17,7 @@ a {
     text-decoration: none;
 }
 
-
+-
   
  .btn-default {
     width: 150px;
@@ -123,7 +123,7 @@ border-left: 2px solid black;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-column-gap: 10px;
-            grid-row-gap: 10px;
+            grid-row-gap: 100px;
           text-align: center;
           list-style-type: none;
 }
@@ -187,14 +187,44 @@ border-left: 2px solid black;
     
 
 <div class="container text-center">    
-  <h3>Achat</h3><br>
+  <h3>Achats</h3><br>
         <ul class="wrapper">
+            <?php
+              $recherche=$_GET['recherche'];
+              $database = "ebayece";
+
+              $db_handle = mysqli_connect('localhost','root','');
+              $db_found = mysqli_select_db($db_handle, $database);
             
-            <SCRIPT LANGUAGE="JavaScript">
+            
+              if ($db_found) 
+              {
+                $sql = "SELECT produit_id, nom FROM produit WHERE nom LIKE '%$recherche%'";
+                $result = mysqli_query($db_handle, $sql);
+                while($data = mysqli_fetch_assoc($result))
+                {
+                  echo "<li>";
+                  $produit=$data['produit_id'];
+                  $sql="SELECT reference FROM photo Where nom like 'Photo1' AND produit_id=$produit";
+                  $result2 = mysqli_query($db_handle, $sql);
+                  while($data2 = mysqli_fetch_assoc($result2))
+                  {
+                    $image=$data2['reference'];
+                    echo "<a href='#'><img src='$image' style='height: 200px; width: auto; max-width: 400px;'></a>";
+                  }
+                  echo "<br>".$data['nom']."</li>";
+
+                } 
+              }
+              mysqli_close($db_handle);
+
+
+            /*<SCRIPT LANGUAGE="JavaScript">
                     for (var num=1; num<=15; num++) {
                      document.writeln("<li><a href='#'><img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 200px; width: auto; max-width: 400px;'><p>Description</p></a></li> ");
                     }
-            </SCRIPT>
+            </SCRIPT>*/
+            ?>
             
 
         </ul>
@@ -245,4 +275,5 @@ border-left: 2px solid black;
 </footer>
 </body>
 </html>
+
 
