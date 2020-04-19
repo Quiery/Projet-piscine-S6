@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bootstrap Example</title>
+  <title>Validation paiement</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -196,7 +196,7 @@ td, th {
 
 #flex {
     display: flex;
-    margin: 0% 25%;
+    margin: 0% 20%;
     background-color: blanchedalmond;
 }
 
@@ -250,101 +250,92 @@ td, th {
     </div>
 </nav>
 
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "root";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-?>
 
 <div class="row" id="flex">
     <div class="main">
-        <form id="form_compte">
-            <h1>Votre Compte</h1><br>
+        <?php
+        $acheteur_id=$_GET['acheteur_id'];
+        $prix=$_GET['prix'];
+        $database = "ebayece";
+
+              $db_handle = mysqli_connect('localhost','root','root');
+              $db_found = mysqli_select_db($db_handle, $database);
+              if ($db_found) 
+              {
+                  $sql = "SELECT * FROM acheteur WHERE acheteur_id LIKE '$acheteur_id'";
+                    $result = mysqli_query($db_handle, $sql);
+                  while($data = mysqli_fetch_assoc($result))
+                {
+                  echo "<form id='form_compte'>
+            <h1>Validation paiement</h1><br>
             <h3>Vos données personnelles</h3>
             <table>
                 <tr>
-                    <td>Nom: </td>
-                    <td><?php Compte('Nom'); ?></td>
+                    <td>Nom:$data[nom] </td>
                 </tr>
                 <tr>
-                    <td>Prenom: </td>
-                    <td><?php Compte('Prenom'); ?></td>
+                    <td>Prenom: $data[prenom]</td>
                 </tr>
                 <tr>
-                    <td>Adresse: </td>
-                    <td><?php Compte('Adresse'); ?></td>
+                    <td>Adresse: $data[adresse] </td>
                 </tr>
                 <tr>
-                    <td>Ville: </td>
-                    <td><?php Compte('Ville'); ?></td>
+                    <td>Ville: $data[ville] </td>
                 </tr>
                 <tr>
-                    <td>Code Postal: </td>
-                    <td><?php Compte('Code Postal'); ?></td>
+                    <td>Code Postal: $data[code_postal] </td>
                 </tr>
                 <tr>
-                    <td>Pays: </td>
-                    <td><?php Compte('Pays'); ?></td>
+                    <td>Pays: $data[pays] </td>
                 </tr>
                 <tr>
-                    <td>Numéro de Téléphone: </td>
-                    <td><?php Compte('Numéro de Téléphone'); ?></td>
+                    <td>Numéro de Téléphone: $data[telephone] </td>
                 </tr>
                 <tr>
-                    <td>Email: </td>
-                    <td><?php Compte('Email'); ?></td>
+                    <td>Email: $data[mail] </td>
                 </tr>
-            </table>
-            <h3>Vos données bancaires</h3>
-            <table>
-                <tr>
-                    <td>Type de carte de paiment: </td>
-                    <td><?php Carte('Type_carte'); ?></td>
-                </tr>
-                <tr>
-                    <td>Numero de la carte: </td>
-                    <td><?php Carte('Numero de carte'); ?></td>
-                </tr>
-                <tr>
-                    <td>Nom affiché sur la carte: </td>
-                    <td><?php Carte('Nom de la carte'); ?></td>
-                </tr>
-                <tr>
-                    <td>Date d'expiration de la carte: </td>
-                    <td><?php Carte('Date d\'expiration'); ?></td>
-                </tr>
-                <tr>
-                    <td>Cryptogramme: </td>
-                    <td><?php Carte('Code de Securite'); ?></td>
-                </tr>       
-                    
-            </table>
+            </table>";
             
-
-            <br><input id="creer_compte_perso" type="checkbox"> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br>
-            <a href="#"><input type="submit" name="Valider" style="color: black;" value="Valider"></submit></a><br><br><br>
+                $sql = "SELECT * FROM compte_bancaire WHERE numero_carte LIKE '$data[carte_id]'";
+                    $result2 = mysqli_query($db_handle, $sql);
+                  while($data2 = mysqli_fetch_assoc($result2))
+                {
+                      echo "
+                        <h3>Vos données bancaires</h3>
+                        <table>
+                            <tr>
+                                <td>Type de carte de paiement: $data2[type] </td>
+                            </tr>
+                            <tr>
+                                <td>Numero de la carte: $data2[numero_carte] </td>
+                            </tr>
+                            <tr>
+                                <td>Nom affiché sur la carte: $data2[nom] </td>
+                            </tr>
+                            <tr>
+                                <td>Date d'expiration de la carte: $data2[date_expiration] </td>
+                            </tr>
+                            <tr>
+                                <td>Cryptogramme: $data2[code]</td>
+                            </tr>       
+                                }
+                        </table>";
+                      
+                } 
+              }
+                echo "
+            
+            <br><input id='creer_compte_perso' type='checkbox'> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br><br><br><br>
         </form>
     </div>
-    <div class="side">
-        <h1>Montant Total : 
-            <?php
-                 if (empty($_GET["prix"])) {
-                    $nameErr = "Name is required";
-                  } else {
-                    $prix = ($_GET["prix"]);
-                    echo $prix;
-                  }
-            ?>
+    <div class='side'>
+        <h1>Montant Total : <br>
+            $prix €
+            
         </h1>
-        <button type="button" href="#" value="Valider">Valider</button>
+        <button type='button' href='#' value='Valider'>Valider</button>";
+        }
+        ?>
     </div>
 
 </div>
