@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Achats</title>
+  <title>Categorie</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -123,7 +123,7 @@ border-left: 2px solid black;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             grid-column-gap: 10px;
-            grid-row-gap: 10px;
+            grid-row-gap: 100px;
           text-align: center;
           list-style-type: none;
 }
@@ -187,7 +187,7 @@ border-left: 2px solid black;
     
 
 <div class="container text-center">    
-  <h3>Achat</h3><br>
+  <h3>Categorie</h3><br>
         <ul class="wrapper">
             <?php
               $categorie=$_GET['categorie'];
@@ -210,7 +210,7 @@ border-left: 2px solid black;
                     $image=$data2['reference'];
                     echo "<a href='#'><img src='$image' style='height: 200px; width: auto; max-width: 400px;'></a>";
                   }
-                  echo "<br>".$data['nom']."<br>";
+                  echo "<br>".$data['nom']."</li>";
 
                 } 
               }
