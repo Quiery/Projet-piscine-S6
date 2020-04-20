@@ -378,18 +378,21 @@ td, th {
                           if($achat=='Achat Immediat')
                           {
                               $sql= "INSERT INTO achat_immediat (prix) VALUES ('$prixA')";
-                              $achat_immediat_id=mysqli_insert_id();
+                              mysqli_query($db_handle, $sql);
+                              $achat_immediat_id=mysqli_insert_id($db_handle);
                           }
                           if($achat=='Encheres')
                           {
 
                               $sql= "INSERT INTO encheres (prix_init) VALUES ('$prixE')";
-                              $encheres_id=mysqli_insert_id();
+                              mysqli_query($db_handle, $sql);
+                              $encheres_id=mysqli_insert_id($db_handle);
                           }
                           if($achat=='Meilleure Offre')
                           {
                               $sql= "INSERT INTO negociation (negociation_id) VALUES ( DEFAULT )";
-                              $negociation_id=mysql_insert_id();
+                              mysqli_query($db_handle, $sql);
+                              $negociation_id=mysqli_insert_id($db_handle);
                           }
                               mysqli_query($db_handle, $sql);
                       }
