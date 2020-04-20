@@ -203,11 +203,7 @@ border-left: 2px solid black;
     <br><br>
     <div class="container text-center">    
             <?php
-<<<<<<< HEAD
             $vendeur_id=isset($_GET['vendeur_id'])?$_GET['vendeur_id'] : "";
-=======
-            $vendeur_id=$_GET['vendeur_id'];
->>>>>>> 8dec7073c120bfe105205508548f89a7e74d886b
             
               $database = "ebayece";
 
@@ -215,11 +211,7 @@ border-left: 2px solid black;
               $db_found = mysqli_select_db($db_handle, $database);
               if ($db_found) 
               {
-<<<<<<< HEAD
                   if($vendeur_id != "")
-=======
-                  if($vendeur_id != NULL)
->>>>>>> 8dec7073c120bfe105205508548f89a7e74d886b
                         {
                             $sql = "UPDATE produit SET statut=1 WHERE vendeur_id = $vendeur_id";
                             mysqli_query($db_handle, $sql);

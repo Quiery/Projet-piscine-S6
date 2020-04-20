@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Generation Time: Apr 19, 2020 at 02:51 PM
+-- Generation Time: Apr 18, 2020 at 08:22 PM
 -- Server version: 5.7.25
 -- PHP Version: 7.3.1
 
@@ -265,7 +265,7 @@ INSERT INTO `photo` (`photo_id`, `nom`, `reference`, `produit_id`) VALUES
 (20, 'Photo1', 'photo/montre2.jpg', 16),
 (21, 'Photo2', 'photo/montre3.jpg', 16),
 (22, 'Photo1', 'photo/montre4.jpg', 17),
-(23, 'Photo1', 'photo/montre5.jpg', 18),
+(23, 'Photo1', 'photo/montre5', 18),
 (24, 'Photo1', 'photo/montre_gousset.jpg', 19),
 (25, 'Photo1', 'photo/bague1.jpg', 20),
 (26, 'Photo2', 'photo/bague2.jpg', 20),
@@ -298,13 +298,13 @@ CREATE TABLE `produit` (
 INSERT INTO `produit` (`produit_id`, `nom`, `categorie`, `description`, `video`, `statut`, `achat_immediat_id`, `encheres_id`, `negociation_id`, `vendeur_id`) VALUES
 (1, 'Coffre', 'Ferraille ou Tresor', 'Petit coffre ancien ayant appartenu à ma grand-mère.\r\nBien conservé.', NULL, 0, 1, NULL, NULL, 3),
 (2, 'Bague dorée avec rubis', 'Ferraille ou Tresor', 'Bague très peu utilisée', NULL, 0, NULL, 1, NULL, 4),
-(3, 'Collier de perle + coffret', 'Ferraille ou Tresor', 'Collier de perle assorti avec le coffret. Taille adulte.', NULL, 0, 2, NULL, 1, 7),
+(3, 'Collier de perle + coffret', 'Ferraille ou Tresor', 'Collier de perle assorti avec le coffret. Taille adulte.', NULL, 0, 2, NULL, 1, 2),
 (4, 'Piece de monnaie', 'Bon pour le musee', 'Lot de deux pieces de monnaies très anciennes.\r\nElles datent de l\'empire romain.', NULL, 0, 3, 2, NULL, 5),
 (5, 'Pieces de monnaie', 'Bon pour le musee', 'Lot de 3 pièces de monnaies très bien conservées, piece d\'exposition de premier choix.', NULL, 0, NULL, NULL, 2, 6),
 (6, 'Piece de monnaie', 'Bon pour le musee', 'Piece de monnaie en argent de la reine de 1894.', NULL, 0, 4, NULL, NULL, 5),
 (7, 'tableau tigre', 'Bon pour le musee', 'tableau contemporain représentant un tigre.', NULL, 0, NULL, 3, NULL, 4),
 (8, 'Tableau', 'Bon pour le musee', 'Ancien tableau du peintre de renommée internationale français.', NULL, 0, 9, 4, NULL, 7),
-(9, 'Lot de 2 Tableaux', 'Bon pour le musee', 'Lot de deux tableaux représentant chacun une famille et un homme', NULL, 0, NULL, NULL, 3, 6),
+(9, 'Tableaux', 'Bon pour le musee', 'Lot de deux tableaux représentant chacun une famille et un homme', NULL, 0, NULL, NULL, 3, 6),
 (10, 'Tableau', 'Bon pour le musee', 'Tableau d\'un navire français quittant le port', NULL, 0, 10, NULL, 4, 7),
 (12, 'Timbre', 'Bon pour le musee', 'Timbre de la République française', NULL, 0, 5, NULL, NULL, 3),
 (13, 'Timbre ', 'Bon pour le musee', 'Ancien timbre provenant de Tunis', NULL, 0, 11, 5, NULL, 5),
@@ -315,7 +315,7 @@ INSERT INTO `produit` (`produit_id`, `nom`, `categorie`, `description`, `video`,
 (18, 'Montre bling-bling', 'Accessoire VIP', 'Montre avec bracelet or et diamants incrustés dans le cadran qui permet de lire l\'heure.', NULL, 0, 6, NULL, 6, 1),
 (19, 'Montre à gousset', 'Accessoire VIP', 'Montre à gousset pour briller en société. Très bon état.', NULL, 0, NULL, 8, NULL, 5),
 (20, 'Bague en argent et verte', 'Accessoire VIP', 'Bague neuve en argent incrusté d\'une pierre verte.', NULL, 0, NULL, NULL, 7, 3),
-(21, 'Parure', 'Accessoire VIP', 'Parure pour femme très peu portée, bon état.', NULL, 0, 8, NULL, 8, 7);
+(21, 'Parure', 'Accessoire VIP', 'Parure pour femme très peu portée, bon état.', NULL, 0, 8, NULL, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -355,12 +355,12 @@ CREATE TABLE `vendeur` (
 --
 
 INSERT INTO `vendeur` (`vendeur_id`, `nom`, `prenom`, `pseudo`, `mail`, `pp`, `mur`, `admin`) VALUES
-(1, 'Pollux', 'Martin', 'MoutonCanadien', 'martin.pollux@edu.ece.fr', 'pp/avatar.png', 'background/gold-backgrounds-background-37815.jpg', 1),
+(2, 'Pollux', 'Martin', 'MoutonCanadien', 'martin.pollux@edu.ece.fr', 'pp/avatar.png', 'background/gold-backgrounds-background-37815.jpg', 1),
 (3, 'Souplet', 'Bernard', 'l\'hermite', 'bernard.souplet@edu.ece.fr', 'pp/random.jpg', 'background/background-1986452_960_720.jpg', 0),
 (4, 'Dumont', 'Jean-Pierre', 'JP92', 'jean-pierre.dumont@edu.ece.fr', 'pp/random2.jpg', 'background/background-2462431_960_720.jpg', 0),
 (5, 'Padding', 'Zahia', 'Zaza', 'zahia.padding@edu.ece.fr', 'pp/randome.jpg', 'background/bleuetoile.jpg', 0),
 (6, 'Stars', 'Caroline', 'Etoilies', 'caroline.stars@edu.ece.fr', 'pp/randome2.jpg', 'background/espace.jpg', 0),
-(7, 'Lacase', 'Alexandre', 'zet-zet', 'alexandre.lacase@edu.ece.fr', 'pp/Unknown.png', 'background/texture-2012078_960_720.jpg', 0);
+(7, 'Lacase', 'Alexandre', 'zet-zet', 'alexandre.lacazette@edu.ece.fr', 'pp/Unknown.png', 'background/texture-2012078_960_720.jpg', 0);
 
 --
 -- Indexes for dumped tables
@@ -512,7 +512,7 @@ ALTER TABLE `transaction`
 -- AUTO_INCREMENT for table `vendeur`
 --
 ALTER TABLE `vendeur`
-  MODIFY `vendeur_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `vendeur_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

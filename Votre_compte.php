@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Validation paiement</title>
+  <title>Votre compte</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -265,7 +265,7 @@ td, th {
                   while($data = mysqli_fetch_assoc($result))
                 {
                   echo "<form id='form_compte'>
-            <h1>Validation paiement</h1><br>
+            <h1>Votre compte</h1><br>
             <h3>Vos données personnelles</h3>
             <table>
                 <tr>
@@ -294,7 +294,7 @@ td, th {
                 </tr>
             </table>";
             
-                $sql = "SELECT * FROM compte_bancaire WHERE numero_carte LIKE '$data[carte_id]'";
+                $sql = "SELECT * FROM carte_bancaire WHERE numero_carte LIKE '$data[carte_id]'";
                     $result2 = mysqli_query($db_handle, $sql);
                   while($data2 = mysqli_fetch_assoc($result2))
                 {
@@ -319,30 +319,7 @@ td, th {
                                 }
                         </table>";
                       
-                    $sql = "SELECT * FROM compte_bancaire WHERE numero_carte LIKE '$data[carte_id]'";
-                    $result3 = mysqli_query($db_handle, $sql);
-                  while($data2 = mysqli_fetch_assoc($result2))
-                {
-                      echo "
-                      <div class='side'>
-                        <form method=POST>
-                          <h1>Montant Total : <br>
-                              $prix €
-            
-                              </h1>
-                              <input type='submit' name='valider' value='Valider'>
-                </form>";
-                   if(isset($_POST['valider']))
-                      {
-                       if($data2[numero_carte])
-                       $sql= ""
-                }
-              }
-                echo "
-            
-            <br><input id='creer_compte_perso' type='checkbox'> J'ai lu et j'accepte les conditions générales de ventes: </input><br><br><br><br><br>
-        </form>
-    </div>
+
     
                    }
         }
