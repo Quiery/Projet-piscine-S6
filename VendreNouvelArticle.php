@@ -227,6 +227,42 @@ td, th {
 </head>
 <body>
 
+<?php
+      function getIp(){
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+          $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }else{
+          $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+      }
+      $database = "ebayece";
+
+      $db_handle = mysqli_connect('localhost','root','');
+      $db_found = mysqli_select_db($db_handle, $database);
+      if ($db_found) 
+      {
+      $ip=getIp();
+      $sql="SELECT ip,vendeur_id from connexion_courante WHERE ip LIKE'$ip' AND vendeur_id IS NOT NULL";
+      $result = mysqli_query($db_handle, $sql);
+      $nbr=mysqli_num_rows($result);
+      if($nbr==0)
+      {
+        echo "<script>window.location.assign('ConnectionVendeur.php?site=VendreNouvelArticle.php'); </script>"; 
+      }
+      else
+      {
+        while($data = mysqli_fetch_assoc($result))
+        {
+          $vendeur_id=$data['vendeur_id'];
+        }
+      }
+      
+    }
+?>
+
 <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="#"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
     <div class="collapse navbar-collapse" id="main-navigation">
@@ -269,9 +305,6 @@ td, th {
     </div>
 </nav>
 
-<! -- Pour le form il faut le lier a une page + mettre une protection 
-sur le checkbox pour que enchere et meilleur offre ne soient pas cochés en meme temps
-+ possiblement faire en sorte de cacher le mauvais pris en fonction de la checkbox mode d'achats-->
     
 <div class="container" style="background-color: blanchedalmond; padding-block-end: 1%;">
     <h1 style="text-align:center;">Ajouter un nouvel article</h1>
@@ -318,9 +351,9 @@ sur le checkbox pour que enchere et meilleur offre ne soient pas cochés en meme
         <textarea rows="4" cols="50" name="description" placeholder="Description de l'article"></textarea><br>
         <input type='submit' name='valider' value='Valider'></form><br>
      <?php
-    $vendeur_id=5;
+
         $database = "ebayece";
-              $db_handle = mysqli_connect('localhost','root','root');
+              $db_handle = mysqli_connect('localhost','root','');
               $db_found = mysqli_select_db($db_handle, $database);
                 
               if ($db_found) 
@@ -339,27 +372,28 @@ sur le checkbox pour que enchere et meilleur offre ne soient pas cochés en meme
                   
                   if(isset($_POST['valider']))
                       {
-                          
+                          if(isset($_POST['achat']))
+                          {
                           foreach($_POST['achat'] as $achat){
                           if($achat=='Achat Immediat')
                           {
                               $sql= "INSERT INTO achat_immediat (prix) VALUES ('$prixA')";
-                              $achat_immediat_id=mysql_insert_id($sql);
+                              $achat_immediat_id=mysqli_insert_id();
                           }
                           if($achat=='Encheres')
                           {
 
                               $sql= "INSERT INTO encheres (prix_init) VALUES ('$prixE')";
-
-                              $encheres_id=mysql_insert_id($sql);
+                              $encheres_id=mysqli_insert_id();
                           }
                           if($achat=='Meilleure Offre')
                           {
                               $sql= "INSERT INTO negociation (negociation_id) VALUES ( DEFAULT )";
-                              $negociation_id=mysql_insert_id($sql);
+                              $negociation_id=mysql_insert_id();
                           }
                               mysqli_query($db_handle, $sql);
                       }
+                    }
                       
                       //echo "<script>alert('Connexion refusée');</script>";
                       
