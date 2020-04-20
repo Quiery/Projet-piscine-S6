@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="Piscine.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
- 
+
 </head>
 <body>
 
@@ -54,15 +54,14 @@
     </div>
 </nav>
 
-<form id="form_connect">
+
+<form id="form_connect" method="post">
     <h1>Connectez-vous pour vendre</h1><br>
-    <input id="connexion" type="text" placeholder="Login ou Email"><br>
-    <input id="connexion" type="password" placeholder="Mot de Passe"><br>
-    <input type="submit" name="Valider"></submit><br><br><br>
+    <input id="connexion" type="text" placeholder="Email" name="log"><br>
+    <input id="connexion" type="password" placeholder="Mot de Passe" name="passw"><br>
+    <input type="submit" name="button" value="Valider"></submit><br><br><br>
     <button>Creer un compte</button>
 </form>
-
-
 
 
 
@@ -93,6 +92,74 @@
     </div>
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique.ece.fr</div>
 </footer>
+
+
+<?php
+$site=$_GET['site'];
+function getIp(){
+  if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+  }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+  }else{
+    $ip = $_SERVER['REMOTE_ADDR'];
+  }
+  return $ip;
+}
+$ip=getIp();
+    $login=isset($_POST["log"])? $_POST["log"] : "";
+    $pass=isset($_POST["passw"])? $_POST["passw"] : "";
+
+    $database = "ebayece";
+
+    $db_handle = mysqli_connect('localhost','root','');
+    $db_found = mysqli_select_db($db_handle, $database);
+    if (isset($_POST["button"]))
+    {
+      if ($db_found) 
+      {
+        $connexion = false;
+        $sql = "SELECT mail,password FROM vendeur";
+        $result = mysqli_query($db_handle, $sql);
+        while($data = mysqli_fetch_assoc($result))
+        {
+          if(($data['mail']==$login)&&($data['password']==$pass))
+          {
+            $connexion = true;
+            break;
+          }
+        }
+        if ($connexion) 
+        { 
+          $sql="SELECT vendeur_id FROM vendeur Where mail like '$login' AND password like '$pass'";
+          $result = mysqli_query($db_handle, $sql);
+          while($data = mysqli_fetch_assoc($result))
+          {
+            $sql="SELECT ip from connexion_courante where ip like'$ip'";
+            $result= mysqli_query($db_handle, $sql);
+            $nbr=mysqli_num_rows($result);
+            if($nbr==0)
+            {
+              $sql ="INSERT INTO connexion_courante (ip,vendeur_id) Values ('$ip',$data[vendeur_id])";
+              mysqli_query($db_handle, $sql);
+            }
+            else
+            {
+              $sql="UPDATE connexion_courante set vendeur_id=$data[vendeur_id] WHERE ip like'$ip'";
+              mysqli_query($db_handle, $sql);
+            }
+          }
+          echo "<script>window.location.assign('$site'); </script>"; 
+        } 
+        else 
+        { 
+          echo "<script>alert('Connexion refusée');</script>"; 
+        } 
+      }
+      mysqli_close($db_handle);
+    }
+?>
+
 
 
 </body>
