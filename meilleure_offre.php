@@ -394,6 +394,8 @@ if (isset($_POST["accepter"]))
 {
   $sql="UPDATE produit set statut=1 where produit_id=$prod_id";
   mysqli_query($db_handle, $sql);
+  $sql="DELETE FROM panier where produit_id=$prod_id";
+  mysqli_query($db_handle, $sql);
   echo "<script>window.location.assign('HomePage.php'); </script>";
 }
 if (isset($_POST["new1"]))

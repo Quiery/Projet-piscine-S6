@@ -199,7 +199,7 @@ border-left: 2px solid black;
             
               if ($db_found) 
               {
-                $sql = "SELECT produit_id, nom FROM produit WHERE nom LIKE '%$recherche%'";
+                $sql = "SELECT produit_id, nom FROM produit WHERE nom LIKE '%$recherche%'AND statut=0";
                 $result = mysqli_query($db_handle, $sql);
                 while($data = mysqli_fetch_assoc($result))
                 {

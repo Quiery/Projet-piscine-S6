@@ -198,7 +198,7 @@ border-left: 2px solid black;
               $db_found = mysqli_select_db($db_handle, $database);
               if ($db_found) 
               {
-                $sql = "SELECT produit_id, nom FROM produit WHERE categorie LIKE '$categorie'";
+                $sql = "SELECT produit_id, nom FROM produit WHERE categorie LIKE '$categorie' AND statut=0";
                 $result = mysqli_query($db_handle, $sql);
                 while($data = mysqli_fetch_assoc($result))
                 {

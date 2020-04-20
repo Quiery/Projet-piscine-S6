@@ -211,7 +211,7 @@ border-left: 2px solid black;
             
               if ($db_found) 
               {
-                $sql = "SELECT produit_id, nom FROM produit WHERE $achats IS NOT NULL";
+                $sql = "SELECT produit_id, nom FROM produit WHERE $achats IS NOT NULL AND statut=0";
                 $result = mysqli_query($db_handle, $sql);
                 while($data = mysqli_fetch_assoc($result))
                 {
