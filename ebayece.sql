@@ -2,12 +2,14 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: Apr 19, 2020 at 02:51 PM
--- Server version: 5.7.25
--- PHP Version: 7.3.1
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  lun. 20 avr. 2020 à 10:01
+-- Version du serveur :  5.7.26
+-- Version de PHP :  7.2.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,26 +19,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ebayece`
+-- Base de données :  `ebayece`
 --
-CREATE DATABASE IF NOT EXISTS `ebayece` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `ebayece`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `achat_immediat`
+-- Structure de la table `achat_immediat`
 --
 
 DROP TABLE IF EXISTS `achat_immediat`;
-CREATE TABLE `achat_immediat` (
-  `achat_immediat_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `achat_immediat` (
+  `achat_immediat_id` int(11) NOT NULL AUTO_INCREMENT,
   `prix` decimal(10,0) NOT NULL,
-  `produit_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `produit_id` int(11) NOT NULL,
+  PRIMARY KEY (`achat_immediat_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `achat_immediat`
+-- Déchargement des données de la table `achat_immediat`
 --
 
 INSERT INTO `achat_immediat` (`achat_immediat_id`, `prix`, `produit_id`) VALUES
@@ -55,12 +56,12 @@ INSERT INTO `achat_immediat` (`achat_immediat_id`, `prix`, `produit_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `acheteur`
+-- Structure de la table `acheteur`
 --
 
 DROP TABLE IF EXISTS `acheteur`;
-CREATE TABLE `acheteur` (
-  `acheteur_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `acheteur` (
+  `acheteur_id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `prenom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -70,11 +71,12 @@ CREATE TABLE `acheteur` (
   `code_postal` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `pays` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `carte_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `carte_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`acheteur_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `acheteur`
+-- Déchargement des données de la table `acheteur`
 --
 
 INSERT INTO `acheteur` (`acheteur_id`, `nom`, `prenom`, `mail`, `telephone`, `adresse`, `ville`, `code_postal`, `pays`, `password`, `carte_id`) VALUES
@@ -84,81 +86,93 @@ INSERT INTO `acheteur` (`acheteur_id`, `nom`, `prenom`, `mail`, `telephone`, `ad
 -- --------------------------------------------------------
 
 --
--- Table structure for table `adresse_livraison`
+-- Structure de la table `adresse_livraison`
 --
 
 DROP TABLE IF EXISTS `adresse_livraison`;
-CREATE TABLE `adresse_livraison` (
-  `adresse_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `adresse_livraison` (
+  `adresse_id` int(11) NOT NULL AUTO_INCREMENT,
   `adresse` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `ville` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `code_postal` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `pays` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+  `pays` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`adresse_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `carte_bancaire`
+-- Structure de la table `carte_bancaire`
 --
 
 DROP TABLE IF EXISTS `carte_bancaire`;
-CREATE TABLE `carte_bancaire` (
+CREATE TABLE IF NOT EXISTS `carte_bancaire` (
   `numero` int(11) NOT NULL,
   `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type` enum('Visa','MasterCard','American Express') COLLATE utf8_unicode_ci NOT NULL,
   `date_expiration` int(11) NOT NULL,
-  `code` int(11) NOT NULL
+  `code` int(11) NOT NULL,
+  PRIMARY KEY (`numero`,`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `compte_bancaire`
+-- Structure de la table `compte_bancaire`
 --
 
 DROP TABLE IF EXISTS `compte_bancaire`;
-CREATE TABLE `compte_bancaire` (
+CREATE TABLE IF NOT EXISTS `compte_bancaire` (
   `numero_carte` int(11) NOT NULL,
   `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type` enum('Visa','MasterCard','American Express') COLLATE utf8_unicode_ci NOT NULL,
   `date_expiration` date NOT NULL,
   `code` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `plafond` int(11) NOT NULL
+  `plafond` int(11) NOT NULL,
+  PRIMARY KEY (`numero_carte`,`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `connexion_courante`
+-- Structure de la table `connexion_courante`
 --
 
 DROP TABLE IF EXISTS `connexion_courante`;
-CREATE TABLE `connexion_courante` (
+CREATE TABLE IF NOT EXISTS `connexion_courante` (
   `ip` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `acheteur_id` int(11) DEFAULT NULL,
-  `vendeur_id` int(11) DEFAULT NULL
+  `vendeur_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ip`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `connexion_courante`
+--
+
+INSERT INTO `connexion_courante` (`ip`, `acheteur_id`, `vendeur_id`) VALUES
+('::1', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `encheres`
+-- Structure de la table `encheres`
 --
 
 DROP TABLE IF EXISTS `encheres`;
-CREATE TABLE `encheres` (
-  `encheres_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `encheres` (
+  `encheres_id` int(11) NOT NULL AUTO_INCREMENT,
   `prix_init` decimal(10,0) NOT NULL,
   `prix_max` decimal(10,0) NOT NULL DEFAULT '0',
   `prix_min` decimal(10,0) NOT NULL DEFAULT '0',
   `date_fin` datetime NOT NULL,
   `nombre_encheres` int(11) NOT NULL DEFAULT '0',
-  `acheteur_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `acheteur_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`encheres_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `encheres`
+-- Déchargement des données de la table `encheres`
 --
 
 INSERT INTO `encheres` (`encheres_id`, `prix_init`, `prix_max`, `prix_min`, `date_fin`, `nombre_encheres`, `acheteur_id`) VALUES
@@ -174,16 +188,17 @@ INSERT INTO `encheres` (`encheres_id`, `prix_init`, `prix_max`, `prix_min`, `dat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `negociation`
+-- Structure de la table `negociation`
 --
 
 DROP TABLE IF EXISTS `negociation`;
-CREATE TABLE `negociation` (
-  `negociation_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE IF NOT EXISTS `negociation` (
+  `negociation_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`negociation_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `negociation`
+-- Déchargement des données de la table `negociation`
 --
 
 INSERT INTO `negociation` (`negociation_id`) VALUES
@@ -199,47 +214,70 @@ INSERT INTO `negociation` (`negociation_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `offre`
+-- Structure de la table `offre`
 --
 
 DROP TABLE IF EXISTS `offre`;
-CREATE TABLE `offre` (
-  `offre_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `offre` (
+  `offre_id` int(11) NOT NULL AUTO_INCREMENT,
   `prix_negocie` decimal(10,0) NOT NULL,
   `compteur` int(11) NOT NULL,
   `tour` tinyint(1) NOT NULL,
   `acheteur_id` int(11) NOT NULL,
-  `negociation_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `negociation_id` int(11) NOT NULL,
+  PRIMARY KEY (`offre_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `offre`
+--
+
+INSERT INTO `offre` (`offre_id`, `prix_negocie`, `compteur`, `tour`, `acheteur_id`, `negociation_id`) VALUES
+(2, '45', 1, 0, 1, 1),
+(3, '75', 4, 0, 3, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `panier`
+-- Structure de la table `panier`
 --
 
 DROP TABLE IF EXISTS `panier`;
-CREATE TABLE `panier` (
+CREATE TABLE IF NOT EXISTS `panier` (
   `acheteur_id` int(11) NOT NULL,
-  `produit_id` int(11) NOT NULL
+  `produit_id` int(11) NOT NULL,
+  `methode` int(11) NOT NULL,
+  PRIMARY KEY (`acheteur_id`,`produit_id`,`methode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Déchargement des données de la table `panier`
+--
+
+INSERT INTO `panier` (`acheteur_id`, `produit_id`, `methode`) VALUES
+(1, 1, 1),
+(1, 2, 2),
+(1, 3, 1),
+(1, 3, 3),
+(1, 4, 2);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `photo`
+-- Structure de la table `photo`
 --
 
 DROP TABLE IF EXISTS `photo`;
-CREATE TABLE `photo` (
-  `photo_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `photo` (
+  `photo_id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `reference` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `produit_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `produit_id` int(11) NOT NULL,
+  PRIMARY KEY (`photo_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `photo`
+-- Déchargement des données de la table `photo`
 --
 
 INSERT INTO `photo` (`photo_id`, `nom`, `reference`, `produit_id`) VALUES
@@ -274,12 +312,12 @@ INSERT INTO `photo` (`photo_id`, `nom`, `reference`, `produit_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produit`
+-- Structure de la table `produit`
 --
 
 DROP TABLE IF EXISTS `produit`;
-CREATE TABLE `produit` (
-  `produit_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `produit` (
+  `produit_id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `categorie` enum('Ferraille ou Tresor','Bon pour le musee','Accessoire VIP') COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
@@ -288,11 +326,12 @@ CREATE TABLE `produit` (
   `achat_immediat_id` int(11) DEFAULT NULL,
   `encheres_id` int(11) DEFAULT NULL,
   `negociation_id` int(11) DEFAULT NULL,
-  `vendeur_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `vendeur_id` int(11) NOT NULL,
+  PRIMARY KEY (`produit_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Dumping data for table `produit`
+-- Déchargement des données de la table `produit`
 --
 
 INSERT INTO `produit` (`produit_id`, `nom`, `categorie`, `description`, `video`, `statut`, `achat_immediat_id`, `encheres_id`, `negociation_id`, `vendeur_id`) VALUES
@@ -311,80 +350,49 @@ INSERT INTO `produit` (`produit_id`, `nom`, `categorie`, `description`, `video`,
 (14, 'Lot de timbres', 'Bon pour le musee', 'Lot de plusieurs timbres venant d\'horizons différents.', NULL, 0, NULL, 6, NULL, 7),
 (15, 'Montre', 'Accessoire VIP', 'Montre bracelet noir et cadran noir qui affiche très bien l\'heure.', NULL, 0, 7, NULL, NULL, 3),
 (16, 'Lot de 2 montres', 'Accessoire VIP', 'Lot de deux montres de VIP. Accessoire incontournable si vous voulez être VIP. Affiche l\'heure accessoirement.', NULL, 0, NULL, NULL, 5, 7),
-(17, 'Montre', 'Accessoire VIP', 'Montre au design contemporain. Vendu neuve.', NULL, 0, NULL, 7, NULL, 1),
+(17, 'Montre', 'Accessoire VIP', 'Montre au design contemporain. Vendu neuve.', NULL, 1, NULL, 7, NULL, 1),
 (18, 'Montre bling-bling', 'Accessoire VIP', 'Montre avec bracelet or et diamants incrustés dans le cadran qui permet de lire l\'heure.', NULL, 0, 6, NULL, 6, 1),
-(19, 'Montre à gousset', 'Accessoire VIP', 'Montre à gousset pour briller en société. Très bon état.', NULL, 0, NULL, 8, NULL, 5),
+(19, 'Montre à gousset', 'Accessoire VIP', 'Montre à gousset pour briller en société. Très bon état.', 'video/montre1.mp4', 0, NULL, 8, NULL, 5),
 (20, 'Bague en argent et verte', 'Accessoire VIP', 'Bague neuve en argent incrusté d\'une pierre verte.', NULL, 0, NULL, NULL, 7, 3),
 (21, 'Parure', 'Accessoire VIP', 'Parure pour femme très peu portée, bon état.', NULL, 0, 8, NULL, 8, 7);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transaction`
+-- Structure de la table `transaction`
 --
 
 DROP TABLE IF EXISTS `transaction`;
-CREATE TABLE `transaction` (
-  `transaction_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `transaction` (
+  `transaction_id` int(11) NOT NULL AUTO_INCREMENT,
   `prix` decimal(10,0) NOT NULL,
   `adresse_id` int(11) NOT NULL,
   `acheteur_id` int(11) NOT NULL,
-  `produit_id` int(11) NOT NULL
+  `produit_id` int(11) NOT NULL,
+  PRIMARY KEY (`transaction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vendeur`
+-- Structure de la table `vendeur`
 --
 
 DROP TABLE IF EXISTS `vendeur`;
-CREATE TABLE `vendeur` (
-  `vendeur_id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `vendeur` (
+  `vendeur_id` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `prenom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `pseudo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `pp` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mur` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `transaction`
---
-
-DROP TABLE IF EXISTS `transaction`;
-CREATE TABLE `transaction` (
-  `transaction_id` int(11) NOT NULL,
-  `prix` decimal(10,0) NOT NULL,
-  `adresse_id` int(11) NOT NULL,
-  `acheteur_id` int(11) NOT NULL,
-  `produit_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
+  `admin` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`vendeur_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Table structure for table `vendeur`
---
-
-DROP TABLE IF EXISTS `vendeur`;
-CREATE TABLE `vendeur` (
-  `vendeur_id` int(11) NOT NULL,
-  `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `prenom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `pseudo` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `mail` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `pp` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `mur` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `admin` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `vendeur`
+-- Déchargement des données de la table `vendeur`
 --
 
 INSERT INTO `vendeur` (`vendeur_id`, `nom`, `prenom`, `pseudo`, `mail`, `pp`, `mur`, `admin`) VALUES
@@ -394,155 +402,7 @@ INSERT INTO `vendeur` (`vendeur_id`, `nom`, `prenom`, `pseudo`, `mail`, `pp`, `m
 (5, 'Padding', 'Zahia', 'Zaza', 'zahia.padding@edu.ece.fr', 'pp/randome.jpg', 'background/bleuetoile.jpg', 0),
 (6, 'Stars', 'Caroline', 'Etoilies', 'caroline.stars@edu.ece.fr', 'pp/randome2.jpg', 'background/espace.jpg', 0),
 (7, 'Lacase', 'Alexandre', 'zet-zet', 'alexandre.lacase@edu.ece.fr', 'pp/Unknown.png', 'background/texture-2012078_960_720.jpg', 0);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `achat_immediat`
---
-ALTER TABLE `achat_immediat`
-  ADD PRIMARY KEY (`achat_immediat_id`);
---
--- Indexes for table `acheteur`
---
-ALTER TABLE `acheteur`
-  ADD PRIMARY KEY (`acheteur_id`);
-
---
--- Indexes for table `adresse_livraison`
---
-ALTER TABLE `adresse_livraison`
-  ADD PRIMARY KEY (`adresse_id`);
-
---
--- Indexes for table `carte_bancaire`
---
-ALTER TABLE `carte_bancaire`
-  ADD PRIMARY KEY (`numero`,`nom`);
-
---
--- Indexes for table `compte_bancaire`
---
-ALTER TABLE `compte_bancaire`
-  ADD PRIMARY KEY (`numero_carte`,`nom`);
-
---
--- Indexes for table `connexion_courante`
---
-ALTER TABLE `connexion_courante`
-  ADD PRIMARY KEY (`ip`);
---
--- Indexes for table `encheres`
---
-ALTER TABLE `encheres`
-  ADD PRIMARY KEY (`encheres_id`);
-
---
--- Indexes for table `negociation`
---
-ALTER TABLE `negociation`
-  ADD PRIMARY KEY (`negociation_id`);
-
---
--- Indexes for table `offre`
---
-ALTER TABLE `offre`
-  ADD PRIMARY KEY (`offre_id`);
-
---
--- Indexes for table `panier`
---
-ALTER TABLE `panier`
-  ADD PRIMARY KEY (`acheteur_id`,`produit_id`);
-
---
--- Indexes for table `photo`
---
-ALTER TABLE `photo`
-  ADD PRIMARY KEY (`photo_id`);
-
---
--- Indexes for table `produit`
---
-ALTER TABLE `produit`
-  ADD PRIMARY KEY (`produit_id`);
-
---
--- Indexes for table `transaction`
---
-ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`transaction_id`);
-
---
--- Indexes for table `vendeur`
---
-ALTER TABLE `vendeur`
-  ADD PRIMARY KEY (`vendeur_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `achat_immediat`
---
-ALTER TABLE `achat_immediat`
-  MODIFY `achat_immediat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `acheteur`
---
-ALTER TABLE `acheteur`
-  MODIFY `acheteur_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `adresse_livraison`
---
-ALTER TABLE `adresse_livraison`
-  MODIFY `adresse_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `encheres`
---
-ALTER TABLE `encheres`
-  MODIFY `encheres_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
---
--- AUTO_INCREMENT for table `negociation`
---
-ALTER TABLE `negociation`
-  MODIFY `negociation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `offre`
---
-ALTER TABLE `offre`
-  MODIFY `offre_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `photo`
---
-ALTER TABLE `photo`
-  MODIFY `photo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
-
---
--- AUTO_INCREMENT for table `produit`
---
-ALTER TABLE `produit`
-  MODIFY `produit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT for table `transaction`
---
-ALTER TABLE `transaction`
-  MODIFY `transaction_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `vendeur`
---
-ALTER TABLE `vendeur`
-  MODIFY `vendeur_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
