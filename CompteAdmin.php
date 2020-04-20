@@ -84,7 +84,7 @@
                 <p>
                 37, quai de Grenelle, 75015 Paris, France <br>
                 webDynamique@ece.fr <br>
-                <a href="https://www.ece.fr/ecole-ingenieur/%22%3Ehttps://www.ece.fr/ecole-ingenieur/</a><br>
+                <a href="https://www.ece.fr/ecole-ingenieur/">https://www.ece.fr/ecole-ingenieur/</a><br>
                 </p>
             </div>
         </div>

@@ -197,7 +197,7 @@
         </div>
     </div>
 
-    <footer class="page-footer">
+<footer class="page-footer">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-8 col-sm-12">
@@ -212,7 +212,7 @@
                 <p>
                 37, quai de Grenelle, 75015 Paris, France <br>
                 webDynamique@ece.fr <br>
-                <a href="https://www.ece.fr/ecole-ingenieur/%22%3Ehttps://www.ece.fr/ecole-ingenieur/</a><br>
+                <a href="https://www.ece.fr/ecole-ingenieur/">https://www.ece.fr/ecole-ingenieur/</a><br>
                 </p>
             </div>
         </div>
