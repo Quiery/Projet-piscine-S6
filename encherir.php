@@ -184,7 +184,7 @@ $(document).ready(function(){
         return $ip;
       }
       $database = "ebayece";
-
+      $prod_id=$_GET['id'];
       $db_handle = mysqli_connect('localhost','root','');
       $db_found = mysqli_select_db($db_handle, $database);
       if ($db_found) 
@@ -195,7 +195,7 @@ $(document).ready(function(){
       $nbr=mysqli_num_rows($result);
       if($nbr==0)
       {
-        echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/ConnectionAcheteur.html?site=encherir.php'); </script>"; 
+        echo "<script>window.location.assign('ConnectionAcheteur.php?site=encherir.php?id=$prod_id'); </script>"; 
       }
       else
       {
@@ -257,7 +257,6 @@ $(document).ready(function(){
 
     
 <?php
-  $prod_id=$_GET['id'];
   $database = "ebayece";
 
   $db_handle = mysqli_connect('localhost','root','');

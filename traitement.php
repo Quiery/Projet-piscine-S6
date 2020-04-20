@@ -35,7 +35,7 @@ $prod_id=$_GET['id'];
       $nbr=mysqli_num_rows($result);
       if($nbr==0)
       {
-        echo "<script>window.location.assign('ConnectionAcheteur.html?site=traitement.php?$prod_id'); </script>"; 
+        echo "<script>window.location.assign('ConnectionAcheteur.php?site=traitement.php?id=$prod_id'); </script>"; 
       }
       else
       {

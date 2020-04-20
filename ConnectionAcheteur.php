@@ -106,7 +106,7 @@ function getIp(){
   }
   return $ip;
 }
-
+$ip=getIp();
     $login=isset($_POST["log"])? $_POST["log"] : "";
     $pass=isset($_POST["passw"])? $_POST["passw"] : "";
 
@@ -131,14 +131,25 @@ function getIp(){
         }
         if ($connexion) 
         { 
-          echo "<script>window.location.assign('$site'); </script>"; 
           $sql="SELECT acheteur_id FROM acheteur Where mail like '$login' AND password like '$pass'";
           $result = mysqli_query($db_handle, $sql);
           while($data = mysqli_fetch_assoc($result))
           {
-            $sql ="INSERT INTO connexion_courante (acheteur_id) Values ($data[acheteur_id])";
-            $result = mysqli_query($db_handle, $sql);
+            $sql="SELECT ip from connexion_courante where ip like'$ip'";
+            $result= mysqli_query($db_handle, $sql);
+            $nbr=mysqli_num_rows($result);
+            if($nbr==0)
+            {
+              $sql ="INSERT INTO connexion_courante (ip,acheteur_id) Values ('$ip',$data[acheteur_id])";
+              mysqli_query($db_handle, $sql);
+            }
+            else
+            {
+              $sql="UPDATE connexion_courante set acheteur_id=$data[acheteur_id] WHERE ip like'$ip'";
+              mysqli_query($db_handle, $sql);
+            }
           }
+          echo "<script>window.location.assign('$site'); </script>"; 
         } 
         else 
         { 
