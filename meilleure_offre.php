@@ -155,8 +155,15 @@ border-left: 2px solid black;
           padding:10px 10px 10px 10px;
           border:1px solid #ccc;
 	       box-shadow:1px 1px 3px #999;
+
+         
       }
       
+      input.button2{
+          font:Bold 18px Arial;
+          padding:10px 10px 10px 10px;
+          border:1px solid #ccc;
+	       box-shadow:1px 1px 3px #999;
 
 
 </style>
@@ -329,7 +336,7 @@ $(document).ready(function(){
             else
             {
               echo"<form method='POST'><h4>Votre nouvelle proposition :<input type='text' name='prix_negocie2'/>€</h4>";
-              echo "<input type='submit' name='new2' value='Valider ma nouvelle proposition'></form><br>";
+              echo "<input type='submit' name='new2' class='button2' value='Valider ma nouvelle proposition'/></form><br>";
             }
           
       echo'</div></div>';
@@ -404,7 +411,6 @@ if (isset($_POST["new1"]))
   $result=mysqli_query($db_handle, $sql);
   while($data = mysqli_fetch_assoc($result)){
     $nego=$data['negociation_id'];
-    echo $nego;
     $sql="UPDATE offre set prix_negocie=$p1,tour=1 where acheteur_id=$acheteur_id AND negociation_id=$nego";
     mysqli_query($db_handle, $sql);
     echo "<script>window.location.assign('meilleure_offre.php?id=$prod_id'); </script>";
@@ -418,6 +424,8 @@ if (isset($_POST["new2"]))
     $nego=$data['negociation_id'];
     echo $nego;
     $sql="INSERT INTO offre (prix_negocie,compteur,tour,acheteur_id,negociation_id) Values($p2,0,1,$acheteur_id,$nego) ";
+    mysqli_query($db_handle, $sql);
+    $sql="INSERT INTO panier (acheteur_id,produit_id,methode) Values($acheteur_id,$prod_id,3) ";
     mysqli_query($db_handle, $sql);
     echo "<script>window.location.assign('meilleure_offre.php?id=$prod_id'); </script>";
   }

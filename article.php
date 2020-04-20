@@ -271,7 +271,7 @@ $(document).ready(function(){
               while($data3 = mysqli_fetch_assoc($result3)){
                 echo '<h4> Prix en achat immédiat : '.$data3['prix'].' €</h4><br>';
               }
-              echo'<center><button class="button1">Mettre au panier</button></center><hr>';
+              echo"<center><a href='traitement.php?id=$prod_id'><button class='button1'>Mettre au panier</button></a></center><hr>";
             }
             if($data['encheres_id']!=NULL)
             {
@@ -281,24 +281,52 @@ $(document).ready(function(){
               $result3 = mysqli_query($db_handle, $sql3);
               while($data3 = mysqli_fetch_assoc($result3)){
                 $nbr=$data3['nombre_encheres'];
-                if($nbr<2)
+                date_default_timezone_set('Europe/Paris');
+                $date = date('y-m-d h:i:s');
+                if(strtotime($date) > strtotime($data3['date_fin']))
                 {
-                  echo '<h4> Prix de l\'enchère la plus élevée : '.$data3['prix_init'].' €</h4>';
+                  if($nbr==0)
+                  {
+                    if(($data['achat_immediat_id']==NULL)&&($data['negociation_id']==NULL))
+                    {
+                      $sql="UPDATE produit set statut=1 where produit_id=$prod_id";
+                      mysqli_query($db_handle, $sql);
+                    }
+                    else
+                    {
+                      $sql="UPDATE produit set encheres_id=NULL where produit_id=$prod_id";
+                      mysqli_query($db_handle, $sql);
+                      $sql="DELETE FROM encheres where produit_id=$prod_id";
+                      mysqli_query($db_handle, $sql);
+                    } 
+                  }
+                  else
+                  {
+                    $sql="UPDATE produit set statut=1 where produit_id=$prod_id";
+                    mysqli_query($db_handle, $sql);
+                  }
+                  echo "<script>window.location.assign('HomePage.php'); </script>";
                 }
-                else
-                {
-                  $prix=$data3['prix_min']+1;
-                  echo '<h4> Prix de l\'enchère la plus élevée : '.$prix.' €</h4>';
+                else{
+                  if($nbr<2)
+                  {
+                    echo '<h4> Prix de l\'enchère la plus élevée : '.$data3['prix_init'].' €</h4>';
+                  }
+                  else
+                  {
+                    $prix=$data3['prix_min']+1;
+                    echo '<h4> Prix de l\'enchère la plus élevée : '.$prix.' €</h4>';
+                  }
+                  echo 'Prix de la mise en vente : '.$data3['prix_init'].' €<br>';
+                  echo 'L\'enchère se terminera le : '.$data3['date_fin'].'<br><br>';
+                  echo "<center><a href='encherir.php?id=$prod_id'><button class='button1'>Enchérir</button></a></center><hr>";
                 }
-                echo 'Prix de la mise en vente : '.$data3['prix_init'].' €<br>';
-                echo 'L\'enchère se terminera le : '.$data3['date_fin'].'<br><br>';
-                echo '<center><button class="button1">Enchérir</button></center><hr>';
               }
             }
             if($data['negociation_id']!=NULL)
             {
               echo '<center><U><h3>Négocier avec le vendeur</h3></U></center><br>';
-              echo '<center><button class="button1">Négocier</button></center><hr>';
+              echo "<center><a href='meilleure_offre.php?id=$prod_id'><button class='button1'>Négocier</button></a></center><hr>";
             }
       echo'</div></div>';
       echo'<br><br>';

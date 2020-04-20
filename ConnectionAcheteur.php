@@ -95,6 +95,18 @@
 
 
 <?php
+$site=$_GET['site'];
+function getIp(){
+  if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+    $ip = $_SERVER['HTTP_CLIENT_IP'];
+  }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+    $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+  }else{
+    $ip = $_SERVER['REMOTE_ADDR'];
+  }
+  return $ip;
+}
+
     $login=isset($_POST["log"])? $_POST["log"] : "";
     $pass=isset($_POST["passw"])? $_POST["passw"] : "";
 
@@ -119,7 +131,7 @@
         }
         if ($connexion) 
         { 
-          echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/ConnectionAcheteur.html'); </script>"; 
+          echo "<script>window.location.assign('$site'); </script>"; 
           $sql="SELECT acheteur_id FROM acheteur Where mail like '$login' AND password like '$pass'";
           $result = mysqli_query($db_handle, $sql);
           while($data = mysqli_fetch_assoc($result))

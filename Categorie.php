@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 <head>
@@ -209,7 +208,7 @@ border-left: 2px solid black;
                   while($data2 = mysqli_fetch_assoc($result2))
                   {
                     $image=$data2['reference'];
-                    echo "<a href='#'><img src='$image' style='height: 200px; width: auto; max-width: 400px;'></a>";
+                    echo "<a href='article.php?id=$data[produit_id]'><img src='$image' style='height: 200px; width: auto; max-width: 400px;'></a>";
                   }
 
                   echo "<br>".$data['nom']."<br>";

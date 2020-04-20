@@ -409,7 +409,7 @@ if (isset($_POST["new"]))
   $result = mysqli_query($db_handle, $sql);
   while($data = mysqli_fetch_assoc($result))
   {
-    if($prop<$prix)
+    if(($prop<$prix)||($prop<$data['prix_init']))
     {
       echo "<script>alert('Enchère non valide');</script>"; 
     }
@@ -419,6 +419,8 @@ if (isset($_POST["new"]))
       {
         $sql="UPDATE encheres set prix_min=prix_init,prix_max=$prop,acheteur_id=$acheteur_id,nombre_encheres=nombre_encheres+1 where encheres_id=$ench";
         mysqli_query($db_handle, $sql);
+        $sql="INSERT INTO panier (acheteur_id,produit_id,methode) Values($acheteur_id,$prod_id,2) ";
+        mysqli_query($db_handle, $sql);
       }
       else
       {
@@ -426,6 +428,14 @@ if (isset($_POST["new"]))
         {
           if($data['acheteur_id']!=$acheteur_id)
             {
+              $sql="SELECT * from panier where acheteur_id=$acheteur_id AND produit_id=$prod_id AND methode=2";
+              $result=mysqli_query($db_handle, $sql);
+              $nbr=mysqli_num_rows($result);
+              if($nbr==0)
+              {
+                $sql="INSERT INTO panier (acheteur_id,produit_id,methode) Values($acheteur_id,$prod_id,2) ";
+                mysqli_query($db_handle, $sql);
+              }
               $sql="UPDATE encheres set prix_min=prix_max,prix_max=$prop,acheteur_id=$acheteur_id,nombre_encheres=nombre_encheres+1 where encheres_id=$ench";
             }
             else
@@ -440,6 +450,14 @@ if (isset($_POST["new"]))
             {
               $sql="UPDATE encheres set prix_min=$prop,nombre_encheres=nombre_encheres+1 where encheres_id=$ench";
               mysqli_query($db_handle, $sql);
+              $sql="SELECT * from panier where acheteur_id=$acheteur_id AND produit_id=$prod_id AND methode=2";
+              $result=mysqli_query($db_handle, $sql);
+              $nbr=mysqli_num_rows($result);
+              if($nbr==0)
+              {
+                $sql="INSERT INTO panier (acheteur_id,produit_id,methode) Values($acheteur_id,$prod_id,2) ";
+                mysqli_query($db_handle, $sql);
+              }
             }
         }
       }
