@@ -132,9 +132,8 @@ border-left: 2px solid black;
 
       
       button.button1{
-          display: flex;
-          justify-content: flex-end;
           font:Bold 18px Arial;
+          color: black;
           padding:10px 10px 10px 10px;
           border:1px solid #ccc;
 	       box-shadow:1px 1px 3px #999;
@@ -198,38 +197,58 @@ border-left: 2px solid black;
     
     
 
-<div class="container">    
-    <div class="row">
-        <div class="col-sm-6">
-            <h2>Article_name</h2>
-            <br><br><br>
-            <form>
-            <h4>Dernière proposition de Nom_client :</h4>
-            <br>
-            <input type='submit' name='valider' value='Valider sa proposition'>
-            <br><br>
-            <h4>Votre nouvelle proposition :<input type='text' name='prop'>€</h4>
-            <br>
-            <input type='submit' name='new' value='Soumettre ma proposition' margin-left='20%'>
-                <br><br><hr><br><br>
-                
-            <SCRIPT LANGUAGE="JavaScript">
-                    for (var num=1; num<=15; num++) {
-                     document.writeln("<h4>Dernière proposition de Nom_client :</h4><br><input type='submit' name='prop' value='Valider sa proposition'><br><br><h4>Votre nouvelle proposition :<input type='text' name='prop'>€</h4><br><input type='submit' name='prop' value='Soumettre ma proposition'><br><br><hr><br><br>");
-                    }
-            </SCRIPT>
-            </form>
+<div class="container">   
+    
+    <?php   
+                $negociation_id=isset($_GET['negociation_id'])?$_GET['negociation_id'] : "";
+                $prix_negocie=isset($_GET['prix_negocie'])?$_GET['prix_negocie'] : "";
+                $offre_id=isset($_GET['offre_id'])?$_GET['offre_id'] : "";
+              $database = "ebayece";
+    
 
-        </div>
-    </div>
-    <br><br>
-    <div class="row"  style="display: flex; justify-content: center;">
-        <div class="col-sm-8">
-            <h5>Description bjhsdvdubdsjk dshvcsbwc dcsbcus nqdbhddsfhd bufbsdjhbc hbfdbsbc bdubdjvh dhqsbduhbqhubsdc hqbsduhsbuh c nchjdvcueq  fcjhebfisbc jsebfb czej cuy ahzjcvyscvdsb cjscvdvx</h5>
-        </div>
+              $db_handle = mysqli_connect('localhost','root','root');
+              $db_found = mysqli_select_db($db_handle, $database);
+              if ($db_found) 
+              {
+                  
+                  $sql = "SELECT nom FROM produit WHERE negociation_id='$negociation_id'";
+                  $result2=mysqli_query($db_handle, $sql);
+                  while($data2 = mysqli_fetch_assoc($result2))
+                {
+                  echo "<h3> $data2[nom] </h3><br>";
+                  }
+                  if($prix_negocie != "")
+                        {
+                            echo "lalalla";
+                            $sql = "UPDATE offre SET tour=0, prix_negocie=$prix_negocie WHERE offre_id = $offre_id";
+                            mysqli_query($db_handle, $sql);
+                        }
+
+                  $sql = "SELECT * FROM offre WHERE tour=1 AND negociation_ID LIKE '$negociation_id'";
+                  $result = mysqli_query($db_handle, $sql);
+                while($data = mysqli_fetch_assoc($result))
+                {
+                    $acheteur_id=$data[acheteur_id];
+                    $sql = "SELECT nom FROM acheteur WHERE acheteur_id='$acheteur_id'";
+                  $result3=mysqli_query($db_handle, $sql);
+                  while($data3 = mysqli_fetch_assoc($result3))
+                {
+                  echo "<h4>Dernière proposition de $data3[nom] :";
+                  }
+                    
+                  echo " $data[prix_negocie] €</h4><br><a href='Vendre.php?negociation_id=$negociation_id&statut=1'><button class=button1>Valider sa proposition</button></a><br><br>";
+                  echo "<form method='POST'><h4>Votre nouvelle proposition :<input type='text' name='prix_negocie'/>€</h4><br>";
+                    echo "<input type='submit' value='Enregistrer ma proposition'></form><br>";
+                    $prix_negocie=$_POST['prix_negocie'];
+                    echo "<a href='Negociation_vendeur.php?negociation_id=$negociation_id&prix_negocie=$prix_negocie&offre_id=$data[offre_id]'><button class=button1>Envoyer</button></a><br><br><hr><br><br>";
+                } 
+
+              }
+              mysqli_close($db_handle);
+            ?>
     
     
-    </div>
+ 
 </div><br>
 
     

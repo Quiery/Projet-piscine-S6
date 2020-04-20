@@ -204,6 +204,8 @@ border-left: 2px solid black;
     <div class="container text-center">    
             <?php
             $vendeur_id=isset($_GET['vendeur_id'])?$_GET['vendeur_id'] : "";
+
+            $vendeur_id=isset($_GET['vendeur_id'])?$_GET['vendeur_id'] : "";
             
               $database = "ebayece";
 
@@ -211,6 +213,7 @@ border-left: 2px solid black;
               $db_found = mysqli_select_db($db_handle, $database);
               if ($db_found) 
               {
+
                   if($vendeur_id != "")
                         {
                             $sql = "UPDATE produit SET statut=1 WHERE vendeur_id = $vendeur_id";
