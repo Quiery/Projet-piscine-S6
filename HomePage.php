@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Bootstrap Example</title>
+  <title>Home Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -60,8 +60,6 @@
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-    <li data-target="#myCarousel" data-slide-to="3"></li>
   </ol>
 
   <!-- Wrapper for slides -->
@@ -70,166 +68,83 @@
     <div class="item active">
       <div class="col-lg-4" >
         <div class="card mb-2" id="col-carou">
-          <img class="card-img-top"
+          <a href="achats.php?achats=Achats Immediats"><img class="card-img-top"
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
             id="img_carou"
             alt="Card image cap">
         </div>
         <div class="card-body" id="card-body-1"> 
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
-        </div> 
+          <h5 class="card-title">Achat Immédiat --> Prix: 21,7 millions €</h5>
+          <p class="card-text">Montre Suisse Grandmaster Chime 6300A-010</p>
+        </div>
+        </a>
       </div>
 
         <div class="col-lg-4" >
           <div class="card mb-2" id="col-carou">
-            <img class="card-img-top"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+          <a href="achats.php?achats=Enchères"><img class="card-img-top"
+              src="https://www.expertisez.com/images/Gaston_Anglade.jpg"
               id="img_carou"
               alt="Card image cap">
           </div>
           <div class="card-body" id="card-body-1"> 
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+            <h5 class="card-title">Enchère   -->   Prix: 300€</h5>
+            <p class="card-text">Tableau de Gaston Anglade</p>
           </div> 
         </div>
 
       <div class="col-lg-4">
         <div class="card mb-2" id="col-carou">
-          <img class="card-img-top"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+        <a href="achats.php?achats=Meilleure Offre"><img class="card-img-top"
+            src="https://magazine.interencheres.com/wp-content/uploads/2018/11/Sans-titre-1-6-750x562.jpg"
             id="img_carou"
             alt="Card image cap">
         </div>
         <div class="card-body" id="card-body-1"> 
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <h5 class="card-title">Meilleur Offre   -->   Prix: 100k€</h5>
+          <p class="card-text">Vase de Jacques Guerlain<p>
         </div> 
       </div>
 
   </div>
 
-  <div class="item">
-    <div class="col-lg-4" >
-      <div class="card mb-2" id="col-carou">
-        <img class="card-img-top"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
-          id="img_carou"
-          alt="Card image cap">
-      </div>
-      <div class="card-body" id="card-body-1"> 
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
-      </div> 
-    </div>
-
-      <div class="col-lg-4" >
-        <div class="card mb-2" id="col-carou">
-          <img class="card-img-top"
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
-            id="img_carou"
-            alt="Card image cap">
-        </div>
-        <div class="card-body" id="card-body-1"> 
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
-        </div> 
-      </div>
-
-    <div class="col-lg-4">
-      <div class="card mb-2" id="col-carou">
-        <img class="card-img-top"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
-          id="img_carou"
-          alt="Card image cap">
-      </div>
-      <div class="card-body" id="card-body-1"> 
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      </div> 
-    </div>
-
-</div>
-
 <div class="item">
   <div class="col-lg-4" >
     <div class="card mb-2" id="col-carou">
-      <img class="card-img-top"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+    <a href="achats.php?achats=Achats Immediats"><img class="card-img-top"
+        src="https://www.primardeco.com/uploads/media/product/0001/14/thumb_13807_product_small.jpeg"
         id="img_carou"
         alt="Card image cap">
     </div>
     <div class="card-body" id="card-body-1"> 
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+      <h5 class="card-title">Achat Immédiat  -->    Prix: 3000€ </h5>
+      <p class="card-text">Tapisserie d'Aubusson XVIIE 'CÉRÈS SUR SON CHAR TIRÉ PAR DEUX LIONS'</p>
     </div> 
   </div>
 
     <div class="col-lg-4" >
       <div class="card mb-2" id="col-carou">
-        <img class="card-img-top"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+      <a href="achats.php?achats=Enchères"><img class="card-img-top"
+          src="https://chenalotte.org/wp-content/uploads/2019/11/Zingg_2-672x372.jpg"
           id="img_carou"
           alt="Card image cap">
       </div>
       <div class="card-body" id="card-body-1"> 
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
+        <h5 class="card-title">Enchère   -->   Prix: 2000€ </h5>
+        <p class="card-text">Paysage du Haut-Doubs, la Chenalotte en hiver de Jules-Émile Zingg</p>
       </div> 
     </div>
 
   <div class="col-lg-4">
     <div class="card mb-2" id="col-carou">
-      <img class="card-img-top"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
+    <a href="achats.php?achats=Meilleure Offre"><img class="card-img-top"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSiwFvNsY2u0UwmK3AVZlzjnNAleK928Cu2z57RZKEE29XGowH9&usqp=CAU"
         id="img_carou"
         alt="Card image cap">
     </div>
     <div class="card-body" id="card-body-1"> 
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    </div> 
-  </div>
-
-</div>
-
-<div class="item">
-  <div class="col-lg-4" >
-    <div class="card mb-2" id="col-carou">
-      <img class="card-img-top"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
-        id="img_carou"
-        alt="Card image cap">
-    </div>
-    <div class="card-body" id="card-body-1"> 
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
-    </div> 
-  </div>
-
-    <div class="col-lg-4" >
-      <div class="card mb-2" id="col-carou">
-        <img class="card-img-top"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
-          id="img_carou"
-          alt="Card image cap">
-      </div>
-      <div class="card-body" id="card-body-1"> 
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bffffffffffffffffffffffffffffffffffffffffffffffulk of the card's content.</p>
-      </div> 
-    </div>
-
-  <div class="col-lg-4">
-    <div class="card mb-2" id="col-carou">
-      <img class="card-img-top"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRTA-bKuvjnvKDbDWU5-mj4n03-LtCEWUFNI3yupAIT13R5_bOt&usqp=CAU"
-        id="img_carou"
-        alt="Card image cap">
-    </div>
-    <div class="card-body" id="card-body-1"> 
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      <h5 class="card-title">Meilleur Offre   -->   Prix:2800€ </h5>
+      <p class="card-text">Bague sertie d'un saphir de ceylan 28 carats</p>
     </div> 
   </div>
 
@@ -246,28 +161,6 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-
-<div class="container text-center">    
-  <h3>What We Do</h3><br>
-  <div class="row">
-    <div class="col-sm-4">
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Current Project</p>
-    </div>
-    <div class="col-sm-4"> 
-      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-      <p>Project 2</p>    
-    </div>
-    <div class="col-sm-4">
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-      <div class="well">
-       <p>Some text..</p>
-      </div>
-    </div>
-  </div>
-</div><br>
 
 <footer class="page-footer">
     <div class="container">
