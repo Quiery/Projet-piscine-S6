@@ -121,7 +121,7 @@ function getIp(){
     $sql="UPDATE connexion_courante SET AcheteurID='NULL' where ip=$ip";
     mysqli_close($db_handle);
 
-    echo "windows.location.assign(HomePage.php)";
+    echo "<script> windows.location.assign(HomePage.php)</script>";
   }
 }
 ?>
