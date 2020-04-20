@@ -17,6 +17,11 @@ a {
     text-decoration: none;
 }
 
+body{
+
+background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7EJVYpfaWmsL3tYPzKrDF-z5sLZeR8FJzXVWyQH1KRnIB9krK&usqp=CAU);
+
+}
 
   
  .btn-default {
@@ -25,10 +30,6 @@ a {
     margin: 0px 170px;
 }
 
-body{
-
-
-}
 
 .container {
     padding-right: 15px;
@@ -36,6 +37,7 @@ body{
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 20px;
+    background-color:white;
 }
       
       #Resultat {

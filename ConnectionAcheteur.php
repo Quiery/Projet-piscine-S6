@@ -55,11 +55,11 @@
 </nav>
 
 
-<form id="form_connect">
+<form id="form_connect" method="post">
     <h1>Connectez-vous pour acheter</h1><br>
-    <input id="connexion" type="text" placeholder="Login ou Email"><br>
-    <input id="connexion" type="password" placeholder="Mot de Passe"><br>
-    <input type="submit" name="Valider" value="Valider"></input><br><br><br>
+    <input id="connexion" type="text" placeholder="Login ou Email" name="log"><br>
+    <input id="connexion" type="password" placeholder="Mot de Passe" name="passw"><br>
+    <input type="submit" name="button" value="Valider"></submit><br><br><br>
     <button>Creer un compte</button>
 </form>
 
@@ -102,7 +102,7 @@
 
     $db_handle = mysqli_connect('localhost','root','');
     $db_found = mysqli_select_db($db_handle, $database);
-    if ($_POST["button"])
+    if (isset($_POST["button"]))
     {
       if ($db_found) 
       {

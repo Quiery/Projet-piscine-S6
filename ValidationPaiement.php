@@ -25,6 +25,11 @@ background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7
 
 }
 
+a {
+    color: #ffe841;
+    text-decoration: none;
+}
+
 .card-body{
 
 color: white;
