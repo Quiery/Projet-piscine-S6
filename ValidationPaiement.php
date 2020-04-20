@@ -421,7 +421,7 @@ if (isset($_POST["new"]))
             else
             {
                 echo "<script>alert('Paiement acceptée');</script>"; 
-                $sql2="SELECT produit_id from panier where acheteur_id=$acheteur_id and methode=1";
+                $sql2="SELECT produit_id from panier where acheteur_id=$acheteur_id and methode=1 and statut=0";
                 $result2 = mysqli_query($db_handle, $sql2);
                 while($data2 = mysqli_fetch_assoc($result2))
                 {

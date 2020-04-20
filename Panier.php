@@ -271,7 +271,7 @@ echo'<div class="container">';
     $sql="SELECT SUM(a.prix) from achat_immediat as a INNER JOIN 
     (SELECT b.produit_id, b.achat_immediat_id from produit as b INNER JOIN 
     (SELECT produit_id from panier where methode=1 AND acheteur_id=$acheteur_id) as c
-     ON b.produit_id=c.produit_id)as d 
+     ON b.produit_id=c.produit_id where statut=0)as d 
      ON a.achat_immediat_id=d.achat_immediat_id";
      $result = mysqli_query($db_handle, $sql);
      while($data = mysqli_fetch_assoc($result))
@@ -284,7 +284,7 @@ echo'<div class="container">';
     echo'</div>';
     echo'<br><br><br><br>';
     echo'<h2><U> Mes achats immédiats</U></h2><br>';
-    $sql="SELECT a.produit_id,a.achat_immediat_id,a.nom,a.description from produit as a INNER JOIN panier as b ON a.produit_id=b.produit_id Where b.acheteur_id=$acheteur_id and methode=1";
+    $sql="SELECT a.produit_id,a.achat_immediat_id,a.nom,a.description from produit as a INNER JOIN panier as b ON a.produit_id=b.produit_id Where b.acheteur_id=$acheteur_id and methode=1 and statut=0";
     $result = mysqli_query($db_handle, $sql);
     while($data = mysqli_fetch_assoc($result))
     {
@@ -310,7 +310,7 @@ echo'<div class="container">';
       echo " <div class='col-sm-3'><a href='Panier.php?produit_id=$data[produit_id]&methode=1'><button class='buttonred' >Supprimer</button></a></div></div><hr>";
     }
     echo'<br><h2><U> Mes enchères</U></h2><br>';
-    $sql="SELECT a.produit_id,a.encheres_id,a.nom,a.description,b.methode from produit as a INNER JOIN panier as b ON a.produit_id=b.produit_id Where b.acheteur_id=$acheteur_id and methode=2";
+    $sql="SELECT a.produit_id,a.encheres_id,a.nom,a.description,b.methode from produit as a INNER JOIN panier as b ON a.produit_id=b.produit_id Where b.acheteur_id=$acheteur_id and methode=2 and statut=0";
     $result = mysqli_query($db_handle, $sql);
     while($data = mysqli_fetch_assoc($result))
     {
@@ -336,7 +336,7 @@ echo'<div class="container">';
       echo " <div class='col-sm-3'><a href='Panier.php?produit_id=$data[produit_id]&methode=2'><button class='buttonred' >Supprimer</button></a></div></div><hr>";
     }
     echo'<br><h2><U> Mes négociations</U></h2><br>';
-    $sql="SELECT a.produit_id,a.nom,a.description,b.methode from produit as a INNER JOIN panier as b ON a.produit_id=b.produit_id Where b.acheteur_id=$acheteur_id and methode=3";
+    $sql="SELECT a.produit_id,a.nom,a.description,b.methode from produit as a INNER JOIN panier as b ON a.produit_id=b.produit_id Where b.acheteur_id=$acheteur_id and methode=3 and statut=0";
     $result = mysqli_query($db_handle, $sql);
     while($data = mysqli_fetch_assoc($result))
     {
