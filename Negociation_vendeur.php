@@ -209,12 +209,19 @@ border-left: 2px solid black;
               if ($db_found) 
               {
                   
+<<<<<<< HEAD
                   $sql = "SELECT nom,produit_id FROM produit WHERE negociation_id=$negociation_id";
+=======
+                  $sql = "SELECT nom FROM produit WHERE negociation_id=$negociation_id";
+>>>>>>> FT_Quiery
                   $result2=mysqli_query($db_handle, $sql);
                   while($data2 = mysqli_fetch_assoc($result2))
                   {
                     echo "<h3> $data2[nom] </h3><br>";
+<<<<<<< HEAD
                     $produit_id=$data2['produit_id'];
+=======
+>>>>>>> FT_Quiery
                   }
                   $d=0;
                   $sql = "SELECT prix_negocie,acheteur_id,offre_id FROM offre WHERE tour=1 AND negociation_id=$negociation_id";
@@ -243,8 +250,11 @@ border-left: 2px solid black;
                   {
                     $sql = "UPDATE produit SET statue=1 WHERE negociation_id=$negociation_id";
                     mysqli_query($db_handle, $sql);
+<<<<<<< HEAD
                     $sql="DELETE FROM panier where produit_id=$produit_id";
                     mysqli_query($db_handle, $sql);
+=======
+>>>>>>> FT_Quiery
                     echo "<script>window.location.assign('Vendre.php'); </script>";
                   }
                   if(isset($_POST[$n]))

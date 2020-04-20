@@ -205,7 +205,6 @@ border-left: 2px solid black;
             <?php
             $vendeur_id=isset($_GET['vendeur_id'])?$_GET['vendeur_id'] : "";
 
-            $vendeur_id=isset($_GET['vendeur_id'])?$_GET['vendeur_id'] : "";
             
               $database = "ebayece";
 

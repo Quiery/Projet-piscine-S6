@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-  <title>Validation paiement</title>
+  <title>Votre compte</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -24,13 +23,6 @@ body{
 
 
 }
-
-
-a {
-    color: #ffe841;
-    text-decoration: none;
-}
-
 
 .card-body{
 
@@ -207,12 +199,6 @@ td, th {
     background-color: blanchedalmond;
 }
 
-button.button1{
-          font:Bold 18px Arial;
-          padding:10px 10px 10px 10px;
-          border:1px solid #ccc;
-	       box-shadow:1px 1px 3px #999;
-      }
 
 
 </style>
@@ -220,42 +206,6 @@ button.button1{
 
 </head>
 <body>
-<?php
-      function getIp(){
-        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-          $ip = $_SERVER['HTTP_CLIENT_IP'];
-        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }else{
-          $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        return $ip;
-      }
-      $database = "ebayece";
-
-      $db_handle = mysqli_connect('localhost','root','');
-      $db_found = mysqli_select_db($db_handle, $database);
-      if ($db_found) 
-      {
-      $ip=getIp();
-      $sql="SELECT ip,acheteur_id from connexion_courante WHERE ip LIKE'$ip' AND acheteur_id IS NOT NULL";
-      $result = mysqli_query($db_handle, $sql);
-      $nbr=mysqli_num_rows($result);
-      if($nbr==0)
-      {
-        echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/ConnectionAcheteur.html?site=encherir.php'); </script>"; 
-      }
-      else
-      {
-        while($data = mysqli_fetch_assoc($result))
-        {
-          $acheteur_id=$data['acheteur_id'];
-        }
-      }
-      
-    }
-?>
-
 
 <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="#"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
@@ -306,16 +256,16 @@ button.button1{
         $prix=$_GET['prix'];
         $database = "ebayece";
 
-              $db_handle = mysqli_connect('localhost','root','');
+              $db_handle = mysqli_connect('localhost','root','root');
               $db_found = mysqli_select_db($db_handle, $database);
               if ($db_found) 
               {
-                  $sql = "SELECT * FROM acheteur WHERE acheteur_id=$acheteur_id";
+                  $sql = "SELECT * FROM acheteur WHERE acheteur_id LIKE '$acheteur_id'";
                     $result = mysqli_query($db_handle, $sql);
                   while($data = mysqli_fetch_assoc($result))
                 {
                   echo "<form id='form_compte'>
-            <h1>Validation paiement</h1><br>
+            <h1>Votre compte</h1><br>
             <h3>Vos données personnelles</h3>
             <table>
                 <tr>
@@ -343,13 +293,11 @@ button.button1{
                     <td>Email: $data[mail] </td>
                 </tr>
             </table>";
-                
             
-                $sql = "SELECT * FROM compte_bancaire WHERE numero_carte LIKE '$data[carte_id]'";
+                $sql = "SELECT * FROM carte_bancaire WHERE numero_carte LIKE '$data[carte_id]'";
                     $result2 = mysqli_query($db_handle, $sql);
                   while($data2 = mysqli_fetch_assoc($result2))
                 {
-                    $carte=$data2['numero_carte'];
                       echo "
                         <h3>Vos données bancaires</h3>
                         <table>
@@ -368,73 +316,18 @@ button.button1{
                             <tr>
                                 <td>Cryptogramme: $data2[code]</td>
                             </tr>       
+                                }
                         </table>";
                       
-                } 
-              
-                echo "
-            
-            <br><input id='creer_compte_perso' type='checkbox' required> J'ai lu et j'accepte les conditions générales de ventes </input><br><br><br><br><br>
-        </form>
-    </div>
-    <div class='side'>
-        <h1>Montant Total: <br>
-            $prix €
-            
-        </h1>
-        <form method='POST'><input type='submit' name='new' value='Valider les informations et payer'>";
-            }
+
+    
+                   }
         }
         ?>
-        </div>
+    </div>
 
 </div>
 
-<?php
-if (isset($_POST["new"]))
-{
-    $sql="SELECT numero_carte,nom,type,date_expiration,code from carte_bancaire 
-    WHere numero_carte IN ( SELECT numero_carte FROM compte_bancaire)
-    AND nom IN ( SELECT nom FROM compte_bancaire)
-    AND type IN ( SELECT type FROM compte_bancaire)
-    AND date_expiration IN ( SELECT date_expiration FROM compte_bancaire)
-    AND code IN ( SELECT code FROM compte_bancaire)
-    AND numero_carte LIKE '$carte'";
-    $result = mysqli_query($db_handle, $sql);
-    $nbr=mysqli_num_rows($result);
-    if($nbr==0)
-    {
-        echo "<script>alert('Paiement refusée');</script>"; 
-    }
-    else
-    {
-
-        $sql="SELECT plafond from compte_bancaire where numero_carte like '$carte'";
-        $result = mysqli_query($db_handle, $sql);
-        while($data = mysqli_fetch_assoc($result))
-        {
-            if($data['plafond']<$prix)
-            {
-                echo "<script>alert('Paiement refusée');</script>"; 
-            }
-            else
-            {
-                echo "<script>alert('Paiement acceptée');</script>"; 
-                $sql2="SELECT produit_id from panier where acheteur_id=$acheteur_id and methode=1 and statut=0";
-                $result2 = mysqli_query($db_handle, $sql2);
-                while($data2 = mysqli_fetch_assoc($result2))
-                {
-                    $sql3="UPDATE produit set statut=1 where produit_id=$data2[produit_id]";
-                    mysqli_query($db_handle, $sql3);
-                    $sql3="DELETE from panier where produit_id=$data2[produit_id]";
-                    mysqli_query($db_handle, $sql3);
-                }
-                echo "<script>window.location.assign('HomePage.php'); </script>";
-            }
-        }
-    }
-}
-?>
 
 
 
@@ -467,8 +360,6 @@ if (isset($_POST["new"]))
     </div>
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique.ece.fr</div>
 </footer>
-
-
 
 
 
