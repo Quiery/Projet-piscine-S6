@@ -123,7 +123,7 @@ $(document).ready(function(){
               while($data3 = mysqli_fetch_assoc($result3)){
                 echo '<h4> Prix en achat immédiat : '.$data3['prix'].' €</h4><br>';
               }
-              echo"<center><a href='traitement.php?id=$prod_id'><button class='button1'>Mettre au panier</button></a></center><hr>";
+              echo"<center><button class='button1' href='traitement.php?id=$prod_id>Mettre au panier</button></center><hr>";
             }
             if($data['encheres_id']!=NULL)
             {
@@ -171,14 +171,14 @@ $(document).ready(function(){
                   }
                   echo 'Prix de la mise en vente : '.$data3['prix_init'].' €<br>';
                   echo 'L\'enchère se terminera le : '.$data3['date_fin'].'<br><br>';
-                  echo "<center><a href='encherir.php?id=$prod_id'><button class='button1'>Enchérir</button></a></center><hr>";
+                  echo "<center><button class='button1' href='encherir.php?id=$prod_id'>Enchérir</button></center><hr>";
                 }
               }
             }
             if($data['negociation_id']!=NULL)
             {
               echo '<center><U><h3>Négocier avec le vendeur</h3></U></center><br>';
-              echo "<center><a href='meilleure_offre.php?id=$prod_id'><button class='button1'>Négocier</button></a></center><hr>";
+              echo "<center><button class='button1' href='meilleure_offre.php?id=$prod_id'>Négocier</button></center><hr>";
             }
       echo'</div></div>';
       echo'<br><br>';

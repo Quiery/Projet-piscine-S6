@@ -91,7 +91,6 @@
 
 
 <?php
-$site=$_GET['site'];
 function getIp(){
   if(!empty($_SERVER['HTTP_CLIENT_IP'])){
     $ip = $_SERVER['HTTP_CLIENT_IP'];
@@ -127,7 +126,7 @@ $ip=getIp();
         }
         if ($connexion) 
         { 
-          $sql="SELECT vendeur_id FROM vendeur Where mail like '$login' AND password like '$pass'";
+          $sql="SELECT vendeur_id,admin FROM vendeur Where mail like '$login' AND password like '$pass'";
           $result = mysqli_query($db_handle, $sql);
           while($data = mysqli_fetch_assoc($result))
           {
@@ -144,8 +143,15 @@ $ip=getIp();
               $sql="UPDATE connexion_courante set vendeur_id=$data[vendeur_id] WHERE ip like'$ip'";
               mysqli_query($db_handle, $sql);
             }
+            if($data['admin']==0)
+            {
+              echo "<script>window.location.assign('Vendre.php'); </script>"; 
+            }
+            else
+            {
+              echo "<script>window.location.assign('CompteAdmin.php'); </script>";
+            }
           }
-          echo "<script>window.location.assign('$site'); </script>"; 
         } 
         else 
         { 
