@@ -168,9 +168,12 @@ $(document).ready(function(){
   });
 </script>
             
+<script>$(body).css(background-image, url(background.jpg))</script>';
 
 </head>
 <body>
+
+css();
 
 <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="#"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
@@ -391,6 +394,8 @@ $(document).ready(function(){
     </div>
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique.ece.fr</div>
 </footer>
+<?php 
+?>
 </body>
 </html>
 
