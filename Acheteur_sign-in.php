@@ -12,6 +12,7 @@
 </head>
 <body>
 
+<?php $site=$_GET['site']; ?>
 
 <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="HomePage.php"><img src="https://le-marche-eclectique.com/wp-content/uploads/2017/03/tribunal-maillet.png" 
@@ -58,7 +59,8 @@
     
     <div class="row" id="flex">
     <div class="main">
-        <form  method='POST'>
+        
+        <form  method='POST' action='ConnectionAcheteur?site=<?php$site?>'>
             <h1>Créer un compte acheteur</h1><br>
             <h3>Vos données personnelles</h3>
             <table>
@@ -107,8 +109,8 @@
                             <tr>
                                 <td>Cryptogramme: <input type='text' name='code'/></td>
                             </tr>
-                            </table>
-                            <input type='submit' name='valider' value='Valider'></form><br>;
+                        </table>
+                        <input type='submit' name='valider' value='Valider'></form><br>;
                       
 <?php
         $database = "ebayece";

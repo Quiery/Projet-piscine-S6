@@ -12,6 +12,8 @@
 </head>
 <body>
 
+<?php $site=$_GET['site']; ?>
+
 <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="HomePage.php"><img src="https://le-marche-eclectique.com/wp-content/uploads/2017/03/tribunal-maillet.png" 
     class="img-responsive" style="width: 70px; height: 50px;"></a>
@@ -61,7 +63,7 @@
     <input id="connexion" type="text" placeholder="Login ou Email" name="log"><br>
     <input id="connexion" type="password" placeholder="Mot de Passe" name="passw"><br>
     <input type="submit" name="button" value="Valider"></submit><br><br><br>
-    <button>Creer un compte</button>
+    <?php echo"<button href='Acheteur_sign-in?site=$site'>Creer un compte</button>"?>
 </form>
 
 <footer class="page-footer">
