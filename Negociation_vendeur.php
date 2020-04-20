@@ -200,51 +200,62 @@ border-left: 2px solid black;
 <div class="container">   
     
     <?php   
-                $negociation_id=isset($_GET['negociation_id'])?$_GET['negociation_id'] : "";
-                $prix_negocie=isset($_GET['prix_negocie'])?$_GET['prix_negocie'] : "";
-                $offre_id=isset($_GET['offre_id'])?$_GET['offre_id'] : "";
+              $negociation_id=isset($_GET['negociation_id'])?$_GET['negociation_id'] : "";
               $database = "ebayece";
     
 
-              $db_handle = mysqli_connect('localhost','root','root');
+              $db_handle = mysqli_connect('localhost','root','');
               $db_found = mysqli_select_db($db_handle, $database);
               if ($db_found) 
               {
                   
-                  $sql = "SELECT nom FROM produit WHERE negociation_id='$negociation_id'";
+                  $sql = "SELECT nom FROM produit WHERE negociation_id=$negociation_id";
                   $result2=mysqli_query($db_handle, $sql);
                   while($data2 = mysqli_fetch_assoc($result2))
-                {
-                  echo "<h3> $data2[nom] </h3><br>";
+                  {
+                    echo "<h3> $data2[nom] </h3><br>";
                   }
-                  if($prix_negocie != "")
-                        {
-                            echo "lalalla";
-                            $sql = "UPDATE offre SET tour=0, prix_negocie=$prix_negocie WHERE offre_id = $offre_id";
-                            mysqli_query($db_handle, $sql);
-                        }
-
-                  $sql = "SELECT * FROM offre WHERE tour=1 AND negociation_ID LIKE '$negociation_id'";
+                  $d=0;
+                  $sql = "SELECT prix_negocie,acheteur_id,offre_id FROM offre WHERE tour=1 AND negociation_id=$negociation_id";
                   $result = mysqli_query($db_handle, $sql);
-                while($data = mysqli_fetch_assoc($result))
-                {
-                    $acheteur_id=$data[acheteur_id];
-                    $sql = "SELECT nom FROM acheteur WHERE acheteur_id='$acheteur_id'";
-                  $result3=mysqli_query($db_handle, $sql);
-                  while($data3 = mysqli_fetch_assoc($result3))
-                {
-                  echo "<h4>Dernière proposition de $data3[nom] :";
-                  }
+                  while($data = mysqli_fetch_assoc($result))
+                  {
+                    $acheteur_id=$data['acheteur_id'];
+                    $sql = "SELECT nom FROM acheteur WHERE acheteur_id=$acheteur_id";
+                    $result3=mysqli_query($db_handle, $sql);
+                    while($data3 = mysqli_fetch_assoc($result3))
+                    {
+                      echo "<h4>Dernière proposition de $data3[nom] :";
+                    }
                     
-                  echo " $data[prix_negocie] €</h4><br><a href='Vendre.php?negociation_id=$negociation_id&statut=1'><button class=button1>Valider sa proposition</button></a><br><br>";
-                  echo "<form method='POST'><h4>Votre nouvelle proposition :<input type='text' name='prix_negocie'/>€</h4><br>";
-                    echo "<input type='submit' value='Enregistrer ma proposition'></form><br>";
-                    $prix_negocie=$_POST['prix_negocie'];
-                    echo "<a href='Negociation_vendeur.php?negociation_id=$negociation_id&prix_negocie=$prix_negocie&offre_id=$data[offre_id]'><button class=button1>Envoyer</button></a><br><br><hr><br><br>";
-                } 
-
-              }
-              mysqli_close($db_handle);
+                    echo" $data[prix_negocie] €</h4>
+                    <form method='POST'>
+                    <input type='submit' name='accepter$d' value='Valider la proposition'></form><br><br>";
+                    echo "<form method='POST'><h4>Votre nouvelle proposition :<input type='text' name='prix$d'/>€</h4>";
+                    echo "<input type='submit' name='new$d'value='Soumettre ma proposition'></form><br>";
+                    
+                  $p='prix'.$d;
+                  $accept='accepter'.$d;
+                  $n='new'.$d;
+                  $prix=isset($_POST[$p])? $_POST[$p] : "";
+                  if(isset($_POST[$accept]))
+                  {
+                    $sql = "UPDATE produit SET statue=1 WHERE negociation_id=$negociation_id";
+                    mysqli_query($db_handle, $sql);
+                    echo "<script>window.location.assign('Vendre.php'); </script>";
+                  }
+                  if(isset($_POST[$n]))
+                  {
+                    $ach_id=$data['acheteur_id'];
+                    $sql = "UPDATE offre set prix_negocie=$prix,tour=0,compteur=compteur+1 where acheteur_id=$ach_id AND negociation_id=$negociation_id";
+                    mysqli_query($db_handle, $sql);
+                    echo "<script>window.location.assign('Negociation_vendeur.php?negociation_id=$negociation_id'); </script>";
+                  }
+                  $d=$d+1;
+                  echo'<hr>';
+                  }
+            }
+            mysqli_close($db_handle);
             ?>
     
     
