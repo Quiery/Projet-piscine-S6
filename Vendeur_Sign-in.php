@@ -8,14 +8,6 @@
   <link rel="stylesheet" type="text/css" href="Piscine.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
-<style type="text/css">
-#flex_sign_in {
-    display: flex;
-    margin: 0% 20%;
-    background-color: blanchedalmond;
-}
-    </style>
 </head>
 <body>
 
