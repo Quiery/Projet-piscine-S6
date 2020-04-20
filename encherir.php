@@ -117,16 +117,30 @@ border-left: 2px solid black;
     padding: 40px 0;
 }
 
-      .little-images{
+.little-images{
           display: flex; 
-          justify-content: center;
-          justify-content: space-between;
+          justify-content: space-around;
       }
       
       img.little{
           height: 50px;
           width: auto;
           max-width: 100px;
+          cursor:pointer;
+          border: 2px solid grey;
+      }
+
+      img.profil{
+          height: 50px;
+          width: auto;
+          max-width: 100px;
+      }
+
+      img.big{
+          height: 300px;
+          width: auto;
+          max-width: 450px;
+          border: 4px solid black;
       }
       
 
@@ -139,14 +153,60 @@ border-left: 2px solid black;
           border:1px solid #ccc;
 	       box-shadow:1px 1px 3px #999;
       }
+
+      
       
 </style>
+
+<script>
+$(document).ready(function(){
+  $("img.little").click(function(){
+    $("img.big").attr('src',this.src);
+    }); 
+  });
+</script>
 
 
             
 
 </head>
 <body>
+
+<?php
+      function getIp(){
+        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
+          $ip = $_SERVER['HTTP_CLIENT_IP'];
+        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
+          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }else{
+          $ip = $_SERVER['REMOTE_ADDR'];
+        }
+        return $ip;
+      }
+      $database = "ebayece";
+
+      $db_handle = mysqli_connect('localhost','root','');
+      $db_found = mysqli_select_db($db_handle, $database);
+      if ($db_found) 
+      {
+      $ip=getIp();
+      $sql="SELECT ip,acheteur_id from connexion_courante WHERE ip LIKE'$ip' AND acheteur_id IS NOT NULL";
+      $result = mysqli_query($db_handle, $sql);
+      $nbr=mysqli_num_rows($result);
+      if($nbr==0)
+      {
+        echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/ConnectionAcheteur.html?site=encherir.php'); </script>"; 
+      }
+      else
+      {
+        while($data = mysqli_fetch_assoc($result))
+        {
+          $acheteur_id=$data['acheteur_id'];
+        }
+      }
+      
+    }
+?>
 
 <nav class="navbar navbar-expand-md">
     <a class="navbar-brand" href="#"><img src="NGA.png" class="img-responsive" style="width: 70px; height: 50px;"></a>
@@ -196,49 +256,112 @@ border-left: 2px solid black;
     
 
     
-    
+<?php
+  $prod_id=$_GET['id'];
+  $database = "ebayece";
 
-<div class="container">    
-    <div class="row">
-      <div class="col-sm-5" >
-        <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' style='height: 300px; width: auto; max-width: 500px; text-align: center;'><br><br><br>
-          <div class="little-images">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-              <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little">
-             </div>
-        </div>
-        <div class="col-sm-6">
-            <h2>Article_name</h2>
-            <img  src='https://www.hexoa.fr/25272/tableau-peinture-bleuets-des-champs.jpg' class="little" align="right">
-            <h6>de Pseudo_vendeur</h6><br>
-            <h4>Temps restant :</h4>
-            <h4>Prix minimum :</h4>
-            <br><br>
-            <form>
-            <h4>Prix maximum que je suis prêt à payer :<input type="text" name="prop">€</h4>
-            <br>
-            <input type="submit" name="prop" value="Valider" >
-            </form>
+  $db_handle = mysqli_connect('localhost','root','');
+  $db_found = mysqli_select_db($db_handle, $database);
+  if ($db_found) 
+  {
+    echo '<div class="container">' ;   
+      echo '<div class="row">';
+        echo '<div class="col-sm-5">';
+            $sql="SELECT reference,nom FROM photo Where nom like 'Photo1' AND produit_id=$prod_id ";
+            $result = mysqli_query($db_handle, $sql);
+            while($data = mysqli_fetch_assoc($result)){
+                $image=$data['reference'];
+                echo "<br><center><img src='$image' class='big'></center>"."<br>"."<br>"."<br>";
+              }
+            echo '<div class="little-images">';
+            $sql="SELECT reference,nom FROM photo Where produit_id=$prod_id ";
+            $result = mysqli_query($db_handle, $sql);
+            while($data = mysqli_fetch_assoc($result)){
+                $image=$data['reference'];
+                echo "<img src='$image' class='little'>";
+              }
+            echo '</div>';
+        echo'</div>';
+        echo '<div class="col-sm-6">';
+          $sql="SELECT nom,encheres_id,description,video FROM produit Where produit_id=$prod_id";
+          $result = mysqli_query($db_handle, $sql);
+          while($data = mysqli_fetch_assoc($result)){
+            echo '<h2>'.$data['nom'].'</h2>';
+            $sql2="SELECT pp,pseudo FROM vendeur INNER JOIN produit ON vendeur.vendeur_id=produit.vendeur_id Where produit.produit_id=$prod_id";
+            $result2 = mysqli_query($db_handle, $sql2);
+            while($data2 = mysqli_fetch_assoc($result2)){
+                $image=$data2['pp'];
+                echo "<img src='$image' class='profil' align='right'>";
+                echo '<h6>de '.$data2['pseudo'].'</h6><br>';
+                echo '<hr>';
+            }
+            $ench=$data['encheres_id'];
+            $sql3="SELECT prix_init,prix_min,prix_max,date_fin,nombre_encheres,acheteur_id from encheres where encheres_id=$ench";
+            $result3 = mysqli_query($db_handle, $sql3);
+            while($data3 = mysqli_fetch_assoc($result3))
+            {
+              $nbr=$data3['nombre_encheres'];
+                if($nbr==0)
+                {
+                  $prix=0;
+                }
+                else
+                {
+                  if($nbr==1)
+                  {
+                    $prix=$data3['prix_init'];
+                  }
+                  else
+                  {
+                    if($data3['prix_min']!=$data3['prix_max'])
+                    {
+                    $prix=$data3['prix_min']+1;
+                    }
+                    else
+                    {
+                    $prix=$data3['prix_min'];
+                    }
+                  }
+                }
+                  echo '<h4> Prix de l\'enchère la plus élevée : '.$prix.' €</h4>';
+                  if($nbr!=0)
+                  {
+                    $sql4="SELECT nom from acheteur where acheteur_id=$data3[acheteur_id]";
+                    $result4 = mysqli_query($db_handle, $sql4);
+                    while($data4 = mysqli_fetch_assoc($result4))
+                    {
+                    echo ' Fait par : '.$data4['nom'].'<br>';
+                    }
+                  }
+                  echo 'Prix de la mise en vente : '.$data3['prix_init'].' €<br>';
+                  echo 'L\'enchère se terminera le : '.$data3['date_fin'].'<br><br>';
+                  echo"<form method='POST'><h4>Prix maximum que je suis prêt à payer :<input type='text' name='enchere' required/>€</h4>";
+                  echo "<input type='submit' name='new' value='Soumettre mon enchere'></form><br>";
+                }
+                
+          
+      echo'</div></div>';
+      echo'<br><br>';
+      echo'<div class="row">';
+        echo '<div class="col-sm-5">';
+        if($data['video']!=NULL){
+        $video=$data['video'];
+         echo"<center><video controls height=230px;> 
+         <source src='$video' type='video/mp4'> </video></center>";
+        }
+        echo '</div>';
+          echo '<div class="col-sm-6">';
+          echo'<h4> Description : </h4>';
+          echo '<h7>'.$data['description'].'</h7>';
+          echo '</div>';
+          }
+        echo '</div>';
+    echo '</div><br>';
+}
 
-        </div>
-    </div>
-    <br><br>
-    <div class="row"  style="display: flex; justify-content: center;">
-        <div class="col-sm-8">
-            <h5>Description bjhsdvdubdsjk dshvcsbwc dcsbcus nqdbhddsfhd bufbsdjhbc hbfdbsbc bdubdjvh dhqsbduhbqhubsdc hqbsduhsbuh c nchjdvcueq  fcjhebfisbc jsebfb czej cuy ahzjcvyscvdsb cjscvdvx</h5>
-        </div>
-    
-    
-    </div>
-</div><br>
+?>
 
-    
-    
-    
-    
+
     
     
     
@@ -278,5 +401,55 @@ border-left: 2px solid black;
     </div>
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique.ece.fr</div>
 </footer>
+<?php
+$prop=isset($_POST["enchere"])? $_POST["enchere"] : "";
+if (isset($_POST["new"]))
+{
+  $sql="SELECT prix_init,prix_min,prix_max,date_fin,nombre_encheres,acheteur_id from encheres where encheres_id=$ench";
+  $result = mysqli_query($db_handle, $sql);
+  while($data = mysqli_fetch_assoc($result))
+  {
+    if($prop<$prix)
+    {
+      echo "<script>alert('Enchère non valide');</script>"; 
+    }
+    else
+    {
+      if($data['nombre_encheres']==0)
+      {
+        $sql="UPDATE encheres set prix_min=prix_init,prix_max=$prop,acheteur_id=$acheteur_id,nombre_encheres=nombre_encheres+1 where encheres_id=$ench";
+        mysqli_query($db_handle, $sql);
+      }
+      else
+      {
+        if($prop>$data['prix_max'])
+        {
+          if($data['acheteur_id']!=$acheteur_id)
+            {
+              $sql="UPDATE encheres set prix_min=prix_max,prix_max=$prop,acheteur_id=$acheteur_id,nombre_encheres=nombre_encheres+1 where encheres_id=$ench";
+            }
+            else
+            {
+              $sql="UPDATE encheres set prix_max=$prop where encheres_id=$ench";
+            }
+            mysqli_query($db_handle, $sql);
+        }
+        else
+        {
+          if($data['acheteur_id']!=$acheteur_id)
+            {
+              $sql="UPDATE encheres set prix_min=$prop,nombre_encheres=nombre_encheres+1 where encheres_id=$ench";
+              mysqli_query($db_handle, $sql);
+            }
+        }
+      }
+      echo "<script>window.location.assign('encherir.php?id=$prod_id'); </script>";
+    }
+  }
+}
+?>
+<?php 
+mysqli_close($db_handle);
+?>
 </body>
 </html>
