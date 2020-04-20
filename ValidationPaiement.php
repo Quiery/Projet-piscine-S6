@@ -60,8 +60,8 @@
           </a>
           
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="categorie.php?categorie=Feraille ou Trèsor">Ferraille ou Trésor</a><br>
-            <a class="dropdown-item" href="categorie.php?categorie=Bon pour le Musé">Bon pour le Musée</a><br>
+            <a class="dropdown-item" href="categorie.php?categorie=Ferraille ou Tresor">Ferraille ou Trésor</a><br>
+            <a class="dropdown-item" href="categorie.php?categorie=Bon pour le Musee">Bon pour le Musée</a><br>
             <a class="dropdown-item" href="categorie.php?categorie=Accessoire VIP">Accessoire VIP</a>
           </div>
         </li>
@@ -71,9 +71,9 @@
           </a>
           
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="achats.php?achats=Enchères">Enchères</a><br>
+            <a class="dropdown-item" href="achats.php?achats=Encheres">Enchères</a><br>
             <a class="dropdown-item" href="achats.php?achats=Achats Immediats">Achats Immédiats</a><br>
-            <a class="dropdown-item" href="achats.php?achats=Meilleur Offre">Meilleur Offre</a>
+            <a class="dropdown-item" href="achats.php?achats=Meilleure Offre">Meilleure Offre</a>
           </div>
         </li>
     </ul>

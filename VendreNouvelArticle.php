@@ -37,7 +37,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="achats.php?achats=Encheres">Enchères</a><br>
             <a class="dropdown-item" href="achats.php?achats=Achats Immediats">Achats Immédiats</a><br>
-            <a class="dropdown-item" href="achats.php?achats=Meilleure Offre">Meilleur Offre</a>
+            <a class="dropdown-item" href="achats.php?achats=Meilleure Offre">Meilleure Offre</a>
           </div>
         </li>
     </ul>
@@ -100,45 +100,8 @@
         </div>
         <textarea rows="4" cols="50" name="description" placeholder="Description de l'article"></textarea><br>
         <input type='submit' name='valider' value='Valider'></form><br>
-    
-    <?php
-      function getIp(){
-        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-          $ip = $_SERVER['HTTP_CLIENT_IP'];
-        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }else{
-          $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        return $ip;
-      }
-      $database = "ebayece";
-
-      $db_handle = mysqli_connect('localhost','root','');
-      $db_found = mysqli_select_db($db_handle, $database);
-      if ($db_found) 
-      {
-      $ip=getIp();
-      $sql="SELECT ip,vendeur_id from connexion_courante WHERE ip LIKE'$ip' AND vendeur_id IS NOT NULL";
-      $result = mysqli_query($db_handle, $sql);
-      $nbr=mysqli_num_rows($result);
-      if($nbr==0)
-      {
-        echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/ConnectionVendeur.html?site=Vendre.php'); </script>"; 
-      }
-      else
-      {
-        while($data = mysqli_fetch_assoc($result))
-        {
-          $vendeur_id=$data['vendeur_id'];
-        }
-      }
-      
-    }
-?>
-    
      <?php
-
+    $vendeur_id=5;
         $database = "ebayece";
               $db_handle = mysqli_connect('localhost','root','root');
               $db_found = mysqli_select_db($db_handle, $database);
