@@ -138,7 +138,7 @@
             </table>";
                 
             
-                $sql = "SELECT * FROM compte_bancaire WHERE numero_carte LIKE '$data[carte_id]'";
+                $sql = "SELECT * FROM carte_bancaire WHERE numero_carte LIKE '$data[carte_id]'";
                     $result2 = mysqli_query($db_handle, $sql);
                   while($data2 = mysqli_fetch_assoc($result2))
                 {
@@ -212,11 +212,11 @@ if (isset($_POST["new"]))
             }
             else
             {
-                echo "<script>alert('Paiement acceptée');</script>"; 
-                $sql2="SELECT produit_id from panier where acheteur_id=$acheteur_id and methode=1 and statut=0";
+                $sql2="SELECT produit_id from panier where acheteur_id=$acheteur_id and methode=1";
                 $result2 = mysqli_query($db_handle, $sql2);
                 while($data2 = mysqli_fetch_assoc($result2))
                 {
+                  echo "<script>alert('Paiement acceptée');</script>"; 
                     $sql3="UPDATE produit set statut=1 where produit_id=$data2[produit_id]";
                     mysqli_query($db_handle, $sql3);
                     $sql3="DELETE from panier where produit_id=$data2[produit_id]";

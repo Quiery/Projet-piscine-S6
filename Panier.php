@@ -120,9 +120,10 @@ echo'<div class="container">';
      while($data = mysqli_fetch_assoc($result))
         {
           echo'<h4>Total Achat Immédiat : ';
-          echo $data['SUM(a.prix)'].' €</h4>';
+          $prix=$data['SUM(a.prix)'];
+          echo $prix.' €</h4>';
         }
-        echo'<button class="button1">Passer la commande</button>';
+        echo"<a href='Validationpaiement.php?prix=$prix'><button class='button1'>Passer la commande</button></a>";
     
     echo'</div>';
     echo'<br><br><br><br>';
