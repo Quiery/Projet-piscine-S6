@@ -22,8 +22,8 @@
           </a>
           
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="categorie.php?categorie=Feraille ou Trèsor">Ferraille ou Trésor</a><br>
-            <a class="dropdown-item" href="categorie.php?categorie=Bon pour le Musé">Bon pour le Musée</a><br>
+            <a class="dropdown-item" href="categorie.php?categorie=Ferraille ou Tresor">Ferraille ou Trésor</a><br>
+            <a class="dropdown-item" href="categorie.php?categorie=Bon pour le Musee">Bon pour le Musée</a><br>
             <a class="dropdown-item" href="categorie.php?categorie=Accessoire VIP">Accessoire VIP</a>
           </div>
         </li>
@@ -33,9 +33,9 @@
           </a>
           
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="achats.php?achats=Enchères">Enchères</a><br>
+            <a class="dropdown-item" href="achats.php?achats=Encheres">Enchères</a><br>
             <a class="dropdown-item" href="achats.php?achats=Achats Immediats">Achats Immédiats</a><br>
-            <a class="dropdown-item" href="achats.php?achats=Meilleur Offre">Meilleur Offre</a>
+            <a class="dropdown-item" href="achats.php?achats=Meilleure Offre">Meilleure Offre</a>
           </div>
         </li>
     </ul>
@@ -62,9 +62,6 @@
     <button type="button" id="button_admin" href="vendeur_sign-in.php">Ajouter un vendeur</button><br>
     <button type="button" id="button_admin" href="supprimer_vendeur.php">Supprimer un vendeur</button><br>
     <button type="button" id="button_admin" href="supprimer_article.php">Supprimer un objet</button>
-    <form name="deconnexion" method="POST">
-        <input type="submit" id="button_admin_2" name="valider" value="Deconnexion"/>
-    </form>
 </div>
 
 
@@ -92,39 +89,7 @@
     <div class="footer-copyright text-center">&copy; 2019 Copyright | Droit d'auteur: webDynamique@ece.fr</div>
 </footer>
 
-<?php
 
-if($_POST(["valider"])){
-  Deconnexion();
-}
-
-function getIp(){
-        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-          $ip = $_SERVER['HTTP_CLIENT_IP'];
-        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }else{
-          $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        return $ip;
-      }
-      
- function Deconnexion()
-{
-  $database = "ebayece";
-
-  $db_handle = mysqli_connect('localhost','root','');
-  $db_found = mysqli_select_db($db_handle, $database);
-  $ip=getIp();
-  if ($db_found) 
-  {
-    $sql="UPDATE connexion_courante SET AcheteurID='NULL' where ip=$ip";
-    mysqli_close($db_handle);
-
-    echo "<script> windows.location.assign(HomePage.php)</script>";
-  }
-}
-?>
 
 </body>
 </html>

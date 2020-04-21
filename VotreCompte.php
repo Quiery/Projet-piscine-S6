@@ -33,7 +33,7 @@
           </a>
           
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="achats.php?achats=Enchères">Enchères</a><br>
+            <a class="dropdown-item" href="achats.php?achats=Encheres">Enchères</a><br>
             <a class="dropdown-item" href="achats.php?achats=Achats Immediats">Achats Immédiats</a><br>
             <a class="dropdown-item" href="achats.php?achats=Meilleure Offre">Meilleur Offre</a>
           </div>
@@ -155,13 +155,13 @@
                             <tr>
                                 <td>Cryptogramme: $data2[code]</td>
                             </tr>       
-                                }
+                                
                         </table>";
                       
 
     
                    }
-        }
+        }}
         ?>
     </div>
 
