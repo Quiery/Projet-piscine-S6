@@ -41,7 +41,7 @@ color: white;
 }
 @media screen and (min-width: 768px){
 .carousel-indicators {
-    bottom: -22px;
+    bottom: -12%;
 }}
 
 
@@ -241,14 +241,9 @@ button.buttonred{
 
 .little-images{
   display: flex; 
-  justify-content: center;
+  justify-content: space-around;
 }
 
-img.little{
-  height: 50px;
-  width: auto;
-  max-width: 100px;
-}
 
 .container-button{
   display: flex; 

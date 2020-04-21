@@ -127,6 +127,7 @@ $ip=getIp();
         }
         if ($connexion) 
         { 
+          echo "<script>window.location.assign('$site'); </script>";
           $sql="SELECT acheteur_id FROM acheteur Where mail like '$login' AND password like '$pass'";
           $result = mysqli_query($db_handle, $sql);
           while($data = mysqli_fetch_assoc($result))
@@ -144,8 +145,7 @@ $ip=getIp();
               $sql="UPDATE connexion_courante set acheteur_id=$data[acheteur_id] WHERE ip like'$ip'";
               mysqli_query($db_handle, $sql);
             }
-          }
-          echo "<script>window.location.assign('$site'); </script>"; 
+          } 
         } 
         else 
         { 

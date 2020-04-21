@@ -84,7 +84,7 @@
         
                 <?php
             $database = "ebayece";
-              $db_handle = mysqli_connect('localhost','root','root');
+              $db_handle = mysqli_connect('localhost','root','');
               $db_found = mysqli_select_db($db_handle, $database);
                 
               if ($db_found) 
@@ -111,7 +111,7 @@
                         
                           mysqli_query($db_handle, $sql);
                       
-                      //echo "<script>window.location.assign('homepage.php'); </script>";
+                      echo "<script>window.location.assign('homepage.php'); </script>";
                   }
                    mysqli_close($db_handle);
               }

@@ -37,7 +37,7 @@
       $nbr=mysqli_num_rows($result);
       if($nbr==0)
       {
-        echo "<script>window.location.assign('http://localhost/Projet-piscine-S6/ConnectionVendeur.html?site=Vendre.php'); </script>"; 
+        echo "<script>window.location.assign('ConnectionVendeur.php?site=Vendre.php'); </script>"; 
       }
       else
       {

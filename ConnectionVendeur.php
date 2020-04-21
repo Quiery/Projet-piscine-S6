@@ -58,8 +58,8 @@
 
 <form id="form_connect" method="post">
     <h1>Connectez-vous pour vendre</h1><br>
-    <input id="connexion" type="text" placeholder="Email" name="log"><br>
-    <input id="connexion" type="password" placeholder="Mot de Passe" name="passw"><br>
+    <input id="connexion" type="text" placeholder="Pseudo" name="log"><br>
+    <input id="connexion" type="text" placeholder="Email" name="passw"><br>
     <input type="submit" name="button" value="Valider"></submit><br><br><br>
     <button>Creer un compte</button>
 </form>
@@ -114,11 +114,11 @@ $ip=getIp();
       if ($db_found) 
       {
         $connexion = false;
-        $sql = "SELECT mail,password FROM vendeur";
+        $sql = "SELECT mail,pseudo FROM vendeur";
         $result = mysqli_query($db_handle, $sql);
         while($data = mysqli_fetch_assoc($result))
         {
-          if(($data['mail']==$login)&&($data['password']==$pass))
+          if(($data['pseudo']==$login)&&($data['mail']==$pass))
           {
             $connexion = true;
             break;
@@ -126,7 +126,7 @@ $ip=getIp();
         }
         if ($connexion) 
         { 
-          $sql="SELECT vendeur_id,admin FROM vendeur Where mail like '$login' AND password like '$pass'";
+          $sql="SELECT vendeur_id,admin FROM vendeur Where pseudo like '$login' AND mail like '$pass'";
           $result = mysqli_query($db_handle, $sql);
           while($data = mysqli_fetch_assoc($result))
           {

@@ -58,10 +58,10 @@
  
 <div class="container" style="text-align: center;" id="CompteAdmin">
     <h1>Compte Administrateur</h1><br>
-    <button type="button" id="button_admin" href="Vendre.php">Mes articles en ventes</button><br>
-    <button type="button" id="button_admin" href="vendeur_sign-in.php">Ajouter un vendeur</button><br>
-    <button type="button" id="button_admin" href="supprimer_vendeur.php">Supprimer un vendeur</button><br>
-    <button type="button" id="button_admin" href="supprimer_article.php">Supprimer un objet</button>
+    <a href="Vendre.php"><button type="button" id="button_admin">Mes articles en ventes</button></a><br>
+    <a href="vendeur_sign-in.php"><button type="button" id="button_admin">Ajouter un vendeur</button></a><br>
+    <a href="supprimer_vendeur.php"><button type="button" id="button_admin">Supprimer un vendeur</button></a><br>
+    <a href="supprimer_produit.php"><button type="button" id="button_admin">Supprimer un objet</button></a>
 </div>
 
 
