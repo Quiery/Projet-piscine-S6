@@ -76,7 +76,7 @@
       $nbr=mysqli_num_rows($result);
       if($nbr==0)
       {
-        echo "<script>window.location.assign('ConnectionAcheteur.php?site=VotreCompte.php?id=$prod_id'); </script>"; 
+        echo "<script>window.location.assign('ConnectionAcheteur.php?site=VotreCompte.php'); </script>"; 
       }
       else
       {
@@ -102,7 +102,7 @@
                     $result = mysqli_query($db_handle, $sql);
                   while($data = mysqli_fetch_assoc($result))
                 {
-                  echo "<form id='form_compte'>
+                  echo "
             <h1>Votre compte</h1><br>
             <h3>Vos données personnelles</h3>
             <table>
@@ -155,14 +155,28 @@
                                 <td>Cryptogramme: $data2[code]</td>
                             </tr>       
                         </table>
-                        <button type='submit' formaction='modifier_compte.php'>Modifier les informations</button>
+                        <a href='modifier_compte.php'><button class='button1'>Modifier les informations</button></a>
                         ";
                         
-                      
+                        
+                        
 
     
                    }
-        }}
+                   
+        }
+      }
+      echo'<br><form method="POST">
+                        <input type="submit" name="valide" value="Deconnexion"/>
+                        </form>';
+
+        if(isset($_POST["valide"]))
+        { 
+          $sql="UPDATE connexion_courante SET acheteur_ID=NULL where ip like'$ip'";
+          mysqli_query($db_handle, $sql);             
+          echo "<script> window.location.assign('HomePage.php');</script>";
+        }
+        mysqli_close($db_handle); 
         ?>
     </div>
 

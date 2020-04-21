@@ -110,7 +110,10 @@ if($pro_id != "")
 echo'<div class="container">';    
     echo'<h2>Mes articles mis en vente</h2>';
 
-        echo'<button class="button1" name="ajout">Vendre un nouvel article</button>';
+        echo'<a href="vendrenouvelarticle.php"><button  class="button1" name="ajout">Vendre un nouvel article</button></a><br>';
+        echo'<form name="deconnexion" method="POST">
+        <input type="submit" name="valider" value="Deconnexion"/>
+    </form>';
     
     echo'<br><br><br><br><br><br>';
     
@@ -130,7 +133,8 @@ echo'<div class="container">';
       }
       echo'<div class="col-sm-5"><h5>'.$data['nom'].'<br></h5>';
       echo'<h6>'.$data['description'].'</h6></div>';
-      echo " <div class='col-sm-3'><a href=Vendre.php?produit_id=$data[produit_id]><button class='buttonred' >Supprimer</button></a></div></div><hr>";
+      echo " <div class='col-sm-3'><a href=Vendre.php?produit_id=$data[produit_id]><button class='buttonred' >Supprimer</button></a></div><hr>";
+      echo'</div>';
     }
 echo'</div><br>';
 
@@ -162,36 +166,19 @@ echo'</div><br>';
 
 <?php
 
-if($_POST(["valider"])){
-  Deconnexion();
-}
 
-function getIp(){
-        if(!empty($_SERVER['HTTP_CLIENT_IP'])){
-          $ip = $_SERVER['HTTP_CLIENT_IP'];
-        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])){
-          $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }else{
-          $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        return $ip;
-      }
-      
- function Deconnexion()
+
+if(isset($_POST["valider"]))
 {
-  $database = "ebayece";
+  $sql="UPDATE connexion_courante SET Vendeur_ID=NULL where ip like'$ip'";
+  mysqli_query($db_handle, $sql);
 
-  $db_handle = mysqli_connect('localhost','root','');
-  $db_found = mysqli_select_db($db_handle, $database);
-  $ip=getIp();
-  if ($db_found) 
-  {
-    $sql="UPDATE connexion_courante SET VendeurID='NULL' where ip=$ip";
-    mysqli_close($db_handle);
-
-    echo "<script> windows.location.assign(HomePage.php)</script>";
-  }
+  echo "<script> window.location.assign('HomePage.php');</script>";
 }
+
+
+mysqli_close($db_handle); 
+ 
 ?>
 </body>
 </html>
