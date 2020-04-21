@@ -69,7 +69,7 @@
             {
                 $achats='achat_immediat_id';
             }
-            if($achats=='Enchères')
+            if($achats=='Encheres')
             {
                 $achats='encheres_id';
             }

@@ -4,11 +4,7 @@
     margin: 0px 170px;
 }
 
-body{
 
-background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR7EJVYpfaWmsL3tYPzKrDF-z5sLZeR8FJzXVWyQH1KRnIB9krK&usqp=CAU);
-
-}
 
 .card-body{
 
@@ -76,6 +72,11 @@ text-align: center;
 .dropdown, .dropup {
     position: relative;
     float: left;
+}
+
+.dropdown-item
+{
+  color: #ffe000;
 }
 
 #flex_sign_in {

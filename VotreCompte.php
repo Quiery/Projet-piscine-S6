@@ -66,7 +66,6 @@
         return $ip;
       }
       $database = "ebayece";
-      $prod_id=$_GET['id'];
       $db_handle = mysqli_connect('localhost','root','');
       $db_found = mysqli_select_db($db_handle, $database);
       if ($db_found) 
@@ -155,8 +154,10 @@
                             <tr>
                                 <td>Cryptogramme: $data2[code]</td>
                             </tr>       
-                                
-                        </table>";
+                        </table>
+                        <button type='submit' formaction='modifier_compte.php'>Modifier les informations</button>
+                        ";
+                        
                       
 
     
